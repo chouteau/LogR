@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogR", "LogR\LogR.csproj", "{2A51087B-F41B-4EFF-AE84-921CE0DC9FBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogR.Tests", "LogR.Tests\LogR.Tests.csproj", "{F44B7CC8-D5B7-4118-A493-B7B3AB64EE23}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{115EFC4C-CE04-4705-8E6D-C1D13B9A01BF}"
+	ProjectSection(SolutionItems) = preProject
+		..\NugetPackages\LogR.nupkg = ..\NugetPackages\LogR.nupkg
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monitor", "Monitor\Monitor.csproj", "{7CAD0B25-7B3C-4268-8952-6F056FF72C16}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A51087B-F41B-4EFF-AE84-921CE0DC9FBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A51087B-F41B-4EFF-AE84-921CE0DC9FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A51087B-F41B-4EFF-AE84-921CE0DC9FBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A51087B-F41B-4EFF-AE84-921CE0DC9FBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F44B7CC8-D5B7-4118-A493-B7B3AB64EE23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F44B7CC8-D5B7-4118-A493-B7B3AB64EE23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F44B7CC8-D5B7-4118-A493-B7B3AB64EE23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F44B7CC8-D5B7-4118-A493-B7B3AB64EE23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CAD0B25-7B3C-4268-8952-6F056FF72C16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CAD0B25-7B3C-4268-8952-6F056FF72C16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CAD0B25-7B3C-4268-8952-6F056FF72C16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CAD0B25-7B3C-4268-8952-6F056FF72C16}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
