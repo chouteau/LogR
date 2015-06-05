@@ -1,2 +1,2 @@
-# ScrutR (2.2.3)
+# LogR (2.2.3)
 Entity Monitor
