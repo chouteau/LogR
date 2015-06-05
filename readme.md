@@ -1,2 +1,2 @@
 # LogR (2.2.3)
-Entity Monitor
+Realtime Logger with windows monitor
