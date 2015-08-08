@@ -1,2 +1,2 @@
-# LogR (2.2.3)
+# LogR (1.3.5)
 Realtime Logger with windows monitor

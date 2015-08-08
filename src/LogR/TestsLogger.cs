@@ -9,10 +9,14 @@ namespace LogR
 {
 	public class TestsLogger : ILogger
 	{
+		private static DateTime m_StartLogging;
+		private static DateTime m_LastLogging;
+
 		public TestsLogger()
 		{
 			System.Diagnostics.Debug.AutoFlush = true;
-		}
+			m_StartLogging = DateTime.Now;
+        }
 
 		private System.Diagnostics.TextWriterTraceListener m_Out;
 
@@ -130,12 +134,20 @@ namespace LogR
 
 		string Format(string message, params object[] prms)
 		{
-			var row = string.Format("\t{0:HH}H{0:mm}:{0:ss}.{0:ffff}|{1}({2}){3}",
-				DateTime.Now,
-				System.Threading.Thread.CurrentThread.Name,
+			var logDate = DateTime.Now;
+			var fromStartDiff = (logDate - m_StartLogging);
+			var diffFromStart = string.Format("{0:00}:{1:00}:{2:00}:{3:0000}", fromStartDiff.Hours, fromStartDiff.Minutes, fromStartDiff.Seconds, fromStartDiff.Milliseconds);
+			var fromLastDiff = (logDate - m_LastLogging);
+			var diffFromLast = string.Format("{0:00}:{1:00}:{2:00}:{3:0000}", fromLastDiff.Hours, fromLastDiff.Minutes, fromLastDiff.Seconds, fromLastDiff.Milliseconds);
+			var row = string.Format("\tS{0}|L{1}|{2}({3}){4}",
+				diffFromStart,
+				diffFromLast,
+                System.Threading.Thread.CurrentThread.Name,
 				System.Threading.Thread.CurrentThread.ManagedThreadId,
 				prms != null && prms.Count() > 0 ? string.Format(message, prms) : message
 				);
+
+			m_LastLogging = DateTime.Now;
 			return row;
 		}
 
