@@ -183,7 +183,7 @@ namespace LogR
 			}
 		}
 
-		public void Watch(string title, System.Threading.ThreadStart method)
+		public void Watch(string title, Action method)
 		{
 			var watch = Stopwatch.StartNew();
 			watch.Start();

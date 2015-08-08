@@ -72,6 +72,7 @@
     <Compile Include="LogRConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PushLogger.cs" />
+    <Compile Include="TestsLogger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

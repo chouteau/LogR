@@ -22,7 +22,6 @@ namespace LogR
 		void Notification(string message);
 		void Notification(string message, params object[] prms);
 		System.IO.TextWriter Out { get; }
-		void Watch(string title, System.Threading.ThreadStart method);
-		void Dispose();
+		void Watch(string title, Action method);
 	}
 }
