@@ -134,7 +134,7 @@ namespace LogR
 				DateTime.Now,
 				System.Threading.Thread.CurrentThread.Name,
 				System.Threading.Thread.CurrentThread.ManagedThreadId,
-				string.Format(message, prms)
+				prms != null && prms.Count() > 0 ? string.Format(message, prms) : message
 				);
 			return row;
 		}
