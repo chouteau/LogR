@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogR", "src\LogR\LogR.csproj", "{2A51087B-F41B-4EFF-AE84-921CE0DC9FBE}"
 EndProject
@@ -9,8 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogR.Tests", "src\LogR.Test
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{115EFC4C-CE04-4705-8E6D-C1D13B9A01BF}"
 	ProjectSection(SolutionItems) = preProject
+		changelog.txt = changelog.txt
 		license.md = license.md
-		..\NugetPackages\LogR.nupkg = ..\NugetPackages\LogR.nupkg
 		readme.md = readme.md
 	EndProjectSection
 EndProject
