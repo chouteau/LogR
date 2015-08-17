@@ -51,7 +51,7 @@ namespace LogR
 			System.Diagnostics.Debug.WriteLine(string.Empty);
 			System.Diagnostics.Debug.WriteLine(Format(x.ToString()), "Error");
 			System.Diagnostics.Debug.WriteLine(string.Empty);
-		}
+        }
 
 		public void Error(string message)
 		{

@@ -44,5 +44,13 @@ namespace LogR.Tests
 			Logger.Fatal(new Exception("Test"));
 		}
 
+		[TestMethod]
+		public async Task LogAsync()
+		{
+			await Task.Run(() =>
+			{
+				Log();
+			});
+		}
 	}
 }
