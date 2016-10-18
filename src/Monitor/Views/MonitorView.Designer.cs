@@ -29,19 +29,12 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MonitorView));
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.uxLogDataGridView = new System.Windows.Forms.DataGridView();
-			this.uxCreationDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.uxMachineNameColumn = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
-			this.uxHosterNameColumn = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
-			this.uxApplicationNameColumn = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
-			this.uxCategoryColumn = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
-			this.uxMessageColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.uxExceptionStack = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
@@ -91,6 +84,13 @@
 			this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewCheckBoxColumn3 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.uxLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.uxCreationDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.uxMachineNameColumn = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
+			this.uxHosterNameColumn = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
+			this.uxApplicationNameColumn = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
+			this.uxCategoryColumn = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
+			this.uxMessageColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.uxExceptionStack = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -141,62 +141,6 @@
 			this.uxLogDataGridView.Name = "uxLogDataGridView";
 			this.uxLogDataGridView.Size = new System.Drawing.Size(988, 267);
 			this.uxLogDataGridView.TabIndex = 9;
-			// 
-			// uxCreationDateColumn
-			// 
-			this.uxCreationDateColumn.DataPropertyName = "CreationDate";
-			dataGridViewCellStyle1.Format = "T";
-			dataGridViewCellStyle1.NullValue = null;
-			this.uxCreationDateColumn.DefaultCellStyle = dataGridViewCellStyle1;
-			this.uxCreationDateColumn.HeaderText = "Date";
-			this.uxCreationDateColumn.Name = "uxCreationDateColumn";
-			this.uxCreationDateColumn.Width = 80;
-			// 
-			// uxMachineNameColumn
-			// 
-			this.uxMachineNameColumn.DataPropertyName = "MachineName";
-			this.uxMachineNameColumn.HeaderText = "Machine";
-			this.uxMachineNameColumn.Name = "uxMachineNameColumn";
-			this.uxMachineNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.uxMachineNameColumn.Width = 70;
-			// 
-			// uxHosterNameColumn
-			// 
-			this.uxHosterNameColumn.DataPropertyName = "HostName";
-			this.uxHosterNameColumn.HeaderText = "Host";
-			this.uxHosterNameColumn.Name = "uxHosterNameColumn";
-			this.uxHosterNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.uxHosterNameColumn.Width = 70;
-			// 
-			// uxApplicationNameColumn
-			// 
-			this.uxApplicationNameColumn.DataPropertyName = "ApplicationName";
-			this.uxApplicationNameColumn.HeaderText = "Application";
-			this.uxApplicationNameColumn.Name = "uxApplicationNameColumn";
-			this.uxApplicationNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.uxApplicationNameColumn.Width = 80;
-			// 
-			// uxCategoryColumn
-			// 
-			this.uxCategoryColumn.DataPropertyName = "Category";
-			this.uxCategoryColumn.HeaderText = "Category";
-			this.uxCategoryColumn.Name = "uxCategoryColumn";
-			this.uxCategoryColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.uxCategoryColumn.Width = 70;
-			// 
-			// uxMessageColumn
-			// 
-			this.uxMessageColumn.DataPropertyName = "Message";
-			this.uxMessageColumn.HeaderText = "Message";
-			this.uxMessageColumn.Name = "uxMessageColumn";
-			this.uxMessageColumn.Width = 400;
-			// 
-			// uxExceptionStack
-			// 
-			this.uxExceptionStack.DataPropertyName = "ExceptionStack";
-			this.uxExceptionStack.HeaderText = "Stack";
-			this.uxExceptionStack.Name = "uxExceptionStack";
-			this.uxExceptionStack.Width = 200;
 			// 
 			// groupBox1
 			// 
@@ -641,6 +585,63 @@
 			this.dataGridViewCheckBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
 			this.dataGridViewCheckBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
 			// 
+			// uxCreationDateColumn
+			// 
+			this.uxCreationDateColumn.DataPropertyName = "CreationDate";
+			dataGridViewCellStyle1.Format = "T";
+			dataGridViewCellStyle1.NullValue = null;
+			this.uxCreationDateColumn.DefaultCellStyle = dataGridViewCellStyle1;
+			this.uxCreationDateColumn.HeaderText = "Date";
+			this.uxCreationDateColumn.Name = "uxCreationDateColumn";
+			this.uxCreationDateColumn.Width = 80;
+			// 
+			// uxMachineNameColumn
+			// 
+			this.uxMachineNameColumn.DataPropertyName = "MachineName";
+			this.uxMachineNameColumn.FillWeight = 110F;
+			this.uxMachineNameColumn.HeaderText = "Machine";
+			this.uxMachineNameColumn.Name = "uxMachineNameColumn";
+			this.uxMachineNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			// 
+			// uxHosterNameColumn
+			// 
+			this.uxHosterNameColumn.DataPropertyName = "HostName";
+			this.uxHosterNameColumn.FillWeight = 120F;
+			this.uxHosterNameColumn.HeaderText = "Host";
+			this.uxHosterNameColumn.Name = "uxHosterNameColumn";
+			this.uxHosterNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.uxHosterNameColumn.Width = 110;
+			// 
+			// uxApplicationNameColumn
+			// 
+			this.uxApplicationNameColumn.DataPropertyName = "ApplicationName";
+			this.uxApplicationNameColumn.HeaderText = "Application";
+			this.uxApplicationNameColumn.Name = "uxApplicationNameColumn";
+			this.uxApplicationNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.uxApplicationNameColumn.Width = 110;
+			// 
+			// uxCategoryColumn
+			// 
+			this.uxCategoryColumn.DataPropertyName = "Category";
+			this.uxCategoryColumn.HeaderText = "Category";
+			this.uxCategoryColumn.Name = "uxCategoryColumn";
+			this.uxCategoryColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.uxCategoryColumn.Width = 70;
+			// 
+			// uxMessageColumn
+			// 
+			this.uxMessageColumn.DataPropertyName = "Message";
+			this.uxMessageColumn.HeaderText = "Message";
+			this.uxMessageColumn.Name = "uxMessageColumn";
+			this.uxMessageColumn.Width = 400;
+			// 
+			// uxExceptionStack
+			// 
+			this.uxExceptionStack.DataPropertyName = "ExceptionStack";
+			this.uxExceptionStack.HeaderText = "Stack";
+			this.uxExceptionStack.Name = "uxExceptionStack";
+			this.uxExceptionStack.Width = 200;
+			// 
 			// MonitorView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -648,6 +649,7 @@
 			this.ClientSize = new System.Drawing.Size(1002, 504);
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.toolStrip1);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MonitorView";
 			this.Text = "ERPStore Monitor";
 			this.splitContainer1.Panel1.ResumeLayout(false);
@@ -699,13 +701,6 @@
 		private System.Windows.Forms.CheckBox uxNotificationFilterCheckBox;
 		private System.Windows.Forms.CheckBox uxExceptionFilterCheckBox;
 		private System.Windows.Forms.CheckBox uxFatalFilterCheckBox;
-		private System.Windows.Forms.DataGridViewTextBoxColumn uxCreationDateColumn;
-		private Forms.DataGridViewAutoFilterTextBoxColumn uxMachineNameColumn;
-		private Forms.DataGridViewAutoFilterTextBoxColumn uxHosterNameColumn;
-		private Forms.DataGridViewAutoFilterTextBoxColumn uxApplicationNameColumn;
-		private Forms.DataGridViewAutoFilterTextBoxColumn uxCategoryColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn uxMessageColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn uxExceptionStack;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
 		private Forms.DataGridViewAutoFilterTextBoxColumn dataGridViewAutoFilterTextBoxColumn1;
 		private Forms.DataGridViewAutoFilterTextBoxColumn dataGridViewAutoFilterTextBoxColumn2;
@@ -728,5 +723,12 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn3;
 		private System.Windows.Forms.CheckBox uxSqlCheckBox;
+		private System.Windows.Forms.DataGridViewTextBoxColumn uxCreationDateColumn;
+		private Forms.DataGridViewAutoFilterTextBoxColumn uxMachineNameColumn;
+		private Forms.DataGridViewAutoFilterTextBoxColumn uxHosterNameColumn;
+		private Forms.DataGridViewAutoFilterTextBoxColumn uxApplicationNameColumn;
+		private Forms.DataGridViewAutoFilterTextBoxColumn uxCategoryColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn uxMessageColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn uxExceptionStack;
 	}
 }

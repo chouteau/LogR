@@ -26,6 +26,10 @@ namespace LogR.Monitor.Views
 			m_ActionQueue.Add(() =>
 				{
 					LogList.Add(log);
+					if (LogList.Count > 20000)
+					{
+						LogList.RemoveAt(0);
+					}
 					if (this.m_ScrollingEnabled)
 					{
 						uxLogBindingSource.MoveLast();

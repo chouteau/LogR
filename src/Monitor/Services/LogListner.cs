@@ -10,8 +10,6 @@ namespace LogR.Monitor.Services
 {
 	public class LogListner
 	{
-		AutoResetEvent m_Terminated = new AutoResetEvent(false);
-		// System.Threading.Thread m_LogThread;
 		Models.MonitoredApplication m_Settings;
 		IHandler m_Handler;
 
@@ -21,48 +19,47 @@ namespace LogR.Monitor.Services
 		}
 
 		public Action<Models.Log> AddLog;
-		public event Action<Exception> Error;
+		public event Action<Exception,string> Error;
 
 		public void Start()
 		{
-			// m_LogThread = new System.Threading.Thread(StartLogMonitoring);
-			// m_LogThread.Start();
 			StartLogMonitoring();
 		}
 
 		public void Stop()
 		{
-			m_Terminated.Set();
-			//if (m_LogThread != null)
-			//{
-			//	m_LogThread.Join(1 * 1000);
-			//	m_LogThread.Abort();
-			//}
 		}
 
 		private void StartLogMonitoring()
 		{
-			// var resynchronize = new AutoResetEvent(false);
 			m_Handler = new SignalRHandler();
 			m_Handler.Received += new Action<string>(m_LoggerConnection_Received);
 			m_Handler.Exception += (error) =>
 				{
+					var ex = error;
+					while(true)
+					{
+						if (ex.InnerException == null)
+						{
+							break;
+						}
+						ex = ex.InnerException;						
+					}
 					if (Error != null)
 					{
-						Error(error);
+						Error(ex, m_Settings.SignalRUrl);
 					}
-					m_Terminated.Set();
 				};
 
 			m_Handler.Start(m_Settings, "loglistner");
 			AddLog(new Log() 
 			{ 
 				ApplicationName = "Monitor", 
-				Category = Category.Debug, 
+				Category = Category.Info, 
 				CreationDate = DateTime.Now,
 				HostName = "Monitor",
 				MachineName = System.Environment.MachineName,
-				Message = "Ready for " + m_Settings.SignalRUrl,
+				Message = $"Ready for listen {m_Settings.SignalRUrl}",
 				LogId = Guid.NewGuid().ToString()
 			});
 		}
@@ -80,9 +77,16 @@ namespace LogR.Monitor.Services
 			{
 				log = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Log>(obj);
 			}
-			catch
+			catch(Exception ex)
 			{
-				return;
+				log = new Log();
+				log.ApplicationName = "Monitor";
+				log.Category = Category.Warn;
+				log.CreationDate = DateTime.Now;
+				log.HostName = "Monitor";
+				log.MachineName = System.Environment.MachineName;
+				log.Message = ex.Message;
+				log.LogId = Guid.NewGuid().ToString();
 			}
 
 			if (log == null)

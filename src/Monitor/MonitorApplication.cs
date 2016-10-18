@@ -75,7 +75,7 @@ namespace LogR.Monitor
 						}
 						catch(Exception ex)
 						{
-							Error(ex);
+							Error(ex, null);
 						}
 					}
 				});
@@ -105,9 +105,19 @@ namespace LogR.Monitor
 			}
 		}
 
-		void Error(Exception error)
+		void Error(Exception error, string endpoint)
 		{
 			m_View.Notify(error.ToString());
+			var log = new Models.Log();
+			log.ApplicationName = "Monitor";
+			log.Category = Category.Error;
+			log.CreationDate = DateTime.Now;
+			log.HostName = "Monitor";
+			log.MachineName = endpoint;
+			log.Message = error.Message;
+			log.LogId = Guid.NewGuid().ToString();
+			log.ExceptionStack = error.ToString();
+			AddLog(log);
 		}
 
 		void AddLog(Models.Log log)
