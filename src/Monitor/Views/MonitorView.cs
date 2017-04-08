@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Linq;
 using LogR.Monitor.Forms;
 
 namespace LogR.Monitor.Views
@@ -9,32 +10,56 @@ namespace LogR.Monitor.Views
 	public partial class MonitorView : Form, IMonitorView
 	{
 		private bool m_ScrollingEnabled = true;
-		ActionQueue m_ActionQueue;
+		private bool m_Filtering = false;
+		private ActionQueue m_ActionQueue;
+		private System.Linq.Expressions.Expression<Func<ViewModels.LogViewModel, bool>> m_CurrentFilter;
 
 		public MonitorView()
 		{
 			InitializeComponent();
+			UnfilteredLogList = new ViewModels.BindingList<ViewModels.LogViewModel>();
 			LogList = new ViewModels.BindingList<ViewModels.LogViewModel>();
 		}
 
+		public ViewModels.BindingList<ViewModels.LogViewModel> UnfilteredLogList { get; set; }
 		public ViewModels.BindingList<ViewModels.LogViewModel> LogList { get; set; }
 
 		public event Action StartConfiguration;
 
 		public void AddLog(ViewModels.LogViewModel log)
 		{
-			m_ActionQueue.Add(() =>
+			m_ActionQueue.Add((Action)(() =>
 				{
-					LogList.Add(log);
-					if (LogList.Count > 20000)
+					this.UnfilteredLogList.Add(log);
+					if (!m_Filtering)
 					{
-						LogList.RemoveAt(0);
+						if (m_CurrentFilter != null)
+						{
+							var tempList = new ViewModels.BindingList<ViewModels.LogViewModel>();
+							tempList.Add(log);
+							foreach (var item in tempList.AsQueryable().Where(m_CurrentFilter))
+							{
+								this.LogList.Add(item);
+							}
+						}
+						else
+						{
+							this.LogList.Add(log);
+						}
+					}
+					if (this.LogList.Count > 20000)
+					{
+						this.LogList.RemoveAt(0);
+					}
+					if (this.LogList.Count > 20000)
+					{
+						this.LogList.RemoveAt(0);
 					}
 					if (this.m_ScrollingEnabled)
 					{
 						uxLogBindingSource.MoveLast();
 					}
-				});
+				}));
 		}
 
 		public void Notify(string message)
@@ -57,30 +82,11 @@ namespace LogR.Monitor.Views
 			m_ActionQueue = new ActionQueue();
 
 			uxLogBindingSource.DataSource = LogList;
-			uxLogBindingSource.PositionChanged += new EventHandler(this.bindingSource1_PositionChanged);
+			uxLogBindingSource.PositionChanged += new EventHandler(this.BindingSourcePositionChanged);
 			uxLogDataGridView.AutoGenerateColumns = false;
 			uxLogDataGridView.DataSource = uxLogBindingSource;
-			// Add the AutoFilter header cell to each column.
-			foreach (DataGridViewColumn col in uxLogDataGridView.Columns)
-			{
-				if (col is Forms.DataGridViewAutoFilterTextBoxColumn)
-				{
-					col.HeaderCell = new DataGridViewAutoFilterColumnHeaderCell(col.HeaderCell);
-				}
-			}
 			uxLogDataGridView.CellFormatting += new DataGridViewCellFormattingEventHandler(this.OnDataGridViewCellFormatting);
-			uxWarningFilterCheckBox.Click += (s, arg) =>
-			{
-				var data = uxLogBindingSource as IBindingListView;
-				data.Filter = "Category = 'Warn'";
-			};
 
-
-			this.uxPauseButton.Enabled = false;
-			this.uxPauseButton.Click += delegate(object s, EventArgs arg)
-			{
-				this.uxPauseButton.Enabled = false;
-			};
 			this.uxClearButton.Click += delegate(object s, EventArgs arg)
 			{
 				LogList.Clear();
@@ -91,6 +97,11 @@ namespace LogR.Monitor.Views
 				this.uxScrollingButton.Text = (this.m_ScrollingEnabled ? "Stop scrolling" : "Start scrolling");
 			};
 
+			uxDebugFilterButton.Click += (s, arg) => { FilterDataSource(uxDebugFilterButton, i => i.Category == Models.Category.Debug); };
+			uxWarningFilterButton.Click += (s, arg) => { FilterDataSource(uxWarningFilterButton, i => i.Category == Models.Category.Warn); }; ;
+			uxExceptionFilterButton.Click += (s, arg) => { FilterDataSource(uxExceptionFilterButton, i => i.Category == Models.Category.Error || i.Category == Models.Category.Fatal); }; ;
+			uxNotificationFilterButton.Click += (s, arg) => { FilterDataSource(uxNotificationFilterButton, i => i.Category == Models.Category.Notification); }; ;
+
 			m_ActionQueue.Run();
 		}
 
@@ -100,7 +111,7 @@ namespace LogR.Monitor.Views
 			base.OnClosing(e);
 		}
 
-		private void bindingSource1_PositionChanged(object sender, EventArgs e)
+		private void BindingSourcePositionChanged(object sender, EventArgs e)
 		{
 			if (uxLogDataGridView.DataSource == null)
 			{
@@ -147,12 +158,56 @@ namespace LogR.Monitor.Views
 			}
 		}
 
-		private void toolStripButton1_Click(object sender, EventArgs e)
+		private void StartConfigurationClick(object sender, EventArgs e)
 		{
 			if (StartConfiguration != null)
 			{
 				StartConfiguration();
 			}
+		}
+
+		private void FilterDataSource(ToolStripButton button, System.Linq.Expressions.Expression<Func<ViewModels.LogViewModel, bool>> predicate)
+		{
+			m_Filtering = true;
+			LogList.Clear();
+			if (!button.Checked)
+			{
+				m_CurrentFilter = predicate;
+				var list = UnfilteredLogList.AsQueryable().Where(predicate).ToList();
+				foreach (var item in list)
+				{
+					LogList.Add(item);
+				}
+			}
+			else
+			{
+				m_CurrentFilter = null;
+				foreach (var item in UnfilteredLogList)
+				{
+					LogList.Add(item);
+				}
+			}
+			uxLogBindingSource.MoveLast();
+			button.Checked = !button.Checked;
+
+			if (button != uxDebugFilterButton)
+			{
+				uxDebugFilterButton.Checked = false;
+			}
+			if (button != uxWarningFilterButton)
+			{
+				uxWarningFilterButton.Checked = false;
+			}
+			if (button != uxExceptionFilterButton)
+			{
+				uxExceptionFilterButton.Checked = false;
+			}
+			if (button != uxNotificationFilterButton)
+			{
+				uxNotificationFilterButton.Checked = false;
+			}
+
+			m_Filtering = false;
 		}
 
 	}

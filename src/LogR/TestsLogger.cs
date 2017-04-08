@@ -42,10 +42,6 @@ namespace LogR
 			System.Diagnostics.Debug.WriteLine(Format(message, prms), "Debug");
 		}
 
-		public void Dispose()
-		{
-		}
-
 		public void Error(Exception x)
 		{
 			System.Diagnostics.Debug.WriteLine(string.Empty);
@@ -149,6 +145,10 @@ namespace LogR
 
 			m_LastLogging = DateTime.Now;
 			return row;
+		}
+
+		public void Dispose()
+		{
 		}
 
 	}

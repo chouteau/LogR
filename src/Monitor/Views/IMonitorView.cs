@@ -10,7 +10,6 @@ namespace LogR.Monitor.Views
 	{
 		void Show();
 		event Action StartConfiguration;
-		ViewModels.BindingList<ViewModels.LogViewModel> LogList { get; set; }
 		void AddLog(ViewModels.LogViewModel log);
 		void Notify(string message);
 	}

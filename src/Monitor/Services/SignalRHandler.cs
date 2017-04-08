@@ -47,6 +47,25 @@ namespace LogR.Monitor.Services
 					}
 				}
 			}).Wait(10 * 1000);
+
+			this.m_Connection.Closed += OnDisconnect;
+		}
+
+		public void OnDisconnect()
+		{
+			bool islive = false;
+			m_Connection.Start().ContinueWith((task) =>
+			{
+				if (!task.IsFaulted)
+				{
+					islive = true;
+				}
+			}).Wait(30 * 1000);
+
+			if (islive)
+			{
+				OnDisconnect();
+			}
 		}
 
 		public void Stop()

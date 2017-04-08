@@ -9,13 +9,6 @@ namespace LogR
 	{
 		public DiagnosticsLogger()
 		{
-			// var consoleListener = new System.Diagnostics.ConsoleTraceListener();
-			// System.Diagnostics.Debug.AutoFlush = true;
-			// System.Diagnostics.Trace.AutoFlush = true;
-			// System.Diagnostics.Debug.Listeners.Clear();
-			// System.Diagnostics.Trace.Listeners.Clear();
-			// System.Diagnostics.Debug.Listeners.Add(consoleListener);
-			// System.Diagnostics.Trace.Listeners.Add(consoleListener);
 		}
 
 		public void Info(string message)

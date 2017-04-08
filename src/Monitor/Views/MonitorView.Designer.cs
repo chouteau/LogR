@@ -35,29 +35,18 @@
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.uxLogDataGridView = new System.Windows.Forms.DataGridView();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.label3 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
-			this.uxApplicationComboBox = new System.Windows.Forms.ComboBox();
-			this.uxHostComboBox = new System.Windows.Forms.ComboBox();
-			this.uxMachineComboBox = new System.Windows.Forms.ComboBox();
-			this.uxSqlCheckBox = new System.Windows.Forms.CheckBox();
-			this.uxDebugFilterCheckBox = new System.Windows.Forms.CheckBox();
-			this.uxInfoFilterCheckBox = new System.Windows.Forms.CheckBox();
-			this.uxWarningFilterCheckBox = new System.Windows.Forms.CheckBox();
-			this.uxNotificationFilterCheckBox = new System.Windows.Forms.CheckBox();
-			this.uxExceptionFilterCheckBox = new System.Windows.Forms.CheckBox();
-			this.uxFatalFilterCheckBox = new System.Windows.Forms.CheckBox();
 			this.uxStackTextBox = new System.Windows.Forms.RichTextBox();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.uxConfigurationButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.uxPauseButton = new System.Windows.Forms.ToolStripButton();
 			this.uxScrollingButton = new System.Windows.Forms.ToolStripButton();
 			this.uxClearButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+			this.uxExceptionFilterButton = new System.Windows.Forms.ToolStripButton();
+			this.uxNotificationFilterButton = new System.Windows.Forms.ToolStripButton();
+			this.uxDebugFilterButton = new System.Windows.Forms.ToolStripButton();
+			this.uxWarningFilterButton = new System.Windows.Forms.ToolStripButton();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -85,10 +74,10 @@
 			this.dataGridViewCheckBoxColumn3 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.uxLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.uxCreationDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.uxMachineNameColumn = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
-			this.uxHosterNameColumn = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
-			this.uxApplicationNameColumn = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
-			this.uxCategoryColumn = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
+			this.uxMachineNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.uxHosterNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.uxApplicationNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.uxCategoryColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.uxMessageColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.uxExceptionStack = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -96,7 +85,6 @@
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.uxLogDataGridView)).BeginInit();
-			this.groupBox1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -117,7 +105,6 @@
 			// 
 			// splitContainer1.Panel2
 			// 
-			this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
 			this.splitContainer1.Panel2.Controls.Add(this.uxStackTextBox);
 			this.splitContainer1.Size = new System.Drawing.Size(988, 445);
 			this.splitContainer1.SplitterDistance = 267;
@@ -142,169 +129,12 @@
 			this.uxLogDataGridView.Size = new System.Drawing.Size(988, 267);
 			this.uxLogDataGridView.TabIndex = 9;
 			// 
-			// groupBox1
-			// 
-			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox1.Controls.Add(this.label3);
-			this.groupBox1.Controls.Add(this.label2);
-			this.groupBox1.Controls.Add(this.label1);
-			this.groupBox1.Controls.Add(this.uxApplicationComboBox);
-			this.groupBox1.Controls.Add(this.uxHostComboBox);
-			this.groupBox1.Controls.Add(this.uxMachineComboBox);
-			this.groupBox1.Controls.Add(this.uxSqlCheckBox);
-			this.groupBox1.Controls.Add(this.uxDebugFilterCheckBox);
-			this.groupBox1.Controls.Add(this.uxInfoFilterCheckBox);
-			this.groupBox1.Controls.Add(this.uxWarningFilterCheckBox);
-			this.groupBox1.Controls.Add(this.uxNotificationFilterCheckBox);
-			this.groupBox1.Controls.Add(this.uxExceptionFilterCheckBox);
-			this.groupBox1.Controls.Add(this.uxFatalFilterCheckBox);
-			this.groupBox1.Location = new System.Drawing.Point(666, 3);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(317, 165);
-			this.groupBox1.TabIndex = 16;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Filtre";
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(187, 100);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(65, 13);
-			this.label3.TabIndex = 13;
-			this.label3.Text = "Application :";
-			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(187, 60);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(35, 13);
-			this.label2.TabIndex = 13;
-			this.label2.Text = "Host :";
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(187, 16);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(54, 13);
-			this.label1.TabIndex = 13;
-			this.label1.Text = "Machine :";
-			// 
-			// uxApplicationComboBox
-			// 
-			this.uxApplicationComboBox.FormattingEnabled = true;
-			this.uxApplicationComboBox.Location = new System.Drawing.Point(190, 116);
-			this.uxApplicationComboBox.Name = "uxApplicationComboBox";
-			this.uxApplicationComboBox.Size = new System.Drawing.Size(121, 21);
-			this.uxApplicationComboBox.TabIndex = 12;
-			// 
-			// uxHostComboBox
-			// 
-			this.uxHostComboBox.FormattingEnabled = true;
-			this.uxHostComboBox.Location = new System.Drawing.Point(190, 76);
-			this.uxHostComboBox.Name = "uxHostComboBox";
-			this.uxHostComboBox.Size = new System.Drawing.Size(121, 21);
-			this.uxHostComboBox.TabIndex = 12;
-			// 
-			// uxMachineComboBox
-			// 
-			this.uxMachineComboBox.FormattingEnabled = true;
-			this.uxMachineComboBox.Location = new System.Drawing.Point(190, 32);
-			this.uxMachineComboBox.Name = "uxMachineComboBox";
-			this.uxMachineComboBox.Size = new System.Drawing.Size(121, 21);
-			this.uxMachineComboBox.TabIndex = 12;
-			// 
-			// uxSqlCheckBox
-			// 
-			this.uxSqlCheckBox.AutoSize = true;
-			this.uxSqlCheckBox.Location = new System.Drawing.Point(6, 42);
-			this.uxSqlCheckBox.Name = "uxSqlCheckBox";
-			this.uxSqlCheckBox.Size = new System.Drawing.Size(41, 17);
-			this.uxSqlCheckBox.TabIndex = 6;
-			this.uxSqlCheckBox.Text = "Sql";
-			this.uxSqlCheckBox.UseVisualStyleBackColor = true;
-			// 
-			// uxDebugFilterCheckBox
-			// 
-			this.uxDebugFilterCheckBox.AutoSize = true;
-			this.uxDebugFilterCheckBox.Location = new System.Drawing.Point(6, 19);
-			this.uxDebugFilterCheckBox.Name = "uxDebugFilterCheckBox";
-			this.uxDebugFilterCheckBox.Size = new System.Drawing.Size(58, 17);
-			this.uxDebugFilterCheckBox.TabIndex = 6;
-			this.uxDebugFilterCheckBox.Text = "Debug";
-			this.uxDebugFilterCheckBox.UseVisualStyleBackColor = true;
-			// 
-			// uxInfoFilterCheckBox
-			// 
-			this.uxInfoFilterCheckBox.AutoSize = true;
-			this.uxInfoFilterCheckBox.Checked = true;
-			this.uxInfoFilterCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.uxInfoFilterCheckBox.Location = new System.Drawing.Point(6, 73);
-			this.uxInfoFilterCheckBox.Name = "uxInfoFilterCheckBox";
-			this.uxInfoFilterCheckBox.Size = new System.Drawing.Size(44, 17);
-			this.uxInfoFilterCheckBox.TabIndex = 7;
-			this.uxInfoFilterCheckBox.Text = "Info";
-			this.uxInfoFilterCheckBox.UseVisualStyleBackColor = true;
-			// 
-			// uxWarningFilterCheckBox
-			// 
-			this.uxWarningFilterCheckBox.AutoSize = true;
-			this.uxWarningFilterCheckBox.Checked = true;
-			this.uxWarningFilterCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.uxWarningFilterCheckBox.Location = new System.Drawing.Point(6, 96);
-			this.uxWarningFilterCheckBox.Name = "uxWarningFilterCheckBox";
-			this.uxWarningFilterCheckBox.Size = new System.Drawing.Size(66, 17);
-			this.uxWarningFilterCheckBox.TabIndex = 8;
-			this.uxWarningFilterCheckBox.Text = "Warning";
-			this.uxWarningFilterCheckBox.UseVisualStyleBackColor = true;
-			// 
-			// uxNotificationFilterCheckBox
-			// 
-			this.uxNotificationFilterCheckBox.AutoSize = true;
-			this.uxNotificationFilterCheckBox.Checked = true;
-			this.uxNotificationFilterCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.uxNotificationFilterCheckBox.Location = new System.Drawing.Point(6, 119);
-			this.uxNotificationFilterCheckBox.Name = "uxNotificationFilterCheckBox";
-			this.uxNotificationFilterCheckBox.Size = new System.Drawing.Size(79, 17);
-			this.uxNotificationFilterCheckBox.TabIndex = 9;
-			this.uxNotificationFilterCheckBox.Text = "Notification";
-			this.uxNotificationFilterCheckBox.UseVisualStyleBackColor = true;
-			// 
-			// uxExceptionFilterCheckBox
-			// 
-			this.uxExceptionFilterCheckBox.AutoSize = true;
-			this.uxExceptionFilterCheckBox.Checked = true;
-			this.uxExceptionFilterCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.uxExceptionFilterCheckBox.Location = new System.Drawing.Point(98, 19);
-			this.uxExceptionFilterCheckBox.Name = "uxExceptionFilterCheckBox";
-			this.uxExceptionFilterCheckBox.Size = new System.Drawing.Size(73, 17);
-			this.uxExceptionFilterCheckBox.TabIndex = 11;
-			this.uxExceptionFilterCheckBox.Text = "Exception";
-			this.uxExceptionFilterCheckBox.UseVisualStyleBackColor = true;
-			// 
-			// uxFatalFilterCheckBox
-			// 
-			this.uxFatalFilterCheckBox.AutoSize = true;
-			this.uxFatalFilterCheckBox.Checked = true;
-			this.uxFatalFilterCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.uxFatalFilterCheckBox.Location = new System.Drawing.Point(98, 42);
-			this.uxFatalFilterCheckBox.Name = "uxFatalFilterCheckBox";
-			this.uxFatalFilterCheckBox.Size = new System.Drawing.Size(49, 17);
-			this.uxFatalFilterCheckBox.TabIndex = 10;
-			this.uxFatalFilterCheckBox.Text = "Fatal";
-			this.uxFatalFilterCheckBox.UseVisualStyleBackColor = true;
-			// 
 			// uxStackTextBox
 			// 
-			this.uxStackTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.uxStackTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.uxStackTextBox.Location = new System.Drawing.Point(0, 0);
 			this.uxStackTextBox.Name = "uxStackTextBox";
-			this.uxStackTextBox.Size = new System.Drawing.Size(660, 174);
+			this.uxStackTextBox.Size = new System.Drawing.Size(988, 174);
 			this.uxStackTextBox.TabIndex = 15;
 			this.uxStackTextBox.Text = "";
 			// 
@@ -313,11 +143,14 @@
 			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.uxConfigurationButton,
             this.toolStripSeparator1,
-            this.uxPauseButton,
             this.uxScrollingButton,
             this.uxClearButton,
             this.toolStripSeparator2,
-            this.toolStripButton1});
+            this.toolStripButton1,
+            this.uxExceptionFilterButton,
+            this.uxWarningFilterButton,
+            this.uxNotificationFilterButton,
+            this.uxDebugFilterButton});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip1.Name = "toolStrip1";
 			this.toolStrip1.Size = new System.Drawing.Size(1002, 25);
@@ -331,20 +164,12 @@
 			this.uxConfigurationButton.Name = "uxConfigurationButton";
 			this.uxConfigurationButton.Size = new System.Drawing.Size(101, 22);
 			this.uxConfigurationButton.Text = "Configuration";
-			this.uxConfigurationButton.Click += new System.EventHandler(this.toolStripButton1_Click);
+			this.uxConfigurationButton.Click += new System.EventHandler(this.StartConfigurationClick);
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-			// 
-			// uxPauseButton
-			// 
-			this.uxPauseButton.Image = ((System.Drawing.Image)(resources.GetObject("uxPauseButton.Image")));
-			this.uxPauseButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.uxPauseButton.Name = "uxPauseButton";
-			this.uxPauseButton.Size = new System.Drawing.Size(58, 22);
-			this.uxPauseButton.Text = "Pause";
 			// 
 			// uxScrollingButton
 			// 
@@ -374,6 +199,46 @@
 			this.toolStripButton1.Name = "toolStripButton1";
 			this.toolStripButton1.Size = new System.Drawing.Size(51, 22);
 			this.toolStripButton1.Text = "Save";
+			// 
+			// uxExceptionFilterButton
+			// 
+			this.uxExceptionFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.uxExceptionFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.uxExceptionFilterButton.Image = ((System.Drawing.Image)(resources.GetObject("uxExceptionFilterButton.Image")));
+			this.uxExceptionFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.uxExceptionFilterButton.Name = "uxExceptionFilterButton";
+			this.uxExceptionFilterButton.Size = new System.Drawing.Size(62, 22);
+			this.uxExceptionFilterButton.Text = "Exception";
+			// 
+			// uxNotificationFilterButton
+			// 
+			this.uxNotificationFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.uxNotificationFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.uxNotificationFilterButton.Image = ((System.Drawing.Image)(resources.GetObject("uxNotificationFilterButton.Image")));
+			this.uxNotificationFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.uxNotificationFilterButton.Name = "uxNotificationFilterButton";
+			this.uxNotificationFilterButton.Size = new System.Drawing.Size(74, 22);
+			this.uxNotificationFilterButton.Text = "Notification";
+			// 
+			// uxDebugFilterButton
+			// 
+			this.uxDebugFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.uxDebugFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.uxDebugFilterButton.Image = ((System.Drawing.Image)(resources.GetObject("uxDebugFilterButton.Image")));
+			this.uxDebugFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.uxDebugFilterButton.Name = "uxDebugFilterButton";
+			this.uxDebugFilterButton.Size = new System.Drawing.Size(46, 22);
+			this.uxDebugFilterButton.Text = "Debug";
+			// 
+			// uxWarningFilterButton
+			// 
+			this.uxWarningFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.uxWarningFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.uxWarningFilterButton.Image = ((System.Drawing.Image)(resources.GetObject("uxWarningFilterButton.Image")));
+			this.uxWarningFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.uxWarningFilterButton.Name = "uxWarningFilterButton";
+			this.uxWarningFilterButton.Size = new System.Drawing.Size(56, 22);
+			this.uxWarningFilterButton.Text = "Warning";
 			// 
 			// tabControl1
 			// 
@@ -602,6 +467,7 @@
 			this.uxMachineNameColumn.HeaderText = "Machine";
 			this.uxMachineNameColumn.Name = "uxMachineNameColumn";
 			this.uxMachineNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.uxMachineNameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
 			// 
 			// uxHosterNameColumn
 			// 
@@ -610,6 +476,7 @@
 			this.uxHosterNameColumn.HeaderText = "Host";
 			this.uxHosterNameColumn.Name = "uxHosterNameColumn";
 			this.uxHosterNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.uxHosterNameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
 			this.uxHosterNameColumn.Width = 110;
 			// 
 			// uxApplicationNameColumn
@@ -618,6 +485,7 @@
 			this.uxApplicationNameColumn.HeaderText = "Application";
 			this.uxApplicationNameColumn.Name = "uxApplicationNameColumn";
 			this.uxApplicationNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.uxApplicationNameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
 			this.uxApplicationNameColumn.Width = 110;
 			// 
 			// uxCategoryColumn
@@ -626,6 +494,7 @@
 			this.uxCategoryColumn.HeaderText = "Category";
 			this.uxCategoryColumn.Name = "uxCategoryColumn";
 			this.uxCategoryColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.uxCategoryColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
 			this.uxCategoryColumn.Width = 70;
 			// 
 			// uxMessageColumn
@@ -657,8 +526,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.uxLogDataGridView)).EndInit();
-			this.groupBox1.ResumeLayout(false);
-			this.groupBox1.PerformLayout();
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
 			this.tabControl1.ResumeLayout(false);
@@ -681,26 +548,12 @@
 		private System.Windows.Forms.TabPage tabPage1;
 		private System.Windows.Forms.TabPage tabPage3;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-		private System.Windows.Forms.ToolStripButton uxPauseButton;
 		private System.Windows.Forms.ToolStripButton uxScrollingButton;
 		private System.Windows.Forms.ToolStripButton uxClearButton;
 		private System.Windows.Forms.BindingSource uxLogBindingSource;
 		private System.Windows.Forms.RichTextBox uxNotificationRichTextBox;
-		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 		private System.Windows.Forms.ToolStripButton toolStripButton1;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.ComboBox uxApplicationComboBox;
-		private System.Windows.Forms.ComboBox uxHostComboBox;
-		private System.Windows.Forms.ComboBox uxMachineComboBox;
-		private System.Windows.Forms.CheckBox uxDebugFilterCheckBox;
-		private System.Windows.Forms.CheckBox uxInfoFilterCheckBox;
-		private System.Windows.Forms.CheckBox uxWarningFilterCheckBox;
-		private System.Windows.Forms.CheckBox uxNotificationFilterCheckBox;
-		private System.Windows.Forms.CheckBox uxExceptionFilterCheckBox;
-		private System.Windows.Forms.CheckBox uxFatalFilterCheckBox;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
 		private Forms.DataGridViewAutoFilterTextBoxColumn dataGridViewAutoFilterTextBoxColumn1;
 		private Forms.DataGridViewAutoFilterTextBoxColumn dataGridViewAutoFilterTextBoxColumn2;
@@ -722,12 +575,15 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn3;
-		private System.Windows.Forms.CheckBox uxSqlCheckBox;
+		private System.Windows.Forms.ToolStripButton uxExceptionFilterButton;
+		private System.Windows.Forms.ToolStripButton uxNotificationFilterButton;
+		private System.Windows.Forms.ToolStripButton uxDebugFilterButton;
+		private System.Windows.Forms.ToolStripButton uxWarningFilterButton;
 		private System.Windows.Forms.DataGridViewTextBoxColumn uxCreationDateColumn;
-		private Forms.DataGridViewAutoFilterTextBoxColumn uxMachineNameColumn;
-		private Forms.DataGridViewAutoFilterTextBoxColumn uxHosterNameColumn;
-		private Forms.DataGridViewAutoFilterTextBoxColumn uxApplicationNameColumn;
-		private Forms.DataGridViewAutoFilterTextBoxColumn uxCategoryColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn uxMachineNameColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn uxHosterNameColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn uxApplicationNameColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn uxCategoryColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn uxMessageColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn uxExceptionStack;
 	}

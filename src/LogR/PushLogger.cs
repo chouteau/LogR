@@ -19,6 +19,7 @@ namespace LogR
 			{
 				return;
 			}
+
 			AsyncLogger.Current.LogMessage(new LogInfo()
 			{
 				Category = Category.Debug,
@@ -32,6 +33,7 @@ namespace LogR
 			{
 				return;
 			}
+
 			AsyncLogger.Current.LogMessage(new LogInfo()
 			{
 				Category = Category.Sql,
@@ -39,17 +41,22 @@ namespace LogR
 			});
 		}
 
-
 		public void Debug(string message, params object[] prms)
 		{
 			if (!GlobalConfiguration.Configuration.DebugEnabled)
 			{
 				return;
 			}
+
+			if (prms != null && prms.Length > 0)
+			{
+				message = string.Format(message, prms);
+			}
+
 			AsyncLogger.Current.LogMessage(new LogInfo()
 			{
 				Category = Category.Debug,
-				Message = string.Format(message, prms)
+				Message = message
 			});
 		}
 
@@ -64,10 +71,15 @@ namespace LogR
 
 		public void Info(string message, params object[] prms)
 		{
+			if (prms != null && prms.Length > 0)
+			{
+				message = string.Format(message, prms);
+			}
+
 			AsyncLogger.Current.LogMessage(new LogInfo()
 			{
 				Category = Category.Info,
-				Message = string.Format(message, prms),
+				Message = message,
 			});
 		}
 
@@ -82,10 +94,15 @@ namespace LogR
 
 		public void Warn(string message, params object[] prms)
 		{
+			if (prms != null && prms.Length > 0)
+			{
+				message = string.Format(message, prms);
+			}
+
 			AsyncLogger.Current.LogMessage(new LogInfo()
 			{
 				Category = Category.Warn,
-				Message = string.Format(message, prms),
+				Message = message,
 			});
 		}
 
@@ -102,10 +119,15 @@ namespace LogR
 
 		public void Error(string message, params object[] prms)
 		{
+			if (prms != null && prms.Length > 0)
+			{
+				message = string.Format(message, prms);
+			}
+
 			AsyncLogger.Current.LogMessage(new LogInfo()
 			{
 				Category = Category.Error,
-				Message = string.Format(message, prms),
+				Message = message,
 				Exception = new Exception(message),
 				ExceptionStack = System.Environment.StackTrace,
 			});
@@ -134,10 +156,15 @@ namespace LogR
 
 		public void Fatal(string message, params object[] prms)
 		{
+			if (prms != null && prms.Length > 0)
+			{
+				message = string.Format(message, prms);
+			}
+
 			AsyncLogger.Current.LogMessage(new LogInfo()
 			{
 				Category = Category.Fatal,
-				Message = string.Format(message),
+				Message = message,
 				Exception = new Exception(message),
 				ExceptionStack = System.Environment.StackTrace,
 			});
