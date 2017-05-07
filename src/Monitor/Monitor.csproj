@@ -56,9 +56,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\MonitorConfigurationSection.cs" />
-    <Compile Include="Configuration\MonitoredApplicationConfigurationElement.cs" />
-    <Compile Include="Configuration\MonitoredApplicationConfigurationElementCollection.cs" />
     <Compile Include="Forms\DataGridViewAutoFilterColumnHeaderCell.cs" />
     <Compile Include="Forms\DataGridViewAutoFilterTextBoxColumn.cs" />
     <Compile Include="Models\Category.cs" />

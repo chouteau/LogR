@@ -3,7 +3,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Linq;
-using LogR.Monitor.Forms;
+using System.Runtime.InteropServices;
+using System.Reflection;
 
 namespace LogR.Monitor.Views
 {
@@ -47,16 +48,12 @@ namespace LogR.Monitor.Views
 							this.LogList.Add(log);
 						}
 					}
-					if (this.LogList.Count > 20000)
-					{
-						this.LogList.RemoveAt(0);
-					}
-					if (this.LogList.Count > 20000)
-					{
-						this.LogList.RemoveAt(0);
-					}
 					if (this.m_ScrollingEnabled)
 					{
+						if (this.LogList.Count > 20000)
+						{
+							this.LogList.RemoveAt(0);
+						}
 						uxLogBindingSource.MoveLast();
 					}
 				}));
@@ -79,6 +76,9 @@ namespace LogR.Monitor.Views
 
 		protected override void OnLoad(EventArgs e)
 		{
+			var versionAttribute = typeof(Program).Assembly.GetCustomAttribute<System.Reflection.AssemblyFileVersionAttribute>().Version;
+			this.Text = this.Text + " " + versionAttribute;
+
 			m_ActionQueue = new ActionQueue();
 
 			uxLogBindingSource.DataSource = LogList;

@@ -10,15 +10,18 @@ namespace LogR.Monitor.Models
 	{
 		public Settings()
 		{
-			ClientId = Guid.NewGuid().ToString();
 			MonitoredApplicationList = new List<MonitoredApplication>();
 			LogDebugEnabled = false;
 			LogSqlEnabled = false;
+			LogInfoEnabled = true;
+			LogFatalEnabled = true;
+			LogNotificationEnabled = true;
+			LogErrorEnabled = true;
+			LogWarningEnabled = true;
 		}
-		[Bindable(true)]
-		public string ClientId { get; set; }
 
 		public List<MonitoredApplication> MonitoredApplicationList { get; set; }
+
 		[Bindable(true)]
 		public bool LogDebugEnabled { get; set; }
 		[Bindable(true)]
