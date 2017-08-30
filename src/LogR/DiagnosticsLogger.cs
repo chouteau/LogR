@@ -173,11 +173,11 @@ namespace LogR
 
         string GetRow(string prf, string message, params object[] prms)
         {
-			var row = string.Format("{0:HH}H{0:mm}:{0:ss}.{0:ffff}|{1}({2})\r\n{3}\r\n", 
-				DateTime.Now, 
-				System.Threading.Thread.CurrentThread.Name, 
-				System.Threading.Thread.CurrentThread.ManagedThreadId, 
-				string.Format(message, prms)
+			var row = string.Format("{0:HH}H{0:mm}:{0:ss}.{0:ffff}|{1}({2})\r\n{3}\r\n",
+				DateTime.Now,
+				System.Threading.Thread.CurrentThread.Name,
+				System.Threading.Thread.CurrentThread.ManagedThreadId,
+				prms == null || prms.Length == 0 ? message : string.Format(message, prms)
 				);
 			return row;
         }
