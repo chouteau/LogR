@@ -221,29 +221,42 @@ namespace LogR
 
 		private string GetContent(System.Exception ex)
 		{
+			var loop = 0;
 			var content = new StringBuilder();
-			content.Append(ex.StackTrace);
-			content.AppendLine();
-			content.Append("--------------------------------------------");
-			content.AppendLine();
-			if (ex.Data != null && ex.Data.Count > 0)
+			var x = ex;
+			while (true)
 			{
-				foreach (object item in ex.Data.Keys)
+				content.AppendLine(x.Message);
+				content.AppendLine(x.StackTrace);
+				content.AppendLine();
+				if (x.Data != null && x.Data.Count > 0)
 				{
-					if (item != null && ex.Data != null && ex.Data[item] != null)
-					{
-						content.AppendFormat("{0} = {1}", item, ex.Data[item]);
-					}
+					content.AppendLine("--------------------------------------------");
 					content.AppendLine();
+					foreach (object item in x.Data.Keys)
+					{
+						if (item != null && x.Data != null && x.Data[item] != null)
+						{
+							content.AppendFormat("{0} = {1}", item, x.Data[item]);
+						}
+						content.AppendLine();
+					}
+					content.Append("--------------------------------------------");
 				}
-			}
-			if (ex.InnerException != null)
-			{
-				content.Append("--------------------------------------------");
+
 				content.AppendLine();
-				content.Append("Inner Exception");
-				content.AppendLine();
-				content.Append(this.GetContent(ex.InnerException));
+
+				if (x.InnerException == null)
+				{
+					break;
+				}
+
+				x = x.InnerException;
+				loop++;
+				if (loop > 10)
+				{
+					break;
+				}
 			}
 			return content.ToString();
 		}
