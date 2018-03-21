@@ -1,2 +1,5 @@
-﻿1.4.6 
+﻿1.4.11.3
+- Fix Bug Send Fatal and notification by email
+
+1.4.6 
 - Fix TestLogger don't write on window output if diagnositic logger is disposed before during debug

@@ -10,6 +10,7 @@ namespace LogR
 		public LogRConfiguration()
 		{
 			DebugEnabled = true;
+			DisableAsync = false;
 		}
 
 		public bool DebugEnabled { get; set; }
@@ -18,5 +19,7 @@ namespace LogR
 		public string Context { get; set; }
 		public string FromEmail { get; set; }
 		public string ToEmail { get; set; }
+
+		public bool DisableAsync { get; set; }
 	}
 }

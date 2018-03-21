@@ -12,6 +12,10 @@ namespace LogR
 {
 	internal class AsyncLogger : IDisposable
 	{
+		private static Lazy<AsyncLogger> m_Current = new Lazy<AsyncLogger>(() =>
+		{
+			return new AsyncLogger();
+		}, true);
 		private Queue<Action> m_Queue = new Queue<Action>();
 		private ManualResetEvent m_NewLog = new ManualResetEvent(false);
 		private ManualResetEvent m_Terminate = new ManualResetEvent(false);
@@ -29,24 +33,11 @@ namespace LogR
 			m_InnerLogger = new DiagnosticsLogger();
 		}
 
-		private static AsyncLogger m_Current;
-		private static object m_Lock = new object();
-
 		public static AsyncLogger Current
 		{
 			get
 			{
-				if (m_Current == null)
-				{
-					lock (m_Lock)
-					{
-						if (m_Current == null)
-						{
-							m_Current = new AsyncLogger();
-						}
-					}
-				}
-				return m_Current;
+				return m_Current.Value;
 			}
 		}
 
@@ -89,6 +80,11 @@ namespace LogR
 
 		public void LogMessage(LogInfo log)
 		{
+			if (GlobalConfiguration.Configuration.DisableAsync)
+			{
+				AsyncLogMessage(log);
+				return;
+			}
 			lock (m_Queue)
 			{
 				m_Queue.Enqueue(() => AsyncLogMessage(log));
@@ -126,11 +122,12 @@ namespace LogR
 						break;
 					case Category.Fatal:
 						m_InnerLogger.Fatal(log.Exception);
-						SendMessage("Fatal", log.Message, log.Exception.Message);
+						var body = GetContent(log.Exception);
+						SendMessage("Fatal", body, log.Message);
 						break;
 					case Category.Notification:
 						m_InnerLogger.Notification(log.Message);
-						SendMessage("Notification", log.Message, null);
+						SendMessage("Notification", log.ExceptionStack, log.Message);
 						break;
 					default:
 						break;
@@ -191,8 +188,13 @@ namespace LogR
 			var appName = GlobalConfiguration.Configuration.ApplicationName;
 			subject = "[" + appName + "][" + prefix + "] " + (subject ?? body ?? string.Empty);
 			subject = subject.Substring(0, Math.Min(subject.Length, 70));
+			subject = subject.Replace("\r", "").Replace("\n", "");
 			message.Subject = subject;
 			message.Body = body;
+			if (prefix == "Fatal")
+			{
+				message.Priority = System.Net.Mail.MailPriority.High;
+			}
 
 			var sender = new System.Net.Mail.SmtpClient();
 			if (sender.DeliveryMethod == System.Net.Mail.SmtpDeliveryMethod.SpecifiedPickupDirectory)
@@ -216,6 +218,36 @@ namespace LogR
 			{
 				System.Diagnostics.EventLog.WriteEntry("Application", subject + body, System.Diagnostics.EventLogEntryType.Error);
 			}
+		}
+
+		private string GetContent(System.Exception ex)
+		{
+			var content = new StringBuilder();
+			content.Append(ex.Message);
+			content.Append(ex.StackTrace ?? System.Environment.StackTrace);
+			content.AppendLine();
+			content.Append("--------------------------------------------");
+			content.AppendLine();
+			if (ex.Data != null && ex.Data.Count > 0)
+			{
+				foreach (object item in ex.Data.Keys)
+				{
+					if (item != null && ex.Data != null && ex.Data[item] != null)
+					{
+						content.AppendFormat("{0} = {1}", item, ex.Data[item]);
+					}
+					content.AppendLine();
+				}
+			}
+			if (ex.InnerException != null)
+			{
+				content.Append("--------------------------------------------");
+				content.AppendLine();
+				content.Append("Inner Exception");
+				content.AppendLine();
+				content.Append(this.GetContent(ex.InnerException));
+			}
+			return content.ToString();
 		}
 	}
 }
