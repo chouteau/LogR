@@ -99,6 +99,10 @@ namespace LogR
 				return;
 			}
 
+			if (log.Message == null)
+			{
+				log.Message = "No message";
+			}
 			log.Message = log.Message.Substring(0, Math.Min(10000, log.Message.Length));
 			try
 			{
@@ -123,7 +127,10 @@ namespace LogR
 					case Category.Fatal:
 						m_InnerLogger.Fatal(log.Exception);
 						var body = GetContent(log.Exception);
-						SendMessage("Fatal", body, log.Message);
+						if (body != null)
+						{
+							SendMessage("Fatal", body, log.Message);
+						}
 						break;
 					case Category.Notification:
 						m_InnerLogger.Notification(log.Message);

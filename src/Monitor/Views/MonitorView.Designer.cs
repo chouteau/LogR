@@ -29,47 +29,46 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MonitorView));
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.uxLogDataGridView = new System.Windows.Forms.DataGridView();
-			this.uxCreationDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.uxMachineNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.uxHosterNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.uxApplicationNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.uxCategoryColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.uxMessageColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.uxExceptionStack = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.uxStackTextBox = new System.Windows.Forms.RichTextBox();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-			this.uxConfigurationButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.uxScrollingButton = new System.Windows.Forms.ToolStripButton();
-			this.uxClearButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-			this.uxExceptionFilterButton = new System.Windows.Forms.ToolStripButton();
-			this.uxWarningFilterButton = new System.Windows.Forms.ToolStripButton();
-			this.uxNotificationFilterButton = new System.Windows.Forms.ToolStripButton();
-			this.uxDebugFilterButton = new System.Windows.Forms.ToolStripButton();
+			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			this.uxSearchToolStripTextBox = new System.Windows.Forms.ToolStripTextBox();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.uxNotificationRichTextBox = new System.Windows.Forms.RichTextBox();
+			this.uxConfigurationButton = new System.Windows.Forms.ToolStripButton();
+			this.uxScrollingButton = new System.Windows.Forms.ToolStripButton();
+			this.uxStopStartLogToolStripButton = new System.Windows.Forms.ToolStripButton();
+			this.uxClearButton = new System.Windows.Forms.ToolStripButton();
+			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+			this.uxFatalFilterButton = new System.Windows.Forms.ToolStripButton();
+			this.uxExceptionFilterButton = new System.Windows.Forms.ToolStripButton();
+			this.uxWarningFilterButton = new System.Windows.Forms.ToolStripButton();
+			this.uxNotificationFilterButton = new System.Windows.Forms.ToolStripButton();
+			this.uxDebugFilterButton = new System.Windows.Forms.ToolStripButton();
+			this.uxSearchToolStripButton = new System.Windows.Forms.ToolStripButton();
+			this.uxLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.dataGridViewAutoFilterTextBoxColumn1 = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
-			this.dataGridViewAutoFilterTextBoxColumn2 = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
-			this.dataGridViewAutoFilterTextBoxColumn3 = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
-			this.dataGridViewAutoFilterTextBoxColumn4 = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
 			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewAutoFilterTextBoxColumn1 = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
+			this.dataGridViewAutoFilterTextBoxColumn2 = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
+			this.dataGridViewAutoFilterTextBoxColumn3 = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
+			this.dataGridViewAutoFilterTextBoxColumn4 = new LogR.Monitor.Forms.DataGridViewAutoFilterTextBoxColumn();
+			this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,7 +78,12 @@
 			this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewCheckBoxColumn3 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.uxLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.uxCreationDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.uxMachineNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.uxHosterNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.uxApplicationNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.uxCategoryColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.uxMessageColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -121,74 +125,12 @@
             this.uxHosterNameColumn,
             this.uxApplicationNameColumn,
             this.uxCategoryColumn,
-            this.uxMessageColumn,
-            this.uxExceptionStack});
+            this.uxMessageColumn});
 			this.uxLogDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.uxLogDataGridView.Location = new System.Drawing.Point(0, 0);
 			this.uxLogDataGridView.Name = "uxLogDataGridView";
 			this.uxLogDataGridView.Size = new System.Drawing.Size(988, 267);
 			this.uxLogDataGridView.TabIndex = 9;
-			// 
-			// uxCreationDateColumn
-			// 
-			this.uxCreationDateColumn.DataPropertyName = "CreationDate";
-			dataGridViewCellStyle1.Format = "T";
-			dataGridViewCellStyle1.NullValue = null;
-			this.uxCreationDateColumn.DefaultCellStyle = dataGridViewCellStyle1;
-			this.uxCreationDateColumn.HeaderText = "Date";
-			this.uxCreationDateColumn.Name = "uxCreationDateColumn";
-			this.uxCreationDateColumn.Width = 80;
-			// 
-			// uxMachineNameColumn
-			// 
-			this.uxMachineNameColumn.DataPropertyName = "MachineName";
-			this.uxMachineNameColumn.FillWeight = 110F;
-			this.uxMachineNameColumn.HeaderText = "Machine";
-			this.uxMachineNameColumn.Name = "uxMachineNameColumn";
-			this.uxMachineNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.uxMachineNameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-			// 
-			// uxHosterNameColumn
-			// 
-			this.uxHosterNameColumn.DataPropertyName = "HostName";
-			this.uxHosterNameColumn.FillWeight = 120F;
-			this.uxHosterNameColumn.HeaderText = "Host";
-			this.uxHosterNameColumn.Name = "uxHosterNameColumn";
-			this.uxHosterNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.uxHosterNameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-			this.uxHosterNameColumn.Width = 110;
-			// 
-			// uxApplicationNameColumn
-			// 
-			this.uxApplicationNameColumn.DataPropertyName = "ApplicationName";
-			this.uxApplicationNameColumn.HeaderText = "Application";
-			this.uxApplicationNameColumn.Name = "uxApplicationNameColumn";
-			this.uxApplicationNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.uxApplicationNameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-			this.uxApplicationNameColumn.Width = 110;
-			// 
-			// uxCategoryColumn
-			// 
-			this.uxCategoryColumn.DataPropertyName = "Category";
-			this.uxCategoryColumn.HeaderText = "Category";
-			this.uxCategoryColumn.Name = "uxCategoryColumn";
-			this.uxCategoryColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.uxCategoryColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-			this.uxCategoryColumn.Width = 70;
-			// 
-			// uxMessageColumn
-			// 
-			this.uxMessageColumn.DataPropertyName = "Message";
-			this.uxMessageColumn.HeaderText = "Message";
-			this.uxMessageColumn.Name = "uxMessageColumn";
-			this.uxMessageColumn.Width = 400;
-			// 
-			// uxExceptionStack
-			// 
-			this.uxExceptionStack.DataPropertyName = "ExceptionStack";
-			this.uxExceptionStack.HeaderText = "Stack";
-			this.uxExceptionStack.Name = "uxExceptionStack";
-			this.uxExceptionStack.Width = 200;
 			// 
 			// uxStackTextBox
 			// 
@@ -205,101 +147,43 @@
             this.uxConfigurationButton,
             this.toolStripSeparator1,
             this.uxScrollingButton,
+            this.uxStopStartLogToolStripButton,
             this.uxClearButton,
             this.toolStripSeparator2,
             this.toolStripButton1,
+            this.uxFatalFilterButton,
             this.uxExceptionFilterButton,
             this.uxWarningFilterButton,
             this.uxNotificationFilterButton,
-            this.uxDebugFilterButton});
+            this.uxDebugFilterButton,
+            this.toolStripSeparator3,
+            this.uxSearchToolStripTextBox,
+            this.uxSearchToolStripButton});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip1.Name = "toolStrip1";
 			this.toolStrip1.Size = new System.Drawing.Size(1002, 25);
 			this.toolStrip1.TabIndex = 14;
 			this.toolStrip1.Text = "toolStrip1";
 			// 
-			// uxConfigurationButton
-			// 
-			this.uxConfigurationButton.Image = global::LogR.Monitor.Properties.Resources.PropertiesHS;
-			this.uxConfigurationButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.uxConfigurationButton.Name = "uxConfigurationButton";
-			this.uxConfigurationButton.Size = new System.Drawing.Size(101, 22);
-			this.uxConfigurationButton.Text = "Configuration";
-			this.uxConfigurationButton.Click += new System.EventHandler(this.StartConfigurationClick);
-			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-			// 
-			// uxScrollingButton
-			// 
-			this.uxScrollingButton.Image = ((System.Drawing.Image)(resources.GetObject("uxScrollingButton.Image")));
-			this.uxScrollingButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.uxScrollingButton.Name = "uxScrollingButton";
-			this.uxScrollingButton.Size = new System.Drawing.Size(99, 22);
-			this.uxScrollingButton.Text = "Stop scrolling";
-			// 
-			// uxClearButton
-			// 
-			this.uxClearButton.Image = ((System.Drawing.Image)(resources.GetObject("uxClearButton.Image")));
-			this.uxClearButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.uxClearButton.Name = "uxClearButton";
-			this.uxClearButton.Size = new System.Drawing.Size(54, 22);
-			this.uxClearButton.Text = "Clear";
 			// 
 			// toolStripSeparator2
 			// 
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
 			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
 			// 
-			// toolStripButton1
+			// toolStripSeparator3
 			// 
-			this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton1.Name = "toolStripButton1";
-			this.toolStripButton1.Size = new System.Drawing.Size(51, 22);
-			this.toolStripButton1.Text = "Save";
+			this.toolStripSeparator3.Name = "toolStripSeparator3";
+			this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
 			// 
-			// uxExceptionFilterButton
+			// uxSearchToolStripTextBox
 			// 
-			this.uxExceptionFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.uxExceptionFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.uxExceptionFilterButton.Image = ((System.Drawing.Image)(resources.GetObject("uxExceptionFilterButton.Image")));
-			this.uxExceptionFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.uxExceptionFilterButton.Name = "uxExceptionFilterButton";
-			this.uxExceptionFilterButton.Size = new System.Drawing.Size(62, 22);
-			this.uxExceptionFilterButton.Text = "Exception";
-			// 
-			// uxWarningFilterButton
-			// 
-			this.uxWarningFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.uxWarningFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.uxWarningFilterButton.Image = ((System.Drawing.Image)(resources.GetObject("uxWarningFilterButton.Image")));
-			this.uxWarningFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.uxWarningFilterButton.Name = "uxWarningFilterButton";
-			this.uxWarningFilterButton.Size = new System.Drawing.Size(56, 22);
-			this.uxWarningFilterButton.Text = "Warning";
-			// 
-			// uxNotificationFilterButton
-			// 
-			this.uxNotificationFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.uxNotificationFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.uxNotificationFilterButton.Image = ((System.Drawing.Image)(resources.GetObject("uxNotificationFilterButton.Image")));
-			this.uxNotificationFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.uxNotificationFilterButton.Name = "uxNotificationFilterButton";
-			this.uxNotificationFilterButton.Size = new System.Drawing.Size(74, 22);
-			this.uxNotificationFilterButton.Text = "Notification";
-			// 
-			// uxDebugFilterButton
-			// 
-			this.uxDebugFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.uxDebugFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.uxDebugFilterButton.Image = ((System.Drawing.Image)(resources.GetObject("uxDebugFilterButton.Image")));
-			this.uxDebugFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.uxDebugFilterButton.Name = "uxDebugFilterButton";
-			this.uxDebugFilterButton.Size = new System.Drawing.Size(46, 22);
-			this.uxDebugFilterButton.Text = "Debug";
+			this.uxSearchToolStripTextBox.Name = "uxSearchToolStripTextBox";
+			this.uxSearchToolStripTextBox.Size = new System.Drawing.Size(150, 25);
 			// 
 			// tabControl1
 			// 
@@ -345,6 +229,106 @@
 			this.uxNotificationRichTextBox.TabIndex = 0;
 			this.uxNotificationRichTextBox.Text = "";
 			// 
+			// uxConfigurationButton
+			// 
+			this.uxConfigurationButton.Image = global::LogR.Monitor.Properties.Resources.PropertiesHS;
+			this.uxConfigurationButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.uxConfigurationButton.Name = "uxConfigurationButton";
+			this.uxConfigurationButton.Size = new System.Drawing.Size(101, 22);
+			this.uxConfigurationButton.Text = "Configuration";
+			this.uxConfigurationButton.Click += new System.EventHandler(this.StartConfigurationClick);
+			// 
+			// uxScrollingButton
+			// 
+			this.uxScrollingButton.Image = global::LogR.Monitor.Properties.Resources.start_20x20;
+			this.uxScrollingButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.uxScrollingButton.Name = "uxScrollingButton";
+			this.uxScrollingButton.Size = new System.Drawing.Size(99, 22);
+			this.uxScrollingButton.Text = "Stop scrolling";
+			// 
+			// uxStopStartLogToolStripButton
+			// 
+			this.uxStopStartLogToolStripButton.Image = global::LogR.Monitor.Properties.Resources.start_20x20;
+			this.uxStopStartLogToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.uxStopStartLogToolStripButton.Name = "uxStopStartLogToolStripButton";
+			this.uxStopStartLogToolStripButton.Size = new System.Drawing.Size(76, 22);
+			this.uxStopStartLogToolStripButton.Text = "Stop logs";
+			// 
+			// uxClearButton
+			// 
+			this.uxClearButton.Image = ((System.Drawing.Image)(resources.GetObject("uxClearButton.Image")));
+			this.uxClearButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.uxClearButton.Name = "uxClearButton";
+			this.uxClearButton.Size = new System.Drawing.Size(54, 22);
+			this.uxClearButton.Text = "Clear";
+			// 
+			// toolStripButton1
+			// 
+			this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton1.Name = "toolStripButton1";
+			this.toolStripButton1.Size = new System.Drawing.Size(51, 22);
+			this.toolStripButton1.Text = "Save";
+			// 
+			// uxFatalFilterButton
+			// 
+			this.uxFatalFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.uxFatalFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.uxFatalFilterButton.Image = ((System.Drawing.Image)(resources.GetObject("uxFatalFilterButton.Image")));
+			this.uxFatalFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.uxFatalFilterButton.Name = "uxFatalFilterButton";
+			this.uxFatalFilterButton.Size = new System.Drawing.Size(36, 22);
+			this.uxFatalFilterButton.Text = "Fatal";
+			// 
+			// uxExceptionFilterButton
+			// 
+			this.uxExceptionFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.uxExceptionFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.uxExceptionFilterButton.Image = ((System.Drawing.Image)(resources.GetObject("uxExceptionFilterButton.Image")));
+			this.uxExceptionFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.uxExceptionFilterButton.Name = "uxExceptionFilterButton";
+			this.uxExceptionFilterButton.Size = new System.Drawing.Size(62, 22);
+			this.uxExceptionFilterButton.Text = "Exception";
+			// 
+			// uxWarningFilterButton
+			// 
+			this.uxWarningFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.uxWarningFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.uxWarningFilterButton.Image = ((System.Drawing.Image)(resources.GetObject("uxWarningFilterButton.Image")));
+			this.uxWarningFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.uxWarningFilterButton.Name = "uxWarningFilterButton";
+			this.uxWarningFilterButton.Size = new System.Drawing.Size(56, 22);
+			this.uxWarningFilterButton.Text = "Warning";
+			// 
+			// uxNotificationFilterButton
+			// 
+			this.uxNotificationFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.uxNotificationFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.uxNotificationFilterButton.Image = ((System.Drawing.Image)(resources.GetObject("uxNotificationFilterButton.Image")));
+			this.uxNotificationFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.uxNotificationFilterButton.Name = "uxNotificationFilterButton";
+			this.uxNotificationFilterButton.Size = new System.Drawing.Size(74, 22);
+			this.uxNotificationFilterButton.Text = "Notification";
+			// 
+			// uxDebugFilterButton
+			// 
+			this.uxDebugFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.uxDebugFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.uxDebugFilterButton.Image = ((System.Drawing.Image)(resources.GetObject("uxDebugFilterButton.Image")));
+			this.uxDebugFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.uxDebugFilterButton.Name = "uxDebugFilterButton";
+			this.uxDebugFilterButton.Size = new System.Drawing.Size(46, 22);
+			this.uxDebugFilterButton.Text = "Debug";
+			// 
+			// uxSearchToolStripButton
+			// 
+			this.uxSearchToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.uxSearchToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("uxSearchToolStripButton.Image")));
+			this.uxSearchToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.uxSearchToolStripButton.Name = "uxSearchToolStripButton";
+			this.uxSearchToolStripButton.Size = new System.Drawing.Size(23, 22);
+			this.uxSearchToolStripButton.Text = "Search";
+			// 
 			// dataGridViewTextBoxColumn1
 			// 
 			this.dataGridViewTextBoxColumn1.DataPropertyName = "CreationDate";
@@ -354,6 +338,63 @@
 			this.dataGridViewTextBoxColumn1.HeaderText = "Date";
 			this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
 			this.dataGridViewTextBoxColumn1.Width = 70;
+			// 
+			// dataGridViewTextBoxColumn2
+			// 
+			this.dataGridViewTextBoxColumn2.DataPropertyName = "Message";
+			this.dataGridViewTextBoxColumn2.FillWeight = 110F;
+			this.dataGridViewTextBoxColumn2.HeaderText = "Message";
+			this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+			this.dataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+			this.dataGridViewTextBoxColumn2.Width = 400;
+			// 
+			// dataGridViewTextBoxColumn3
+			// 
+			this.dataGridViewTextBoxColumn3.DataPropertyName = "ExceptionStack";
+			this.dataGridViewTextBoxColumn3.FillWeight = 120F;
+			this.dataGridViewTextBoxColumn3.HeaderText = "Stack";
+			this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+			this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+			this.dataGridViewTextBoxColumn3.Width = 200;
+			// 
+			// dataGridViewTextBoxColumn4
+			// 
+			this.dataGridViewTextBoxColumn4.DataPropertyName = "MachineName";
+			this.dataGridViewTextBoxColumn4.Frozen = true;
+			this.dataGridViewTextBoxColumn4.HeaderText = "Machine";
+			this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+			this.dataGridViewTextBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+			this.dataGridViewTextBoxColumn4.Width = 70;
+			// 
+			// dataGridViewTextBoxColumn5
+			// 
+			this.dataGridViewTextBoxColumn5.DataPropertyName = "HostName";
+			this.dataGridViewTextBoxColumn5.Frozen = true;
+			this.dataGridViewTextBoxColumn5.HeaderText = "Host";
+			this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+			this.dataGridViewTextBoxColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridViewTextBoxColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+			this.dataGridViewTextBoxColumn5.Width = 70;
+			// 
+			// dataGridViewTextBoxColumn6
+			// 
+			this.dataGridViewTextBoxColumn6.DataPropertyName = "ApplicationName";
+			this.dataGridViewTextBoxColumn6.Frozen = true;
+			this.dataGridViewTextBoxColumn6.HeaderText = "Application";
+			this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+			this.dataGridViewTextBoxColumn6.Width = 60;
+			// 
+			// dataGridViewTextBoxColumn7
+			// 
+			this.dataGridViewTextBoxColumn7.DataPropertyName = "Name";
+			this.dataGridViewTextBoxColumn7.Frozen = true;
+			this.dataGridViewTextBoxColumn7.HeaderText = "Task Name";
+			this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+			this.dataGridViewTextBoxColumn7.ReadOnly = true;
+			this.dataGridViewTextBoxColumn7.Width = 150;
 			// 
 			// dataGridViewAutoFilterTextBoxColumn1
 			// 
@@ -387,20 +428,6 @@
 			this.dataGridViewAutoFilterTextBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
 			this.dataGridViewAutoFilterTextBoxColumn4.Width = 60;
 			// 
-			// dataGridViewTextBoxColumn2
-			// 
-			this.dataGridViewTextBoxColumn2.DataPropertyName = "Message";
-			this.dataGridViewTextBoxColumn2.HeaderText = "Message";
-			this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-			this.dataGridViewTextBoxColumn2.Width = 400;
-			// 
-			// dataGridViewTextBoxColumn3
-			// 
-			this.dataGridViewTextBoxColumn3.DataPropertyName = "ExceptionStack";
-			this.dataGridViewTextBoxColumn3.HeaderText = "Stack";
-			this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-			this.dataGridViewTextBoxColumn3.Width = 200;
-			// 
 			// dataGridViewCheckBoxColumn1
 			// 
 			this.dataGridViewCheckBoxColumn1.DataPropertyName = "IsEnabled";
@@ -411,39 +438,6 @@
 			this.dataGridViewCheckBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
 			this.dataGridViewCheckBoxColumn1.ToolTipText = "Enable";
 			this.dataGridViewCheckBoxColumn1.Width = 20;
-			// 
-			// dataGridViewTextBoxColumn4
-			// 
-			this.dataGridViewTextBoxColumn4.DataPropertyName = "MachineName";
-			this.dataGridViewTextBoxColumn4.Frozen = true;
-			this.dataGridViewTextBoxColumn4.HeaderText = "Machine";
-			this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-			this.dataGridViewTextBoxColumn4.Width = 70;
-			// 
-			// dataGridViewTextBoxColumn5
-			// 
-			this.dataGridViewTextBoxColumn5.DataPropertyName = "HostName";
-			this.dataGridViewTextBoxColumn5.Frozen = true;
-			this.dataGridViewTextBoxColumn5.HeaderText = "Host";
-			this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-			this.dataGridViewTextBoxColumn5.Width = 70;
-			// 
-			// dataGridViewTextBoxColumn6
-			// 
-			this.dataGridViewTextBoxColumn6.DataPropertyName = "ApplicationName";
-			this.dataGridViewTextBoxColumn6.Frozen = true;
-			this.dataGridViewTextBoxColumn6.HeaderText = "Application";
-			this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-			this.dataGridViewTextBoxColumn6.Width = 60;
-			// 
-			// dataGridViewTextBoxColumn7
-			// 
-			this.dataGridViewTextBoxColumn7.DataPropertyName = "Name";
-			this.dataGridViewTextBoxColumn7.Frozen = true;
-			this.dataGridViewTextBoxColumn7.HeaderText = "Task Name";
-			this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-			this.dataGridViewTextBoxColumn7.ReadOnly = true;
-			this.dataGridViewTextBoxColumn7.Width = 150;
 			// 
 			// dataGridViewCheckBoxColumn2
 			// 
@@ -510,6 +504,60 @@
 			this.dataGridViewCheckBoxColumn3.Name = "dataGridViewCheckBoxColumn3";
 			this.dataGridViewCheckBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
 			this.dataGridViewCheckBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			// 
+			// uxCreationDateColumn
+			// 
+			this.uxCreationDateColumn.DataPropertyName = "CreationDate";
+			dataGridViewCellStyle1.Format = "T";
+			dataGridViewCellStyle1.NullValue = null;
+			this.uxCreationDateColumn.DefaultCellStyle = dataGridViewCellStyle1;
+			this.uxCreationDateColumn.HeaderText = "Date";
+			this.uxCreationDateColumn.Name = "uxCreationDateColumn";
+			this.uxCreationDateColumn.Width = 80;
+			// 
+			// uxMachineNameColumn
+			// 
+			this.uxMachineNameColumn.DataPropertyName = "MachineName";
+			this.uxMachineNameColumn.FillWeight = 110F;
+			this.uxMachineNameColumn.HeaderText = "Machine";
+			this.uxMachineNameColumn.Name = "uxMachineNameColumn";
+			this.uxMachineNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.uxMachineNameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+			// 
+			// uxHosterNameColumn
+			// 
+			this.uxHosterNameColumn.DataPropertyName = "HostName";
+			this.uxHosterNameColumn.FillWeight = 120F;
+			this.uxHosterNameColumn.HeaderText = "Host";
+			this.uxHosterNameColumn.Name = "uxHosterNameColumn";
+			this.uxHosterNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.uxHosterNameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+			this.uxHosterNameColumn.Width = 110;
+			// 
+			// uxApplicationNameColumn
+			// 
+			this.uxApplicationNameColumn.DataPropertyName = "ApplicationName";
+			this.uxApplicationNameColumn.HeaderText = "Application";
+			this.uxApplicationNameColumn.Name = "uxApplicationNameColumn";
+			this.uxApplicationNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.uxApplicationNameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+			this.uxApplicationNameColumn.Width = 110;
+			// 
+			// uxCategoryColumn
+			// 
+			this.uxCategoryColumn.DataPropertyName = "Category";
+			this.uxCategoryColumn.HeaderText = "Category";
+			this.uxCategoryColumn.Name = "uxCategoryColumn";
+			this.uxCategoryColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.uxCategoryColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+			this.uxCategoryColumn.Width = 70;
+			// 
+			// uxMessageColumn
+			// 
+			this.uxMessageColumn.DataPropertyName = "Message";
+			this.uxMessageColumn.HeaderText = "Message";
+			this.uxMessageColumn.Name = "uxMessageColumn";
+			this.uxMessageColumn.Width = 400;
 			// 
 			// MonitorView
 			// 
@@ -579,12 +627,16 @@
 		private System.Windows.Forms.ToolStripButton uxNotificationFilterButton;
 		private System.Windows.Forms.ToolStripButton uxDebugFilterButton;
 		private System.Windows.Forms.ToolStripButton uxWarningFilterButton;
+		private System.Windows.Forms.ToolStripButton uxFatalFilterButton;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+		private System.Windows.Forms.ToolStripTextBox uxSearchToolStripTextBox;
+		private System.Windows.Forms.ToolStripButton uxSearchToolStripButton;
+		private System.Windows.Forms.ToolStripButton uxStopStartLogToolStripButton;
 		private System.Windows.Forms.DataGridViewTextBoxColumn uxCreationDateColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn uxMachineNameColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn uxHosterNameColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn uxApplicationNameColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn uxCategoryColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn uxMessageColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn uxExceptionStack;
 	}
 }

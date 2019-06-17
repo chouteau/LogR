@@ -11,6 +11,7 @@ namespace LogR.Monitor.Views
 	public partial class MonitorView : Form, IMonitorView
 	{
 		private bool m_ScrollingEnabled = true;
+		private bool m_AppendLogEnabled = true;
 		private bool m_Filtering = false;
 		private ActionQueue m_ActionQueue;
 		private System.Linq.Expressions.Expression<Func<ViewModels.LogViewModel, bool>> m_CurrentFilter;
@@ -29,6 +30,10 @@ namespace LogR.Monitor.Views
 
 		public void AddLog(ViewModels.LogViewModel log)
 		{
+			if (!m_AppendLogEnabled)
+			{
+				return;
+			}
 			m_ActionQueue.Add((Action)(() =>
 				{
 					this.UnfilteredLogList.Add(log);
@@ -93,14 +98,53 @@ namespace LogR.Monitor.Views
 			};
 			this.uxScrollingButton.Click += delegate(object s, EventArgs arg)
 			{
-				this.m_ScrollingEnabled = !this.m_ScrollingEnabled;
-				this.uxScrollingButton.Text = (this.m_ScrollingEnabled ? "Stop scrolling" : "Start scrolling");
+				if (m_ScrollingEnabled)
+				{
+					m_ScrollingEnabled = false;
+					uxScrollingButton.Text = "Start scrolling";
+					uxScrollingButton.Image = Properties.Resources.stop_pause_16x16;
+				}
+				else
+				{
+					m_ScrollingEnabled = true;
+					this.uxScrollingButton.Text = "Stop scrolling";
+					uxScrollingButton.Image = Properties.Resources.start_20x20;
+				}
 			};
 
 			uxDebugFilterButton.Click += (s, arg) => { FilterDataSource(uxDebugFilterButton, i => i.Category == Models.Category.Debug); };
-			uxWarningFilterButton.Click += (s, arg) => { FilterDataSource(uxWarningFilterButton, i => i.Category == Models.Category.Warn); }; ;
-			uxExceptionFilterButton.Click += (s, arg) => { FilterDataSource(uxExceptionFilterButton, i => i.Category == Models.Category.Error || i.Category == Models.Category.Fatal); }; ;
-			uxNotificationFilterButton.Click += (s, arg) => { FilterDataSource(uxNotificationFilterButton, i => i.Category == Models.Category.Notification); }; ;
+			uxWarningFilterButton.Click += (s, arg) => { FilterDataSource(uxWarningFilterButton, i => i.Category == Models.Category.Warn); }; 
+			uxExceptionFilterButton.Click += (s, arg) => { FilterDataSource(uxExceptionFilterButton, i => i.Category == Models.Category.Error || i.Category == Models.Category.Fatal); }; 
+			uxNotificationFilterButton.Click += (s, arg) => { FilterDataSource(uxNotificationFilterButton, i => i.Category == Models.Category.Notification); }; 
+			uxFatalFilterButton.Click += (s, arg) => { FilterDataSource(uxFatalFilterButton, i => i.Category == Models.Category.Fatal); };
+
+			uxSearchToolStripButton.Click += (s, arg) =>
+			{
+				Search(uxSearchToolStripTextBox.Text);
+			};
+			uxSearchToolStripTextBox.KeyDown += (s, arg) =>
+			{
+				if (arg.KeyCode == Keys.Enter)
+				{
+					Search(uxSearchToolStripTextBox.Text);
+				}
+			};
+
+			uxStopStartLogToolStripButton.Click += (s, arg) =>
+			{
+				if (m_AppendLogEnabled)
+				{
+					m_AppendLogEnabled = false;
+					uxStopStartLogToolStripButton.Text = "Start logs";
+					uxStopStartLogToolStripButton.Image = Properties.Resources.stop_pause_16x16;
+				}
+				else
+				{
+					m_AppendLogEnabled = true;
+					uxStopStartLogToolStripButton.Text = "Stop logs";
+					uxStopStartLogToolStripButton.Image = Properties.Resources.start_20x20;
+				}
+			};
 
 			m_ActionQueue.Run();
 		}
@@ -210,5 +254,33 @@ namespace LogR.Monitor.Views
 			m_Filtering = false;
 		}
 
+		private void Search(string input)
+		{
+			if (string.IsNullOrWhiteSpace(input))
+			{
+				m_CurrentFilter = null;
+				LogList.Clear();
+				foreach (var item in UnfilteredLogList)
+				{
+					LogList.Add(item);
+				}
+				return;
+			}
+			m_Filtering = true;
+			LogList.Clear();
+			var list = UnfilteredLogList.AsQueryable()
+							.Where(i => (i.Message??string.Empty).IndexOf(input, StringComparison.InvariantCultureIgnoreCase) != -1
+										|| (i.ExceptionStack??string.Empty).IndexOf(input, StringComparison.InvariantCultureIgnoreCase) != -1
+										|| (i.MachineName??string.Empty).IndexOf(input, StringComparison.InvariantCultureIgnoreCase) != -1
+										|| (i.HostName??string.Empty).IndexOf(input, StringComparison.InvariantCultureIgnoreCase) != -1
+									)
+							.ToList();
+			foreach (var item in list)
+			{
+				LogList.Add(item);
+			}
+			uxLogBindingSource.MoveLast();
+			m_Filtering = false;
+		}
 	}
 }

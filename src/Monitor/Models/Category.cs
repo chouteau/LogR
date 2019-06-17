@@ -2,6 +2,7 @@ using System;
 
 namespace LogR.Monitor.Models
 {
+	// [Flags]
 	public enum Category
 	{
 		Debug,

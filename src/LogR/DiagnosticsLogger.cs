@@ -184,6 +184,10 @@ namespace LogR
 
 		private string GetContent(System.Exception ex)
 		{
+			if (ex == null)
+			{
+				ex = new Exception("Empty Exception");
+			}
 			var content = new StringBuilder();
 			content.Append(ex.Message);
 			content.Append(ex.StackTrace);
