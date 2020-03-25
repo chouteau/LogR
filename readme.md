@@ -1,4 +1,4 @@
-# LogR (1.4.11)
+# LogR (1.4.14.5)
 Realtime Logger with windows monitor
 
 ## Where can I get it ?
