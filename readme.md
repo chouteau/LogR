@@ -3,9 +3,7 @@ Realtime Logger with windows monitor
 
 ## Where can I get it ?
 
-First, [install Nuget](http://docs.nuget.org/docs/start-here/installing-nuget) then, install [Aquila](http://www.nuget.org/packages/aquila) from the package manager console.
-
-https://www.nuget.org/packages/LogR
+**First**, install [LogR](https://www.nuget.org/packages/LogR) from the package manager console in your app.
 
 > PM> Install-Package LogR
 
