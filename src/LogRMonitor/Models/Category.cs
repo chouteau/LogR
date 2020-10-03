@@ -1,6 +1,6 @@
 using System;
 
-namespace LogR.Monitor.Models
+namespace LogRMonitor.Models
 {
 	// [Flags]
 	public enum Category

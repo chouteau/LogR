@@ -9,3 +9,35 @@ https://www.nuget.org/packages/LogR
 
 > PM> Install-Package LogR
 
+LogRCore loggin for dotnetcore.
+
+```csharp
+
+public class Startup
+{
+	public Startup(IConfiguration configuration)
+	{
+		Configuration = configuration;
+	}
+
+	public IConfiguration Configuration { get; }
+
+	public void ConfigureServices(IServiceCollection services)
+	{
+	    var logRConfig = new LogRCore.LogRConfiguration()
+        {
+            LogLevel = LogLevel.Debug,
+            ApplicationName = "YourApplicationName",
+            EndPoint = $"/logger",
+            HostName = "WebApp"
+        };
+
+        services.ConfigureLogR(logRConfig);
+	}
+
+	public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+	{
+		app.UseLogR(loggerFactory);
+	}
+}
+```

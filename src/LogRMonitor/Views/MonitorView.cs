@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Reflection;
 
-namespace LogR.Monitor.Views
+namespace LogRMonitor.Views
 {
 	public partial class MonitorView : Form, IMonitorView
 	{
@@ -108,7 +108,7 @@ namespace LogR.Monitor.Views
 				{
 					m_ScrollingEnabled = true;
 					this.uxScrollingButton.Text = "Stop scrolling";
-					uxScrollingButton.Image = Properties.Resources.start_20x20;
+					uxScrollingButton.Image = LogRMonitor.Properties.Resources.start_20x20;
 				}
 			};
 

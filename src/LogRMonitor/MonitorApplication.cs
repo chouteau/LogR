@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-using LogR.Monitor.Models;
+using LogRMonitor.Models;
 
-namespace LogR.Monitor
+namespace LogRMonitor
 {
 	public class MonitorApplication : System.Windows.Forms.ApplicationContext
 	{
