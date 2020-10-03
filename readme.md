@@ -24,15 +24,15 @@ public class Startup
 
 	public void ConfigureServices(IServiceCollection services)
 	{
-	    var logRConfig = new LogRCore.LogRConfiguration()
-        {
-            LogLevel = LogLevel.Debug,
-            ApplicationName = "YourApplicationName",
-            EndPoint = $"/logger",
-            HostName = "WebApp"
-        };
+		var logRConfig = new LogRCore.LogRConfiguration()
+		{
+			LogLevel = LogLevel.Debug,
+			ApplicationName = "YourApplicationName",
+			EndPoint = $"/logger",
+			HostName = "WebApp"
+		};
 
-        services.ConfigureLogR(logRConfig);
+		services.ConfigureLogR(logRConfig);
 	}
 
 	public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
