@@ -9,7 +9,7 @@ https://www.nuget.org/packages/LogR
 
 > PM> Install-Package LogR
 
-LogRCore loggin for dotnetcore.
+LogRCore logging for dotnetcore.
 
 ```csharp
 
