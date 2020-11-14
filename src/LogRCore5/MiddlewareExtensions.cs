@@ -40,6 +40,7 @@ namespace LogRCore
 										| Microsoft.AspNetCore.Http.Connections.HttpTransportType.LongPolling;
 				});
 			});
+
 			loggerFactory.AddLogRProvider(applicationBuilder.ApplicationServices);
 
 			return applicationBuilder;

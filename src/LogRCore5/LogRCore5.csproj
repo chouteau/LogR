@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>LogRCore</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\LogRCore\ExceptionExtentions.cs" Link="ExceptionExtentions.cs" />
+    <Compile Include="..\LogRCore\LogInfo.cs" Link="LogInfo.cs" />
+    <Compile Include="..\LogRCore\LogRConfiguration.cs" Link="LogRConfiguration.cs" />
+    <Compile Include="..\LogRCore\LogRFactory.cs" Link="LogRFactory.cs" />
+    <Compile Include="..\LogRCore\LogRHub.cs" Link="LogRHub.cs" />
+    <Compile Include="..\LogRCore\LogRLogger.cs" Link="LogRLogger.cs" />
+    <Compile Include="..\LogRCore\LogRProvider.cs" Link="LogRProvider.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="5.0.0" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+</Project>
