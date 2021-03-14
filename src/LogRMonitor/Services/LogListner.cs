@@ -41,6 +41,8 @@ namespace LogRMonitor.Services
 								.WithUrl(m_Settings.SignalRUrl)
 								.Build();
 
+			var endPoint = new Uri(m_Settings.SignalRUrl).PathAndQuery.TrimStart('/');
+
 			m_HubConnection.Closed += async (error) =>
 			{
 				try
@@ -55,6 +57,10 @@ namespace LogRMonitor.Services
 
 			m_HubConnection.On<Models.Log>("WriteLog", log =>
 			{
+				if (log.Message?.IndexOf($"{endPoint}", StringComparison.InvariantCultureIgnoreCase) != -1)
+				{
+					return;
+				}
 				if (log == null)
 				{
 					return;
