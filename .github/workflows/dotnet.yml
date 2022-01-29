@@ -16,7 +16,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore LogRPush.sln.sln
+      run: dotnet restore LogRPush.sln
     - name: Build
       run: dotnet build LogRPush.sln --no-restore
     - name: Publish LogRPush to nuget
