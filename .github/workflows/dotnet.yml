@@ -22,7 +22,7 @@ jobs:
     - name: Publish LogRPush to nuget
       uses: rohith/publish-nuget@v2
       with:
-        PROJECT_FILE_PATH: ${{github.workspace}}\src\LogRPush\LogRPush.csproj
+        PROJECT_FILE_PATH: ${{github.workspace}}/src/LogRPush/LogRPush.csproj
         PACKAGE_NAME: LogRPush
         NUGET_SOURCE: https://api.nuget.org
         NUGET_KEY: ${{secrets.nuget}}
