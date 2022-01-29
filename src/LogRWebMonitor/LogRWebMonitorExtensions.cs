@@ -23,7 +23,7 @@ namespace LogRWebMonitor
             return builder;   
         }
 
-        public static Task UseLogRWebMonitor(this WebApplication app)
+        public static void UseLogRWebMonitor(this WebApplication app)
         {
             var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
             var logCollector = app.Services.GetRequiredService<LogCollector>();
@@ -35,7 +35,6 @@ namespace LogRWebMonitor
                 collector.AddLog(log);
                 return Microsoft.AspNetCore.Http.Results.Ok();
             });
-            return Task.CompletedTask;
         }
     }
 }
