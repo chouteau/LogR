@@ -1,14 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.32112.339
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogR", "src\LogR\LogR.csproj", "{2A51087B-F41B-4EFF-AE84-921CE0DC9FBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogR.Tests", "src\LogR.Tests\LogR.Tests.csproj", "{F44B7CC8-D5B7-4118-A493-B7B3AB64EE23}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{115EFC4C-CE04-4705-8E6D-C1D13B9A01BF}"
 	ProjectSection(SolutionItems) = preProject
 		changelog.txt = changelog.txt
 		license.md = license.md
 		readme.md = readme.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monitor", "src\Monitor\Monitor.csproj", "{7CAD0B25-7B3C-4268-8952-6F056FF72C16}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorLauncher", "src\MonitorLauncher\MonitorLauncher.csproj", "{3A0BCEA7-9922-4949-A8BC-7B4DC21E35C3}"
 EndProject
@@ -18,11 +24,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogRMonitor", "src\LogRMoni
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DotnetCore3.1", "DotnetCore3.1", "{6C5B4FC1-3A4C-4110-BF53-4A05A18DC64A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dotnet4.7", "Dotnet4.7", "{626087C5-124F-4B48-82E3-34F6E65BE43A}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DotnetCore5", "DotnetCore5", "{1EAF3BAF-5344-4F65-B8F2-299694F89FB1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogRCore5", "src\LogRCore5\LogRCore5.csproj", "{8BC06F07-6450-4058-96A2-9802A9DD1646}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogRPush", "src\LogRPush\LogRPush.csproj", "{38156AB3-1C52-4026-BE6E-B76969E4E7F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +36,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A51087B-F41B-4EFF-AE84-921CE0DC9FBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A51087B-F41B-4EFF-AE84-921CE0DC9FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A51087B-F41B-4EFF-AE84-921CE0DC9FBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A51087B-F41B-4EFF-AE84-921CE0DC9FBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F44B7CC8-D5B7-4118-A493-B7B3AB64EE23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F44B7CC8-D5B7-4118-A493-B7B3AB64EE23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F44B7CC8-D5B7-4118-A493-B7B3AB64EE23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F44B7CC8-D5B7-4118-A493-B7B3AB64EE23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CAD0B25-7B3C-4268-8952-6F056FF72C16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CAD0B25-7B3C-4268-8952-6F056FF72C16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CAD0B25-7B3C-4268-8952-6F056FF72C16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CAD0B25-7B3C-4268-8952-6F056FF72C16}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3A0BCEA7-9922-4949-A8BC-7B4DC21E35C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3A0BCEA7-9922-4949-A8BC-7B4DC21E35C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A0BCEA7-9922-4949-A8BC-7B4DC21E35C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -46,15 +64,14 @@ Global
 		{8BC06F07-6450-4058-96A2-9802A9DD1646}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BC06F07-6450-4058-96A2-9802A9DD1646}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BC06F07-6450-4058-96A2-9802A9DD1646}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38156AB3-1C52-4026-BE6E-B76969E4E7F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38156AB3-1C52-4026-BE6E-B76969E4E7F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38156AB3-1C52-4026-BE6E-B76969E4E7F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38156AB3-1C52-4026-BE6E-B76969E4E7F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{2A51087B-F41B-4EFF-AE84-921CE0DC9FBE} = {626087C5-124F-4B48-82E3-34F6E65BE43A}
+		{F44B7CC8-D5B7-4118-A493-B7B3AB64EE23} = {626087C5-124F-4B48-82E3-34F6E65BE43A}
+		{7CAD0B25-7B3C-4268-8952-6F056FF72C16} = {626087C5-124F-4B48-82E3-34F6E65BE43A}
 		{F5239C66-43C5-4C02-A953-FA2631909EEE} = {6C5B4FC1-3A4C-4110-BF53-4A05A18DC64A}
 		{D140EEC1-6B5E-444D-AC70-73B40F94D8B9} = {6C5B4FC1-3A4C-4110-BF53-4A05A18DC64A}
 		{8BC06F07-6450-4058-96A2-9802A9DD1646} = {1EAF3BAF-5344-4F65-B8F2-299694F89FB1}

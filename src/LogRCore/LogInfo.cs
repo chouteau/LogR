@@ -19,8 +19,6 @@ namespace LogRCore
 
 	public class LogInfo : IDisposable
 	{
-		public static readonly object m_Lock = new object();
-
 		public LogInfo()
 		{
 			this.CreationDate = DateTime.Now;
