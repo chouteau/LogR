@@ -12,7 +12,7 @@ public static class LogRExtensions
         var entryAssembly = Assembly.GetEntryAssembly();
         var version = entryAssembly?.GetName()?.Version?.ToString() ?? "0.0.0.0";
         var productAttribute = entryAssembly?.GetCustomAttribute<System.Reflection.AssemblyProductAttribute>();
-        settings.ApplicationName = $"{productAttribute?.Product}({version})";
+        settings.ApplicationName = $"{productAttribute?.Product} ({version})";
 
         services.AddHttpClient("LogRClient", httpClient =>
         {

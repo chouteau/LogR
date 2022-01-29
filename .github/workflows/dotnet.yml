@@ -26,3 +26,10 @@ jobs:
         PACKAGE_NAME: LogRPush
         NUGET_SOURCE: https://api.nuget.org
         NUGET_KEY: ${{secrets.nuget}}
+    - name: Publish LogRWebMonitor to nuget
+      uses: rohith/publish-nuget@v2
+      with:
+        PROJECT_FILE_PATH: ${{github.workspace}}/src/LogRWebMonitor/LogRWebMonitor.csproj
+        PACKAGE_NAME: LogRWebMonitor
+        NUGET_SOURCE: https://api.nuget.org
+        NUGET_KEY: ${{secrets.nuget}}

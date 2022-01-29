@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogRPush", "src\LogRPush\LogRPush.csproj", "{38156AB3-1C52-4026-BE6E-B76969E4E7F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogRWebMonitor", "src\LogRWebMonitor\LogRWebMonitor.csproj", "{ECCC74C6-88D7-4FCE-BA23-6E1F4ADD1530}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{38156AB3-1C52-4026-BE6E-B76969E4E7F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38156AB3-1C52-4026-BE6E-B76969E4E7F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38156AB3-1C52-4026-BE6E-B76969E4E7F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECCC74C6-88D7-4FCE-BA23-6E1F4ADD1530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECCC74C6-88D7-4FCE-BA23-6E1F4ADD1530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECCC74C6-88D7-4FCE-BA23-6E1F4ADD1530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECCC74C6-88D7-4FCE-BA23-6E1F4ADD1530}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
