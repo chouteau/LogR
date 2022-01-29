@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{115EFC4C-CE04-4705-8E6D-C1D13B9A01BF}"
 	ProjectSection(SolutionItems) = preProject
 		changelog.txt = changelog.txt
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		license.md = license.md
 		readme.md = readme.md
 	EndProjectSection
@@ -22,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DotnetCore5", "DotnetCore5"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogRCore5", "src\LogRCore5\LogRCore5.csproj", "{8BC06F07-6450-4058-96A2-9802A9DD1646}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogRPush", "src\LogRPush\LogRPush.csproj", "{38156AB3-1C52-4026-BE6E-B76969E4E7F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogRPush", "src\LogRPush\LogRPush.csproj", "{38156AB3-1C52-4026-BE6E-B76969E4E7F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

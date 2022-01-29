@@ -1,10 +1,8 @@
 name: .NET
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
-    branches: [ master ]
+    branches: [ prod ]
 
 jobs:
   build:
@@ -18,8 +16,15 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore logrpush.sln
     - name: Build
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Publish LogRPush to nuget
+      uses: rohith/publish-nuget@v2
+      with:
+        PROJECT_FILE_PATH: ${{github.workspace}}\src\LogRPush\LogRPush.csproj
+        PACKAGE_NAME: LogRPush
+        NUGET_SOURCE: https://api.nuget.org
+        NUGET_KEY: ${{secrets.nuget}}
