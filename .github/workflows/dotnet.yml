@@ -16,9 +16,9 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore logrpush.sln
+      run: dotnet restore LogRPush.sln.sln
     - name: Build
-      run: dotnet build logrpush.sln --no-restore
+      run: dotnet build LogRPush.sln --no-restore
     - name: Publish LogRPush to nuget
       uses: rohith/publish-nuget@v2
       with:
