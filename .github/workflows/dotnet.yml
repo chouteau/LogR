@@ -18,9 +18,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore logrpush.sln
     - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet build logrpush.sln --no-restore
     - name: Publish LogRPush to nuget
       uses: rohith/publish-nuget@v2
       with:
