@@ -1,4 +1,21 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Forms
+
+<EditForm Model="@filter" OnSubmit="ApplyFilter" class="row gy-2 gx-3 align-items-center filter">
+    <div class="col-auto">
+        @foreach(var level in filter.LevelList)
+        {
+           <InputCheckbox class="form-check-input" @bind-Value="level.Checked" @onclick="(evt) => LevelChanged(level, evt)" />@level.Name
+        }
+    </div>
+    <div class="col-auto">
+        <label class="visually-hidden" for="Search">Search :</label>
+        <InputText @bind-Value="filter.Search" class="form-control" placeholder="Search" />
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Apply</button>
+    </div>
+</EditForm>
 
 <div class="table-responsive">
     <table class="table table-bordered">
@@ -8,17 +25,20 @@
                 <th>MachineName</th>
                 <th>HostName</th>
                 <th>ApplicationName</th>
-                <th>Category</th>
+                <th>Level</th>
                 <th>Context</th>
                 <th>Message</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in LogInfoList)
+            @foreach (var item in logInfoList)
            {
                 var css = string.Empty;
                 switch (item.Category)
                 {
+                    case LogRPush.Category.Trace :
+                        css = "table-secondary";
+                        break;
                     case LogRPush.Category.Debug :
                         css = "table-default";
                         break;

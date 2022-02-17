@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace LogRWebMonitor
 {
-    public static class LogRWebMonitorExtensions
+    public static class StartupExtensions
     {
         public static WebApplicationBuilder AddLogRWebMonitor(this WebApplicationBuilder builder, Action<LogRSettings> config = null)
         {

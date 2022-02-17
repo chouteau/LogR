@@ -55,7 +55,7 @@ internal class InnerLogger : ILogger
 		switch (logLevel)
 		{
 			case LogLevel.Trace:
-				logInfo.Category = LogRPush.Category.Debug;
+				logInfo.Category = LogRPush.Category.Trace;
 				break;
 			case LogLevel.Debug:
 				logInfo.Category = LogRPush.Category.Debug;
