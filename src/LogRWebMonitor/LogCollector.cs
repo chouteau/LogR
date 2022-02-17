@@ -35,14 +35,42 @@ public class LogCollector
         _logDic.Clear();
     }
 
-    public IEnumerable<LogRPush.LogInfo> GetLogInfoList(Func<LogRPush.LogInfo, bool> predicate = null)
+    public IEnumerable<LogRPush.LogInfo> GetLogInfoList(LogFilter logFilter = null)
     {
-        var result = _logDic.Values.OrderByDescending(i => i.CreationDate).ToList();
-        if (predicate != null)
+        var result = _logDic.Values.OrderByDescending(i => i.CreationDate).AsQueryable();
+        if (logFilter != null)
         {
-            result = _logDic.Values.Where(predicate)
-                        .Take(100).ToList();
+            if (!string.IsNullOrWhiteSpace(logFilter.Search))
+			{
+                result = result.Where(i => $"{i.MachineName}{i.Message}{i.ApplicationName}{i.Context}{i.HostName}{i.ExceptionStack}".IndexOf(logFilter.Search, StringComparison.InvariantCultureIgnoreCase) != -1);
+			}
+
+            if (logFilter.LevelList.Any(i => i.Checked))
+			{
+                var levelList = logFilter.LevelList.Where(i => i.Checked).Select(i => i.Value);
+                result = result.Where(i => levelList.Contains(i.Category));
+			}
+
+            if (!string.IsNullOrWhiteSpace(logFilter.MachineName))
+			{
+                result = result.Where(i => i.MachineName.Equals(logFilter.MachineName, StringComparison.InvariantCultureIgnoreCase));
+			}
+
+            if (!string.IsNullOrWhiteSpace(logFilter.HostName))
+            {
+                result = result.Where(i => i.MachineName.Equals(logFilter.HostName, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            if (!string.IsNullOrWhiteSpace(logFilter.ApplicationName))
+            {
+                result = result.Where(i => i.MachineName.Equals(logFilter.ApplicationName, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            if (!string.IsNullOrWhiteSpace(logFilter.Context))
+            {
+                result = result.Where(i => i.MachineName.Equals(logFilter.Context, StringComparison.InvariantCultureIgnoreCase));
+            }
         }
-        return result;
+        return result.Take(100).ToList();
     }
 }
