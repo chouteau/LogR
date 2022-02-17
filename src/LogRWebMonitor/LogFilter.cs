@@ -10,7 +10,7 @@ namespace LogRWebMonitor
 	public class CheckedLevel
 	{
 		public string Name => $"{Value}";
-		public bool	Checked { get; set; }
+		public bool Checked { get; set; } = true;
 		public Category Value { get; set; }
 	}
 
