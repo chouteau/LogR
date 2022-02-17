@@ -1,6 +1,6 @@
-﻿.form-check-input {
-	margin-left: 3px;
-	margin-right: 3px;
+﻿.form-check-label {
+	padding:0 10px 0 0;
+	cursor:pointer;
 }
 
 .filter {
