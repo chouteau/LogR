@@ -1,11 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
 @using Microsoft.AspNetCore.Components.Forms
 
-<EditForm Model="@filter" OnSubmit="ApplyFilter" class="row gy-2 gx-3 align-items-center filter">
+<EditForm Model="@filter" OnSubmit="ApplyFilter" class="row gy-2 gx-3 mb-2 align-items-center filter">
     <div class="col-auto">
         @foreach(var level in filter.LevelList)
         {
-           <InputCheckbox class="form-check-input" @bind-Value="level.Checked" @onclick="(evt) => LevelChanged(level, evt)" />@level.Name
+           <label class="form-check-label"><InputCheckbox class="form-check-input" @bind-Value="level.Checked" @onclick="(evt) => LevelChanged(level, evt)" /> @level.Name</label>
         }
     </div>
     <div class="col-auto">
