@@ -37,7 +37,7 @@ public class LogCollector
 
     public IEnumerable<LogRPush.LogInfo> GetLogInfoList(LogFilter logFilter = null)
     {
-        var result = _logDic.Values.OrderByDescending(i => i.CreationDate).AsQueryable();
+        var result = _logDic.Values.AsQueryable();
         if (logFilter != null)
         {
             if (!string.IsNullOrWhiteSpace(logFilter.Search))
@@ -71,6 +71,8 @@ public class LogCollector
                 result = result.Where(i => i.MachineName.Equals(logFilter.Context, StringComparison.InvariantCultureIgnoreCase));
             }
         }
-        return result.Take(100).ToList();
+        return result.OrderByDescending(i => i.CreationDate)
+                        .Take(Settings.LogCountMax -1)
+                        .ToList();
     }
 }
