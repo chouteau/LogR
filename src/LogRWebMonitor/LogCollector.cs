@@ -58,17 +58,17 @@ public class LogCollector
 
             if (!string.IsNullOrWhiteSpace(logFilter.HostName))
             {
-                result = result.Where(i => i.MachineName.Equals(logFilter.HostName, StringComparison.InvariantCultureIgnoreCase));
+                result = result.Where(i => i.HostName.Equals(logFilter.HostName, StringComparison.InvariantCultureIgnoreCase));
             }
 
             if (!string.IsNullOrWhiteSpace(logFilter.ApplicationName))
             {
-                result = result.Where(i => i.MachineName.Equals(logFilter.ApplicationName, StringComparison.InvariantCultureIgnoreCase));
+                result = result.Where(i => i.ApplicationName.Equals(logFilter.ApplicationName, StringComparison.InvariantCultureIgnoreCase));
             }
 
             if (!string.IsNullOrWhiteSpace(logFilter.Context))
             {
-                result = result.Where(i => i.MachineName.Equals(logFilter.Context, StringComparison.InvariantCultureIgnoreCase));
+                result = result.Where(i => i.Context.Equals(logFilter.Context, StringComparison.InvariantCultureIgnoreCase));
             }
         }
         return result.OrderByDescending(i => i.CreationDate)
