@@ -24,10 +24,17 @@ public class LogCollector
         if (_logDic.Count > Settings.LogCountMax)
         {
             var first = _logDic.First();
-            _logDic.Remove(first.Key, out var byebye);
+            _logDic.TryRemove(first.Key, out var byebye);
         }
         _logDic.TryAdd(logInfo.LogId, logInfo);
-        OnChanged?.Invoke();
+        try
+		{
+            OnChanged?.Invoke();
+        }
+        catch (Exception ex)
+		{
+            Console.WriteLine(ex.ToString());
+		}
     }
 
     public void Clear()
