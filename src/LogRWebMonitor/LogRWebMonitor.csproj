@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
-    <Version>1.0.9.1</Version>
+    <Version>1.0.10.1</Version>
 	  <PackageId>LogRWebMonitor</PackageId>
 	  <PackageProjectUrl>https://github.com/chouteau/LogR</PackageProjectUrl>
 	  <IncludeSymbols>true</IncludeSymbols>
