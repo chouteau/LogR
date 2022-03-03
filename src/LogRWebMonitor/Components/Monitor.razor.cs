@@ -18,7 +18,9 @@ namespace LogRWebMonitor.Components
         public LogRPush.Category? MinimumLevel { get; set; } = LogRPush.Category.Info;
 
 		LogFilter filter = new();
-        IEnumerable<LogRPush.LogInfo> logInfoList;
+        IList<LogRPush.LogInfo> logInfoList;
+
+        ElementReference tbody;
 
         protected override void OnInitialized()
         {
@@ -39,19 +41,25 @@ namespace LogRWebMonitor.Components
             filter.MachineName = query.Get("m");
             filter.Context = query.Get("c");
 
-            LogCollector.OnChanged += async () =>
+            LogCollector.OnAddLog += async (log) =>
             {
                 await InvokeAsync(() =>
                 {
-                    UpdateLists();
+                    var level = filter.LevelList.SingleOrDefault(i => i.Value == log.Category && i.Checked);
+                    if (level != null)
+					{
+                        logInfoList.Insert(0, log);
+                        StateHasChanged();
+                    }
                 });
             };
+
             UpdateLists();
         }
 
         void UpdateLists()
         {
-            logInfoList = LogCollector.GetLogInfoList(filter);
+            logInfoList = LogCollector.GetLogInfoList(filter).ToList();
             base.StateHasChanged();
         }
 

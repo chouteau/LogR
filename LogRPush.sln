@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogRPush", "src\LogRPush\Lo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogRWebMonitor", "src\LogRWebMonitor\LogRWebMonitor.csproj", "{ECCC74C6-88D7-4FCE-BA23-6E1F4ADD1530}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogRWebMonitorDemo", "src\LogRWebMonitorDemo\LogRWebMonitorDemo.csproj", "{C4459083-B1B5-43ED-9394-C0BDF7467F68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogRWebMonitorDemo", "src\LogRWebMonitorDemo\LogRWebMonitorDemo.csproj", "{C4459083-B1B5-43ED-9394-C0BDF7467F68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

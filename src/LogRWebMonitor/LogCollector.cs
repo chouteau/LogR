@@ -10,17 +10,47 @@ public class LogCollector
     private readonly System.Collections.Concurrent.ConcurrentDictionary<string, LogRPush.LogInfo> _logDic;
 
     public event Action OnChanged;
+    public event Action<LogRPush.LogInfo> OnAddLog;
 
     public LogCollector(LogRSettings logRSettings)
     {
         this.Settings = logRSettings;
         this._logDic = new System.Collections.Concurrent.ConcurrentDictionary<string, LogRPush.LogInfo>();
+        this.Semaphore = new SemaphoreSlim(1, 1);
+        this.WriteQueue = new System.Collections.Concurrent.ConcurrentQueue<LogRPush.LogInfo>();
     }
 
     protected LogRSettings Settings { get; }
+    protected SemaphoreSlim Semaphore { get; }
+    protected System.Collections.Concurrent.ConcurrentQueue<LogRPush.LogInfo> WriteQueue { get; }
+
 
     public void AddLog(LogRPush.LogInfo logInfo)
     {
+        WriteQueue.Enqueue(logInfo);
+        if (Semaphore.CurrentCount < 2)
+        {
+            Dequeue();
+        }
+    }
+
+    private void Dequeue()
+    {
+        while (true)
+        {
+            bool result = WriteQueue.TryDequeue(out LogRPush.LogInfo logInfo);
+            if (result)
+            {
+                AddInternal(logInfo);
+                continue;
+            }
+            break;
+        }
+    }
+
+    private void AddInternal(LogRPush.LogInfo logInfo)
+	{
+        Semaphore.Wait();
         if (_logDic.Count > Settings.LogCountMax)
         {
             var first = _logDic.First();
@@ -28,14 +58,18 @@ public class LogCollector
         }
         _logDic.TryAdd(logInfo.LogId, logInfo);
         try
-		{
+        {
+            OnAddLog?.Invoke(logInfo);
             OnChanged?.Invoke();
         }
         catch (Exception ex)
-		{
+        {
             Console.WriteLine(ex.ToString());
-		}
+        }
+        Semaphore.Release();
+        Dequeue();
     }
+
 
     public void Clear()
     {
