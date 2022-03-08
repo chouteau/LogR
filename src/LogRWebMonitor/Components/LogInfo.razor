@@ -32,7 +32,7 @@
 			<td>Message</td>
 			<td><b>@logInfo.Message</b></td>
 		</tr>
-        @if (string.IsNullOrWhiteSpace(logInfo.ExceptionStack))
+        @if (!string.IsNullOrWhiteSpace(logInfo.ExceptionStack))
         {
             var exceptoinStack = new MarkupString(logInfo.ExceptionStack.Replace("\n", "<br/>"));
 		    <tr>
