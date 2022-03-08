@@ -1,19 +1,34 @@
-﻿<tr @key="Log" class="@css">
+﻿@using Microsoft.AspNetCore.Components.Web
+
+<tr @key="Log" class="@css">
+    <td>
+        <button class="btn btn-link @Log.LogId" @onclick="ShowLog">
+            @RowNumber
+        </button>
+    </td>
     <td>@Log.CreationDate</td>
-    <td>@Log.MachineName</td>
-    <td>@Log.HostName</td>
-    <td>@Log.ApplicationName</td>
     <td>@Log.Category</td>
-    <td>@Log.Context</td>
+    <td>
+        <FilterLink MachineName="@Log.MachineName">@Log.MachineName</FilterLink>
+    </td>
+    <td>
+        <FilterLink HostName="@Log.HostName">@Log.HostName</FilterLink>
+    </td>
+    <td>
+        <FilterLink ApplicationName="@Log.ApplicationName">@Log.ApplicationName</FilterLink>
+    </td>
+    <td>
+        <FilterLink Context="@Log.Context">@Log.Context</FilterLink>
+    </td>
     <td>
         @Log.Message
-        </td>
+    </td>
 </tr>
 @if (!string.IsNullOrWhiteSpace(Log.ExceptionStack))
 {
     var exceptoinStack = new MarkupString(Log.ExceptionStack.Replace("\n", "<br/>"));
     <tr class="@css">
-        <td colspan="7">
+        <td colspan="8">
             @exceptoinStack
         </td>
     </tr>
@@ -22,6 +37,12 @@
 @code {
     [Parameter]
     public LogRPush.LogInfo Log { get; set; }
+
+    [Parameter]
+    public int RowNumber { get; set; }
+
+    [Inject] 
+    NavigationManager NavigationManager { get; set; }
 
     string css
     {
@@ -48,7 +69,16 @@
                 default:
                     return string.Empty;
             }
-            
+
         }
+    }
+
+    void ShowLog()
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters.Add("l", Log.LogId);
+
+        var uri = NavigationManager.GetUriWithQueryParameters(NavigationManager.Uri, new System.Collections.ObjectModel.ReadOnlyDictionary<string, object>(parameters));
+        NavigationManager.NavigateTo(uri);
     }
 }
