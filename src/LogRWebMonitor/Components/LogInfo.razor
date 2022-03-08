@@ -6,19 +6,19 @@
 	<tbody>
 		<tr class="@css">
 			<td>Level</td>
-			<td>@logInfo.Category</td>
+			<td><b>@logInfo.Category</b></td>
 		</tr>
 		<tr>
 			<td>CreationDate</td>
-			<td>@logInfo.CreationDate</td>
+			<td><b>@logInfo.CreationDate</b></td>
 		</tr>
 		<tr>
 			<td>MachineName</td>
-			<td>@logInfo.MachineName</td>
+			<td><b>@logInfo.MachineName</b></td>
 		</tr>
 		<tr>
 			<td>HostName</td>
-			<td>@logInfo.HostName</td>
+			<td><b>@logInfo.HostName</b></td>
 		</tr>
 		<tr>
 			<td>ApplicationName</td>
@@ -26,16 +26,22 @@
 		</tr>
 		<tr>
 			<td>Context</td>
-			<td>@logInfo.Context</td>
+			<td><b>@logInfo.Context</b></td>
 		</tr>
 		<tr>
 			<td>Message</td>
-			<td>@logInfo.Message</td>
+			<td><b>@logInfo.Message</b></td>
 		</tr>
-		<tr>
-			<td>Exception Stack</td>
-			<td>@logInfo.ExceptionStack</td>
-		</tr>
+        @if (string.IsNullOrWhiteSpace(logInfo.ExceptionStack))
+        {
+            var exceptoinStack = new MarkupString(logInfo.ExceptionStack.Replace("\n", "<br/>"));
+		    <tr>
+			    <td>Exception Stack</td>
+			    <td>
+                    @logInfo.ExceptionStack
+                </td>
+		    </tr>
+        }
 	</tbody>
 </table>
 
@@ -80,7 +86,6 @@
 
         }
     }
-
 
     protected override void OnInitialized()
     {
