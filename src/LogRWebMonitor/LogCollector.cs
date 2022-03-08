@@ -83,7 +83,7 @@ public class LogCollector
         {
             if (!string.IsNullOrWhiteSpace(logFilter.Search))
 			{
-                result = result.Where(i => $"{i.MachineName}{i.Message}{i.ApplicationName}{i.Context}{i.HostName}{i.ExceptionStack}".IndexOf(logFilter.Search, StringComparison.InvariantCultureIgnoreCase) != -1);
+                result = result.Where(i => IsMatchSearch(i, logFilter.Search));
 			}
 
             if (logFilter.LevelList.Any(i => i.Checked))
@@ -115,5 +115,20 @@ public class LogCollector
         return result.OrderByDescending(i => i.CreationDate)
                         .Take(Settings.LogCountMax -1)
                         .ToList();
+    }
+
+    public LogRPush.LogInfo GetLogInfo(string logId)
+	{
+        _logDic.TryGetValue(logId, out var result);
+        return result;
+    }
+
+    public bool IsMatchSearch(LogRPush.LogInfo i, string search)
+	{
+        if (string.IsNullOrWhiteSpace(search))
+		{
+            return false;
+		}
+        return $"{i.MachineName}{i.Message}{i.ApplicationName}{i.Context}{i.HostName}{i.ExceptionStack}".IndexOf(search, StringComparison.InvariantCultureIgnoreCase) != -1;
     }
 }

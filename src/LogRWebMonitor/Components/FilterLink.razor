@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+
+<button class="btn btn-link" @onclick="ShowFilteredLogs">@ChildContent</button>
+
+@code {
+	[Parameter]
+	public RenderFragment ChildContent { get; set; }
+
+	[Parameter]
+	public string MachineName { get; set; }
+
+	[Parameter]
+	public string HostName { get; set; }
+
+	[Parameter]
+	public string Context { get; set; }
+
+	[Parameter]
+	public string ApplicationName { get; set; }
+
+	[Inject] 
+	NavigationManager NavigationManager { get; set; }
+
+	void ShowFilteredLogs()
+	{
+		var parameters = new Dictionary<string, object>();
+		parameters.Add("a", ApplicationName);
+		parameters.Add("h", HostName);
+		parameters.Add("m", MachineName);
+		parameters.Add("c", Context);
+
+		var result = NavigationManager.GetUriWithQueryParameters(NavigationManager.Uri, new System.Collections.ObjectModel.ReadOnlyDictionary<string, object>(parameters));
+		NavigationManager.NavigateTo(result, true);
+	}
+
+
+
+}

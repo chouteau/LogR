@@ -19,42 +19,78 @@ namespace LogRWebMonitor.Components
 
 		LogFilter filter = new();
         IList<LogRPush.LogInfo> logInfoList;
+        bool insertLogs = true;
+        bool isInitialized = false;
 
-        ElementReference tbody;
+        string currentLogId;
 
         protected override void OnInitialized()
         {
-            if (MinimumLevel != null)
+            if (isInitialized)
 			{
-				foreach (var item in filter.LevelList.Where(i => i.Value < MinimumLevel))
-				{
-                    item.Checked = false;
-				}
+                return;
 			}
+            isInitialized = true;
+            ResetFilter();
+            BindFilter();
+            NavigationManager.LocationChanged += (s, arg) =>
+            {
+                var logid = currentLogId;
+                BindFilter();
+                if (currentLogId != logid)
+				{
+                    StateHasChanged();
+				}
+            };
 
+            LogCollector.OnAddLog += async (log) =>
+            {
+                var level = filter.LevelList.SingleOrDefault(i => i.Value == log.Category && i.Checked);
+                var machineNameFilter = log.MachineName == (filter.MachineName ?? log.MachineName);
+                var contextFilter = log.Context == (filter.Context ?? log.Context);
+                var hostNameFilter = log.HostName == (filter.HostName ?? log.HostName);
+                var applicationNameFilter = log.ApplicationName == (filter.ApplicationName ?? log.ApplicationName);
+                var searchFilter = filter.Search == null || LogCollector.IsMatchSearch(log, filter.Search);
+
+                if (insertLogs
+                    && level != null
+                    && machineNameFilter
+                    && contextFilter
+                    && hostNameFilter
+                    && applicationNameFilter
+                    && searchFilter)
+                {
+                    await InvokeAsync(() =>
+                    {
+                        logInfoList.Insert(0, log);
+                        StateHasChanged();
+                    });
+                }
+            };
+
+            UpdateLists();
+        }
+
+		private void NavigationManager_LocationChanged(object sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
+
+		void ToggleInsert()
+		{
+            insertLogs = !insertLogs;
+        }
+
+        void BindFilter()
+		{
             var uri = new Uri($"{NavigationManager.ToAbsoluteUri(NavigationManager.Uri)}");
             var query = HttpUtility.ParseQueryString(uri.Query);
-
             filter.Search = query.Get("s");
             filter.ApplicationName = query.Get("a");
             filter.HostName = query.Get("h");
             filter.MachineName = query.Get("m");
             filter.Context = query.Get("c");
-
-            LogCollector.OnAddLog += async (log) =>
-            {
-                await InvokeAsync(() =>
-                {
-                    var level = filter.LevelList.SingleOrDefault(i => i.Value == log.Category && i.Checked);
-                    if (level != null)
-					{
-                        logInfoList.Insert(0, log);
-                        StateHasChanged();
-                    }
-                });
-            };
-
-            UpdateLists();
+            currentLogId = query.Get("l");
         }
 
         void UpdateLists()
@@ -72,6 +108,18 @@ namespace LogRWebMonitor.Components
         {
             item.Checked = !item.Checked;
             UpdateLists();
+        }
+
+        void ResetFilter()
+		{
+            filter = new();
+            if (MinimumLevel != null)
+            {
+                foreach (var item in filter.LevelList.Where(i => i.Value < MinimumLevel))
+                {
+                    item.Checked = false;
+                }
+            }
         }
     }
 }

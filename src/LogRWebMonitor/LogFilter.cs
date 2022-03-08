@@ -27,6 +27,7 @@ namespace LogRWebMonitor
 			LevelList.Add(new CheckedLevel { Value = Category.Fatal });
 			LevelList.Add(new CheckedLevel { Value = Category.Notification });
 		}
+		public Guid Id { get; set; } = Guid.NewGuid();
 		public string Search { get; set; }
 		public List<CheckedLevel> LevelList { get; set; }
 		public string MachineName { get; set; }

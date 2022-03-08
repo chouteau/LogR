@@ -1,6 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
 @using Microsoft.AspNetCore.Components.Forms
 
+@if (string.IsNullOrWhiteSpace(currentLogId))
+{
 <EditForm Model="@filter" OnSubmit="ApplyFilter" class="row gy-2 gx-3 mb-2 align-items-center filter">
     <div class="col-auto">
         @foreach(var level in filter.LevelList)
@@ -15,26 +17,46 @@
     <div class="col-auto">
         <button type="submit" class="btn btn-primary">Apply</button>
     </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary" @onclick="ToggleInsert">
+        @if (insertLogs)
+        {
+            <span>|| Pause</span>
+        }
+        else
+        {
+            <span>> Start</span>
+        }
+        </button>
+        <button class="btn btn-secondary" @onclick="ResetFilter">Reset</button>
+    </div>
 </EditForm>
 
 <div class="table-responsive">
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>CreationDate</th>
+                <th>Level</th>
                 <th>MachineName</th>
                 <th>HostName</th>
                 <th>ApplicationName</th>
-                <th>Level</th>
                 <th>Context</th>
                 <th>Message</th>
             </tr>
         </thead>
-        <tbody @ref="tbody">
+        <tbody>
            @foreach (var item in logInfoList)
            {
-               <LogRow Log="item"/>
+                var rowNumber = logInfoList.Count - logInfoList.IndexOf(item);
+                <LogRow Log="item" RowNumber="rowNumber" />
            }
         </tbody>
     </table>
 </div>
+}
+else
+{
+<LogInfo LogId="@currentLogId" />
+}

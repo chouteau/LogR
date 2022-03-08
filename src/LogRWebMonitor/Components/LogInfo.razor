@@ -1,0 +1,104 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+
+<button class="btn btn-link" @onclick="ShowLogs">Show Logs</button>
+
+<table class="table table-bordered">
+	<tbody>
+		<tr class="@css">
+			<td>Level</td>
+			<td><b>@logInfo.Category</b></td>
+		</tr>
+		<tr>
+			<td>CreationDate</td>
+			<td><b>@logInfo.CreationDate</b></td>
+		</tr>
+		<tr>
+			<td>MachineName</td>
+			<td><b>@logInfo.MachineName</b></td>
+		</tr>
+		<tr>
+			<td>HostName</td>
+			<td><b>@logInfo.HostName</b></td>
+		</tr>
+		<tr>
+			<td>ApplicationName</td>
+			<td>@logInfo.ApplicationName</td>
+		</tr>
+		<tr>
+			<td>Context</td>
+			<td><b>@logInfo.Context</b></td>
+		</tr>
+		<tr>
+			<td>Message</td>
+			<td><b>@logInfo.Message</b></td>
+		</tr>
+        @if (string.IsNullOrWhiteSpace(logInfo.ExceptionStack))
+        {
+            var exceptoinStack = new MarkupString(logInfo.ExceptionStack.Replace("\n", "<br/>"));
+		    <tr>
+			    <td>Exception Stack</td>
+			    <td>
+                    @logInfo.ExceptionStack
+                </td>
+		    </tr>
+        }
+	</tbody>
+</table>
+
+@code {
+    [Parameter]
+    public string LogId { get; set; }
+
+    [Inject] 
+    LogCollector LogCollector { get; set; }
+
+    [Inject] 
+    NavigationManager NavigationManager { get; set; }
+
+
+    LogRPush.LogInfo logInfo = new();
+
+    string css
+    {
+        get
+        {
+            switch (logInfo.Category)
+            {
+                case LogRPush.Category.Trace :
+                    return "table-secondary";
+                case LogRPush.Category.Debug :
+                    return "table-default";
+                case LogRPush.Category.Error :
+                    return "table-danger";
+                case LogRPush.Category.Fatal :
+                    return "table-dark";
+                case LogRPush.Category.Info :
+                    return "table-info";
+                case LogRPush.Category.Notification :
+                    return "table-success";
+                case LogRPush.Category.Sql :
+                    return "table-primary";
+                case LogRPush.Category.Warn :
+                    return "table-warning";
+                default:
+                    return string.Empty;
+            }
+
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        logInfo = LogCollector.GetLogInfo(LogId);
+        base.OnInitialized();
+    }
+
+    void ShowLogs()
+    {
+        var uri = new Uri(NavigationManager.Uri);
+        var prms = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        var lvalue = prms["l"];
+        var navigateTo = NavigationManager.Uri.Replace($"l={lvalue}", "").TrimEnd('?').TrimEnd('&');
+        NavigationManager.NavigateTo(navigateTo);
+    }
+}
