@@ -34,5 +34,6 @@ namespace LogRWebMonitor
 		public string HostName { get; set; }
 		public string Context { get; set; }
 		public string ApplicationName { get; set; }
+		public int Top { get; set; } = 500;
 	}
 }

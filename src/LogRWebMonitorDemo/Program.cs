@@ -18,6 +18,7 @@ builder.AddLogRWebMonitor(logSettings =>
 {
 	logSettings.HostName = "Demo";
 	logSettings.LogLevel = LogLevel.Trace;
+	logSettings.LogCountMax = 50;
 });
 
 var app = builder.Build();

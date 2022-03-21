@@ -113,7 +113,7 @@ public class LogCollector
             }
         }
         return result.OrderByDescending(i => i.CreationDate)
-                        .Take(Settings.LogCountMax -1)
+                        .Take(logFilter.Top)
                         .ToList();
     }
 
