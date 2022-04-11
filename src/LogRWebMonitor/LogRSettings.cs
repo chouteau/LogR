@@ -13,5 +13,11 @@ namespace LogRWebMonitor
         public string ApplicationName { get; internal set; }
         public string HostName { get; set; }
 
+		internal void AddLogInfo(LogRPush.LogInfo logInfo)
+		{
+            OnLogInfo?.Invoke(logInfo);
+		}
+
+        public event Action<LogRPush.LogInfo> OnLogInfo;
     }
 }
