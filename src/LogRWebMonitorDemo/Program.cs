@@ -14,7 +14,7 @@ builder.Services.AddHostedService<LogRWebMonitorDemo.FakeLogWriter>();
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
 
-builder.AddLogRWebMonitor(logSettings =>
+builder.AddLogRWebMonitor(logSettings => 
 {
 	logSettings.HostName = "Demo";
 	logSettings.LogLevel = LogLevel.Trace;
