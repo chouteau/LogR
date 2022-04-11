@@ -19,15 +19,15 @@ builder.AddLogRWebMonitor(logSettings =>
 	logSettings.HostName = "Demo";
 	logSettings.LogLevel = LogLevel.Trace;
 	logSettings.LogCountMax = 50;
-	logSettings.OnLogInfo += (logInfo) =>
-	{
-		Console.WriteLine(logInfo.Message);
-	};
+	logSettings.EnvironmentName = builder.Environment.EnvironmentName;
 });
 
 var app = builder.Build();
 
-app.UseLogRWebMonitor();
+app.UseLogRWebMonitor(l =>
+{
+	Console.WriteLine(l.Message);
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

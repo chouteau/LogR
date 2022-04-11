@@ -15,5 +15,6 @@ public class LogRSettings
     public string ApiKey { get; set; }
     public int TimeoutInSecond { get; set; }
     public string ApplicationName { get; internal set; }
-          
+	public string EnvironmentName { get; set; }
+
 }
