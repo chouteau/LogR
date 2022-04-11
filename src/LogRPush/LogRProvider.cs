@@ -3,7 +3,8 @@ namespace LogRPush;
 
 public class LogRProvider : ILoggerProvider
 {
-    public LogRProvider(IServiceProvider serviceProvider, IHttpClientFactory httpClientFactory)
+    public LogRProvider(IServiceProvider serviceProvider,
+		IHttpClientFactory httpClientFactory)
     {
         this.ServiceProvider = serviceProvider;
         this.HttpClientFactory = httpClientFactory;

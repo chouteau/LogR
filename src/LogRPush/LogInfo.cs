@@ -24,5 +24,6 @@ public class LogInfo
 	public string ApplicationName { get; set; }
 
 	public string ExceptionStack { get; set; }
+	public string EnvironmentName { get; set; }
 }
 

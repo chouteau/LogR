@@ -44,6 +44,7 @@ public class LogRLogger : ILogger
 			MachineName = System.Environment.MachineName,
 			Context = _categoryName,
 			Message = $"{formatter(state, exception)}",
+			EnvironmentName = LogRSettings.EnvironmentName
 		};
 
 		logInfo.ExceptionStack = GetExceptionContent(exception);

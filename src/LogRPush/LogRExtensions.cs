@@ -16,8 +16,11 @@ public static class LogRExtensions
 
         services.AddHttpClient("LogRClient", httpClient =>
         {
-            httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {settings.ApiKey}");
-            httpClient.DefaultRequestHeaders.UserAgent.ParseAdd($"PalaceLogger ({System.Environment.OSVersion}; {System.Environment.MachineName}; {settings.HostName})");
+            if (!string.IsNullOrWhiteSpace(settings.ApiKey))
+			{
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {settings.ApiKey}");
+            }
+            httpClient.DefaultRequestHeaders.UserAgent.ParseAdd($"LogRPush ({System.Environment.OSVersion}; {System.Environment.MachineName}; {settings.HostName})");
         }).ConfigurePrimaryHttpMessageHandler(() =>
         {
             var handler = new HttpClientHandler()
