@@ -61,6 +61,7 @@ public class LogCollector
         {
             OnAddLog?.Invoke(logInfo);
             OnChanged?.Invoke();
+            Settings.AddLogInfo(logInfo);
         }
         catch (Exception ex)
         {
