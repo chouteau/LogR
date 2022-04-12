@@ -32,6 +32,13 @@
 			<td>Message</td>
 			<td><b>@logInfo.Message</b></td>
 		</tr>
+        @foreach(var prm in logInfo.ExtendedParameterList)
+        {
+		    <tr>
+			    <td>@prm.Key</td>
+			    <td>@prm.Value</td>
+		    </tr>
+        }
         @if (!string.IsNullOrWhiteSpace(logInfo.ExceptionStack))
         {
 		    <tr>
@@ -41,7 +48,7 @@
                 </td>
 		    </tr>
         }
-	</tbody>
+    </tbody>
 </table>
 
 @code {
