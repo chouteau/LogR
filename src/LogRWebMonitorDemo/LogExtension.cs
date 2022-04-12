@@ -1,21 +1,22 @@
-﻿namespace LogRWebMonitorDemo;
+﻿using Microsoft.AspNetCore.Components;
+
+namespace LogRWebMonitorDemo;
 
 public class LogExtension : LogRWebMonitor.ILogRExtender
 {
 	private int _counter;
 
-	public LogExtension(IHttpContextAccessor httpContextAccessor)
+	public LogExtension()
 	{
-		this.HttpContextAccessor = httpContextAccessor;
 	}
 
-	protected IHttpContextAccessor HttpContextAccessor { get; }
+	public string CurrentUri { get; set; }
 
 	public Dictionary<string, string> GetParameters()
 	{
-		var result = new Dictionary<string, string>();
-		result.Add("Url", $"{HttpContextAccessor?.HttpContext?.Request?.Path}");
-		result.Add("Demo", $"counter{_counter++}");
-		return result;
+		var _dic = new Dictionary<string, string>();
+		_dic.Add("Uri", CurrentUri);
+		_dic.Add("Demo", $"counter{_counter++}");
+		return _dic;
 	}
 }
