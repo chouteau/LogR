@@ -3,10 +3,11 @@ namespace LogRWebMonitor;
 
 public class InnerProvider : ILoggerProvider
 {
-    public InnerProvider(LogCollector collector, IServiceProvider serviceProvider)
+    public InnerProvider(LogCollector collector, IServiceProvider serviceProvider, ILogRExtender extender)
     {
         this.Collector = collector;
         this.ServiceProvider = serviceProvider;
+        this.Extender = extender;
     }
 
     protected LogCollector Collector { get; }
@@ -16,8 +17,7 @@ public class InnerProvider : ILoggerProvider
     public ILogger CreateLogger(string categoryName)
     {
         var settings = ServiceProvider.GetRequiredService<LogRSettings>();
-        var extender = ServiceProvider.GetService<ILogRExtender>();
-        return new InnerLogger(settings, categoryName, Collector, extender);
+        return new InnerLogger(settings, categoryName, Collector, Extender);
     }
 
     public void Dispose()
