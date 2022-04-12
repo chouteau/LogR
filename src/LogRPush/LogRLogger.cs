@@ -5,19 +5,21 @@ public class LogRLogger : ILogger
 {
 	private readonly string _categoryName;
 
-	public LogRLogger(LogRSettings logrSettings, string categoryName, IHttpClientFactory httpClientFactory)
+	public LogRLogger(LogRSettings logrSettings, string categoryName, IHttpClientFactory httpClientFactory, ILogRExtender extender)
 	{
 		this.LogRSettings = logrSettings;
 		this._categoryName = categoryName;
 		this.Semaphore = new SemaphoreSlim(1, 1);
 		this.WriteQueue = new System.Collections.Concurrent.ConcurrentQueue<LogInfo>();
 		this.HttpClientFactory = httpClientFactory;
+		this.Extender = extender;
 	}
 
 	protected LogRSettings LogRSettings { get; }
 	protected SemaphoreSlim Semaphore { get; }
 	protected System.Collections.Concurrent.ConcurrentQueue<LogInfo> WriteQueue { get; }
 	protected IHttpClientFactory HttpClientFactory { get; }
+	protected ILogRExtender Extender { get; }
 
 	public IDisposable BeginScope<TState>(TState state)
 	{
@@ -46,6 +48,11 @@ public class LogRLogger : ILogger
 			Message = $"{formatter(state, exception)}",
 			EnvironmentName = LogRSettings.EnvironmentName
 		};
+
+		if (Extender != null)
+		{
+			logInfo.ExtendedParameterList = Extender.GetParameters();
+		}
 
 		logInfo.ExceptionStack = GetExceptionContent(exception);
 

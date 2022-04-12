@@ -11,11 +11,13 @@ public class InnerProvider : ILoggerProvider
 
     protected LogCollector Collector { get; }
     protected IServiceProvider ServiceProvider { get; }
+    protected ILogRExtender Extender { get; }
 
     public ILogger CreateLogger(string categoryName)
     {
         var settings = ServiceProvider.GetRequiredService<LogRSettings>();
-        return new InnerLogger(settings, categoryName, Collector);
+        var extender = ServiceProvider.GetService<ILogRExtender>();
+        return new InnerLogger(settings, categoryName, Collector, extender);
     }
 
     public void Dispose()
