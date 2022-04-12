@@ -10,6 +10,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddHostedService<LogRWebMonitorDemo.FakeLogWriter>();
+builder.Services.AddHttpContextAccessor();
 
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
@@ -21,6 +22,8 @@ builder.AddLogRWebMonitor(logSettings =>
 	logSettings.LogCountMax = 50;
 	logSettings.EnvironmentName = builder.Environment.EnvironmentName;
 });
+
+builder.Services.AddSingleton<LogRWebMonitor.ILogRExtender, LogRWebMonitorDemo.LogExtension>();
 
 var app = builder.Build();
 

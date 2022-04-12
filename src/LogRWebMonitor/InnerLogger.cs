@@ -9,19 +9,21 @@ internal class InnerLogger : ILogger
 {
 	private readonly string _categoryName;
 
-	public InnerLogger(LogRSettings logrSettings, string categoryName, LogCollector collector)
+	public InnerLogger(LogRSettings logrSettings, string categoryName, LogCollector collector, ILogRExtender extender)
 	{
 		this.LogRSettings = logrSettings;
 		this._categoryName = categoryName;
 		this.Semaphore = new SemaphoreSlim(1, 1);
 		this.WriteQueue = new System.Collections.Concurrent.ConcurrentQueue<LogRPush.LogInfo>();
 		this.Collector = collector;
+		this.Extender = extender;
 	}
 
 	protected LogRSettings LogRSettings { get; }
 	protected SemaphoreSlim Semaphore { get; }
 	protected System.Collections.Concurrent.ConcurrentQueue<LogRPush.LogInfo> WriteQueue { get; }
 	protected LogCollector Collector { get; }
+	protected ILogRExtender Extender { get; }
 
 	public IDisposable BeginScope<TState>(TState state)
 	{
@@ -50,6 +52,11 @@ internal class InnerLogger : ILogger
 			Message = $"{formatter(state, exception)}",
 			EnvironmentName = LogRSettings.EnvironmentName
 		};
+
+		if (Extender != null)
+		{
+			logInfo.ExtendedParameterList = Extender.GetParameters();
+		}
 
 		logInfo.ExceptionStack = GetExceptionContent(exception);
 

@@ -25,5 +25,7 @@ public class LogInfo
 
 	public string ExceptionStack { get; set; }
 	public string EnvironmentName { get; set; }
+
+	public Dictionary<string, string> ExtendedParameterList { get; set; } = new();
 }
 
