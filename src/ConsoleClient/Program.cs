@@ -24,7 +24,7 @@ while (true)
 {
     await Task.Delay(3 * 1000);
 	logger.LogCritical(new Exception("Critical1\nCritical2\n"), "Critical : {0}", DateTime.Now);
-	var error = new Exception("Error1\nError2\n");
+	var error = new Exception(System.Environment.StackTrace);
 	error.Data.Add("Param1", "Value1");
 	error.Data.Add("Param2", "Value2");
 	logger.LogError(error, "Error : {Now}", DateTime.Now);

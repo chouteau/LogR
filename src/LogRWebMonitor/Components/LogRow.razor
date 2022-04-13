@@ -39,10 +39,12 @@
 </tr>
 @if (!string.IsNullOrWhiteSpace(Log.ExceptionStack))
 {
-    var exceptoinStack = new MarkupString(Log.ExceptionStack.Replace("\n", "<br/>"));
+    var exceptionStack = Log.ExceptionStack.Replace("\r\n", "<br/>");
+
+    var exceptionStackMarkup = new MarkupString(exceptionStack);
     <tr class="@css">
         <td colspan="8">
-            @exceptoinStack
+            @exceptionStackMarkup
         </td>
     </tr>
 }
