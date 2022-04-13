@@ -3,19 +3,23 @@ namespace LogRPush;
 
 public class LogRProvider : ILoggerProvider
 {
-    public LogRProvider(IServiceProvider serviceProvider)
+    public LogRProvider(
+        IHttpClientFactory httpClientFactory,
+        LogRSettings settings,
+        ILogRExtender extender)
     {
-        this.ServiceProvider = serviceProvider;
-    }
+		this.HttpClientFactory = httpClientFactory;
+		this.Settings = settings;
+		this.Extender = extender;
+	}
 
-    protected IServiceProvider ServiceProvider { get; }
+    protected IHttpClientFactory HttpClientFactory { get; }
+    protected LogRSettings Settings { get; }
+    protected ILogRExtender Extender { get; }
 
     public ILogger CreateLogger(string categoryName)
     {
-        var settings = ServiceProvider.GetRequiredService<LogRSettings>();
-        var httpClientFactory = ServiceProvider.GetRequiredService<IHttpClientFactory>();
-        var extender = ServiceProvider.GetService<ILogRExtender>();
-        return new LogRLogger(settings, categoryName, httpClientFactory, extender);
+        return new LogRLogger(Settings, categoryName, HttpClientFactory, Extender);
     }
 
     public void Dispose()

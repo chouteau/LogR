@@ -43,6 +43,10 @@ public static class LogRExtensions
     public static void UseLogRPush(this IServiceProvider serviceProvider)
     {
         var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
-        loggerFactory.AddProvider(new LogRProvider(serviceProvider));
+        var httpClientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
+        var settings = serviceProvider.GetRequiredService<LogRSettings>();
+        var extender = serviceProvider.GetService<ILogRExtender>();
+        var provider = new LogRProvider(httpClientFactory, settings, extender);
+        loggerFactory.AddProvider(provider);
     }
 }
