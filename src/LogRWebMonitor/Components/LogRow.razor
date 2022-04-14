@@ -17,10 +17,10 @@
     <td>
         <FilterLink ApplicationName="@Log.ApplicationName">@Log.ApplicationName</FilterLink>
     </td>
-    <td>
+    <td class="log-context">
         <FilterLink Context="@Log.Context">@Log.Context</FilterLink>
     </td>
-    <td>
+    <td class="log-message">
         @Log.Message
 		@if (Log.ExtendedParameterList.Any())
         {
