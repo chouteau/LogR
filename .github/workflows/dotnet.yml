@@ -34,10 +34,10 @@ jobs:
     - name: Push Nuget
       run: dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{secrets.nuget}} --skip-duplicate
 
-    - name: LogRWebApp
+    - name: Publish LogRWebApp
       run: |
         cd ${{github.workspace}}\src\LogRWebApp
-        dotnet publish -p:PublishProfile=Properties\PublishProfiles\FolderProfile.pubxml
+        dotnet publish -c Release LogRWebApp.csproj
 
     - name: Zip LogRWebApp
       run: |
