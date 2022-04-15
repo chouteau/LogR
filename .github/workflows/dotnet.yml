@@ -25,9 +25,6 @@ jobs:
     - name: Build
       run: dotnet build LogRPush.sln --no-restore --configuration Release
 
-    - name: Diagnostic
-      run: echo dir *.* /s
-
     - name: Pack LogRPush
       run: dotnet pack --no-build --configuration Release ${{github.workspace}}/src/LogRPush/LogRPush.csproj --output .
 
@@ -36,3 +33,43 @@ jobs:
 
     - name: Push Nuget
       run: dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{secrets.nuget}} --skip-duplicate
+
+    - name: LogRWebApp
+      run: |
+        cd ${{github.workspace}}\src\LogRWebApp
+        dotnet publish -p:PublishProfile=Properties\PublishProfiles\FolderProfile.pubxml
+
+    - name: Zip LogRWebApp
+      run: |
+        cd ${{github.workspace}}\src\LogRWebApp\bin\Release\net6.0\publish
+        del appsettings.*.json
+        del web.config
+        7z.exe a -r -tzip ${{github.workspace}}\logrwebapp.zip * 
+
+    - uses: dev-drprasad/delete-tag-and-release@v0.2.0
+      with:
+        delete_release: true # default: false
+        tag_name: Latest # tag name to delete
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@latest
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with: 
+        tag_name: Latest
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ${{github.workspace}}\logrwebapp.zip
+        asset_name: logrwebapp.zip
+        asset_content_type: application/zip

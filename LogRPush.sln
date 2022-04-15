@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogRWebMonitor", "src\LogRW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogRWebMonitorDemo", "src\LogRWebMonitorDemo\LogRWebMonitorDemo.csproj", "{C4459083-B1B5-43ED-9394-C0BDF7467F68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClient", "src\ConsoleClient\ConsoleClient.csproj", "{1C9BFD1D-E48C-4F00-A7B3-AF9864D28F57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClient", "src\ConsoleClient\ConsoleClient.csproj", "{1C9BFD1D-E48C-4F00-A7B3-AF9864D28F57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogRWebApp", "src\LogRWebApp\LogRWebApp.csproj", "{2589AF45-D9E6-4C74-AACA-394F60E6EF6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{1C9BFD1D-E48C-4F00-A7B3-AF9864D28F57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C9BFD1D-E48C-4F00-A7B3-AF9864D28F57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C9BFD1D-E48C-4F00-A7B3-AF9864D28F57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2589AF45-D9E6-4C74-AACA-394F60E6EF6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2589AF45-D9E6-4C74-AACA-394F60E6EF6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2589AF45-D9E6-4C74-AACA-394F60E6EF6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2589AF45-D9E6-4C74-AACA-394F60E6EF6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

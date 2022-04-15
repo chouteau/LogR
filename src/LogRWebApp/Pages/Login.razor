@@ -1,0 +1,17 @@
+﻿
+<PageTitle>Palace Server - Login</PageTitle>
+
+<h3>Login</h3>
+
+<EditForm Model="LoginForm" OnValidSubmit="Validate">
+    <DataAnnotationsValidator/>
+    <LoginValidator @ref="LoginValidator"></LoginValidator>
+    <div class="mb-3">
+        <label class="form-label">Key :</label>
+        <InputText type="text" @bind-Value="LoginForm.Key" class="form-control" />
+        <small>
+            <ValidationMessage For="() => LoginForm.Key"/>
+        </small>
+    </div>
+    <button type="submit" class="btn btn-primary">Connect</button>
+</EditForm>
