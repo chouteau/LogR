@@ -57,6 +57,19 @@ builder.Services.AddSingleton<LogRWebApp.Services.AdminLoginContext>();
 
 var app = builder.Build();
 
+if (logRSettings.UseOvhGrayLogRPlugin)
+{
+    var graylog = app.Services.GetRequiredService<OvhGraylogLogger>();
+    app.UseLogRWebMonitor(l =>
+    {
+        try
+        {
+            graylog.SendLog(l);
+        }
+        catch { /* on error resume next */ }
+    });
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

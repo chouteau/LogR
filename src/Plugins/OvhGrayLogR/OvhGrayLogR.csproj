@@ -12,12 +12,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\LogRPush\LogRPush.csproj" />
+		<PackageReference Include="Serilog" Version="2.10.0" />
+		<PackageReference Include="Serilog.Sinks.Graylog" Version="2.3.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Serilog" Version="2.10.0" />
-		<PackageReference Include="Serilog.Sinks.Graylog" Version="2.3.0" />
+	  <ProjectReference Include="..\..\LogRWebMonitor\LogRWebMonitor.csproj" />
 	</ItemGroup>
 
 
