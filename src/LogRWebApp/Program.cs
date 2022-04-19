@@ -2,15 +2,16 @@
 using LogRWebMonitor;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
+using OvhGrayLogR;
 
 const string APPLICATION_NAME = "LogRWebApp";
 
 var builder = WebApplication.CreateBuilder(args);
 
 var palaceSection = builder.Configuration.GetSection(APPLICATION_NAME);
-var palaceSettings = new LogRWebApp.Services.LogRWebAppSettings();
-palaceSection.Bind(palaceSettings);
-builder.Services.AddSingleton(palaceSettings);
+var logRSettings = new LogRWebApp.Services.LogRWebAppSettings();
+palaceSection.Bind(logRSettings);
+builder.Services.AddSingleton(logRSettings);
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
@@ -46,6 +47,11 @@ builder.AddLogRWebMonitor(cfg =>
     }
     cfg.HostName = "IIS";
 });
+
+if (logRSettings.UseOvhGrayLogRPlugin)
+{
+    builder.AddOvhGrayLogR();
+}
 
 builder.Services.AddSingleton<LogRWebApp.Services.AdminLoginContext>();
 
