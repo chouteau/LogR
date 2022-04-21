@@ -123,11 +123,8 @@ public class LogRLogger : ILogger
 			{
 				Console.WriteLine(ex.Message);
 			}
-			finally
-			{
-				Semaphore.Release();
-			}
 		}
+		Semaphore.Release();
 		Dequeue();
 	}
 
