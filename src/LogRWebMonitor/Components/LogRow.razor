@@ -36,6 +36,9 @@
 			}
         }
     </td>
+    <td>
+		@Log.EnvironmentName
+    </td>
 </tr>
 @if (!string.IsNullOrWhiteSpace(Log.ExceptionStack))
 {
@@ -43,7 +46,7 @@
 
     var exceptionStackMarkup = new MarkupString(exceptionStack);
     <tr class="@css">
-        <td colspan="8">
+        <td colspan="9">
             @exceptionStackMarkup
         </td>
     </tr>
