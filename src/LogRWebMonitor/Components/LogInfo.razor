@@ -106,7 +106,7 @@
 
     protected override void OnInitialized()
     {
-        logInfo = LogCollector.GetLogInfo(LogId);
+        logInfo = LogCollector.GetLogInfo(LogId) ?? new();
         base.OnInitialized();
     }
 

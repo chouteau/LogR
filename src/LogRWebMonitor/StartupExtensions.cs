@@ -29,15 +29,16 @@ namespace LogRWebMonitor
             var logCollector = app.Services.GetRequiredService<LogCollector>();
             var scope = app.Services.CreateScope();
             var extender = scope.ServiceProvider.GetService<ILogRExtender>();
-			
-            if (addLog != null)
+			var settings = scope.ServiceProvider.GetService<LogRSettings>();
+
+			if (addLog != null)
             {
                 logCollector.OnAddLog += addLog;
             }
             
             loggerFactory.AddProvider(new InnerProvider(logCollector, app.Services, extender));
 
-            app.MapPost("/api/logging/writelog", (LogRPush.LogInfo log, [FromServices] LogCollector collector) =>
+            app.MapPost(settings.EndPoint, (LogRPush.LogInfo log, [FromServices] LogCollector collector) =>
             {
                 collector.AddLog(log);
                 return Microsoft.AspNetCore.Http.Results.Ok();

@@ -8,6 +8,7 @@ public class LogRSettings
         LogLevel = LogLevel.Information;
         TimeoutInSecond = 10;
         LogServerUrlList = new List<string>();
+        EndPoint = "/api/logging/writelog";
     }
     public LogLevel LogLevel { get; set; }
     public string HostName { get; set; }
@@ -16,5 +17,6 @@ public class LogRSettings
     public int TimeoutInSecond { get; set; }
     public string ApplicationName { get; internal set; }
 	public string EnvironmentName { get; set; }
+    public string EndPoint { get; set; }
 
 }
