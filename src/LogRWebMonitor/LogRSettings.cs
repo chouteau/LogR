@@ -13,5 +13,6 @@ namespace LogRWebMonitor
         public string ApplicationName { get; internal set; }
         public string HostName { get; set; }
 		public string EnvironmentName { get; set; }
+        public string EndPoint { get; set; } = "/api/logging/writelog";
     }
 }

@@ -114,10 +114,11 @@ public class LogRLogger : ILogger
 			{
 				using var httpClient = HttpClientFactory.CreateClient("LogRClient");
 				httpClient.BaseAddress = new Uri(logServerUrl);
-				var httpMessage = new HttpRequestMessage(HttpMethod.Post, "/api/logging/writelog");
+				var httpMessage = new HttpRequestMessage(HttpMethod.Post, LogRSettings.EndPoint);
 				httpMessage.Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(logInfo), Encoding.UTF8, "application/json");
 				var response = httpClient.Send(httpMessage);
 				response.EnsureSuccessStatusCode();
+				break;
 			}
 			catch (Exception ex)
 			{
