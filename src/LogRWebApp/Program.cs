@@ -68,6 +68,10 @@ if (logRSettings.UseOvhGrayLogRPlugin)
         }
         catch { /* on error resume next */ }
     });
+} 
+else
+{
+    app.UseLogRWebMonitor();
 }
 
 // Configure the HTTP request pipeline.
@@ -89,7 +93,5 @@ app.UseAuthorization();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
-
-app.UseLogRWebMonitor();
 
 app.Run();

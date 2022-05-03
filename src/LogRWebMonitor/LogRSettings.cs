@@ -14,5 +14,6 @@ namespace LogRWebMonitor
         public string HostName { get; set; }
 		public string EnvironmentName { get; set; }
         public string EndPoint { get; set; } = "/api/logging/writelog";
-    }
+		public string FailDirectory { get; set; } = @".\";
+	}
 }
