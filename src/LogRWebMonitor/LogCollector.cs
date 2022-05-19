@@ -94,22 +94,54 @@ public class LogCollector
 
             if (!string.IsNullOrWhiteSpace(logFilter.MachineName))
 			{
-                result = result.Where(i => i.MachineName.Equals(logFilter.MachineName, StringComparison.InvariantCultureIgnoreCase));
-			}
+                if (logFilter.MachineName.StartsWith("!"))
+				{
+                    logFilter.MachineName = logFilter.MachineName.TrimStart('!');
+                    result = result.Where(i => !i.MachineName.Equals(logFilter.MachineName, StringComparison.InvariantCultureIgnoreCase));
+                }
+                else
+				{
+                    result = result.Where(i => i.MachineName.Equals(logFilter.MachineName, StringComparison.InvariantCultureIgnoreCase));
+                }
+            }
 
             if (!string.IsNullOrWhiteSpace(logFilter.HostName))
             {
-                result = result.Where(i => i.HostName.Equals(logFilter.HostName, StringComparison.InvariantCultureIgnoreCase));
+				if (logFilter.HostName.StartsWith("!"))
+				{
+                    logFilter.HostName = logFilter.HostName.TrimStart('!');
+                    result = result.Where(i => !i.HostName.Equals(logFilter.HostName, StringComparison.InvariantCultureIgnoreCase));
+                }
+                else
+				{
+                    result = result.Where(i => i.HostName.Equals(logFilter.HostName, StringComparison.InvariantCultureIgnoreCase));
+                }
             }
 
             if (!string.IsNullOrWhiteSpace(logFilter.ApplicationName))
             {
-                result = result.Where(i => i.ApplicationName.Equals(logFilter.ApplicationName, StringComparison.InvariantCultureIgnoreCase));
+                if (logFilter.ApplicationName.StartsWith("!"))
+				{
+                    logFilter.ApplicationName = logFilter.ApplicationName.TrimStart('!');
+                    result = result.Where(i => !i.ApplicationName.Equals(logFilter.ApplicationName, StringComparison.InvariantCultureIgnoreCase));
+                }
+                else
+				{
+                    result = result.Where(i => i.ApplicationName.Equals(logFilter.ApplicationName, StringComparison.InvariantCultureIgnoreCase));
+                }
             }
 
             if (!string.IsNullOrWhiteSpace(logFilter.Context))
             {
-                result = result.Where(i => i.Context.Equals(logFilter.Context, StringComparison.InvariantCultureIgnoreCase));
+                if (logFilter.Context.StartsWith("!"))
+				{
+                    logFilter.Context = logFilter.Context.TrimStart('!');
+                    result = result.Where(i => !i.Context.Equals(logFilter.Context, StringComparison.InvariantCultureIgnoreCase));
+                }
+                else
+				{
+                    result = result.Where(i => i.Context.Equals(logFilter.Context, StringComparison.InvariantCultureIgnoreCase));
+                }
             }
         }
         return result.OrderByDescending(i => i.CreationDate)

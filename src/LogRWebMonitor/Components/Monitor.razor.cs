@@ -46,11 +46,12 @@ namespace LogRWebMonitor.Components
             LogCollector.OnAddLog += async (log) =>
             {
                 var level = filter.LevelList.SingleOrDefault(i => i.Value == log.Category && i.Checked);
+                var searchFilter = filter.Search == null || LogCollector.IsMatchSearch(log, filter.Search);
+
                 var machineNameFilter = log.MachineName == (filter.MachineName ?? log.MachineName);
                 var contextFilter = log.Context == (filter.Context ?? log.Context);
                 var hostNameFilter = log.HostName == (filter.HostName ?? log.HostName);
                 var applicationNameFilter = log.ApplicationName == (filter.ApplicationName ?? log.ApplicationName);
-                var searchFilter = filter.Search == null || LogCollector.IsMatchSearch(log, filter.Search);
 
                 if (insertLogs
                     && level != null

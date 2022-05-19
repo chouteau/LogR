@@ -9,16 +9,16 @@
     <td>@Log.CreationDate</td>
     <td>@Log.Category</td>
     <td>
-        <FilterLink MachineName="@Log.MachineName">@Log.MachineName</FilterLink>
+        <FilterLink MachineName="@Log.MachineName" MachineNameFilter="@Filter.MachineName">@Log.MachineName</FilterLink>
     </td>
     <td>
-        <FilterLink HostName="@Log.HostName">@Log.HostName</FilterLink>
+        <FilterLink HostName="@Log.HostName" HostNameFilter="@Filter.HostName">@Log.HostName</FilterLink>
     </td>
     <td>
-        <FilterLink ApplicationName="@Log.ApplicationName">@Log.ApplicationName</FilterLink>
+        <FilterLink ApplicationName="@Log.ApplicationName" ApplicationNameFilter="@Filter.ApplicationName">@Log.ApplicationName</FilterLink>
     </td>
     <td class="log-context">
-        <FilterLink Context="@Log.Context">@Log.Context</FilterLink>
+        <FilterLink Context="@Log.Context" ContextFilter="@Filter.Context">@Log.Context</FilterLink>
     </td>
     <td class="log-message">
         @Log.Message
@@ -59,8 +59,12 @@
     [Parameter]
     public int RowNumber { get; set; }
 
+    [Parameter]
+    public LogFilter Filter { get; set; }
+
     [Inject] 
     NavigationManager NavigationManager { get; set; }
+
 
     string css
     {

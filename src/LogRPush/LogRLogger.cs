@@ -33,6 +33,11 @@ public class LogRLogger : ILogger
 
 	public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
 	{
+		if (Semaphore.CurrentCount > LogRSettings.LogQueueLimit)
+		{
+			return;
+		}
+		
 		if (!IsEnabled(logLevel))
 		{
 			return;

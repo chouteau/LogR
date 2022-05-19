@@ -30,6 +30,16 @@ namespace LogRWebMonitor
             var scope = app.Services.CreateScope();
             var extender = scope.ServiceProvider.GetService<ILogRExtender>();
 			var settings = scope.ServiceProvider.GetService<LogRSettings>();
+			if (settings.FailDirectory.StartsWith(@".\"))
+			{
+				var current = System.IO.Path.GetDirectoryName(typeof(StartupExtensions).Assembly.Location);
+				settings.FailDirectory = System.IO.Path.Combine(current, settings.FailDirectory, "Logs");
+			}
+
+            if (!System.IO.Directory.Exists(settings.FailDirectory))
+			{
+                System.IO.Directory.CreateDirectory(settings.FailDirectory);
+			}
 
 			if (addLog != null)
             {
@@ -40,7 +50,20 @@ namespace LogRWebMonitor
 
             app.MapPost(settings.EndPoint, (LogRPush.LogInfo log, [FromServices] LogCollector collector) =>
             {
-                collector.AddLog(log);
+                try
+				{
+                    collector.AddLog(log);
+                }
+                catch(Exception ex)
+				{
+                    try
+					{
+                        var fileName = $"Logs{DateTime.Now:yyyyMMddHH}.txt";
+                        fileName = System.IO.Path.Combine(settings.FailDirectory, fileName);
+                        System.IO.File.AppendAllText(fileName, $"{ex.Message}\r\n{ex.StackTrace}\r\n");
+                    }
+                    catch { /* dead for science */ }
+                }
                 return Microsoft.AspNetCore.Http.Results.Ok();
             });
         }
