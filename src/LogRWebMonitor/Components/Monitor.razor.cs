@@ -17,6 +17,9 @@ namespace LogRWebMonitor.Components
         [Parameter] 
         public LogRPush.Category? MinimumLevel { get; set; } = LogRPush.Category.Info;
 
+		[Parameter]
+        public EventCallback<LogRPush.LogInfo> LogAdded { get; set; }
+
 		LogFilter filter = new();
         IList<LogRPush.LogInfo> logInfoList;
         bool insertLogs = true;
@@ -65,6 +68,14 @@ namespace LogRWebMonitor.Components
                     {
                         logInfoList.Insert(0, log);
                         StateHasChanged();
+                    });
+                }
+
+                if (LogAdded.HasDelegate)
+				{
+                    await InvokeAsync(() =>
+                    {
+                        LogAdded.InvokeAsync(log);
                     });
                 }
             };

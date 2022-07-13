@@ -2,4 +2,53 @@
 
 <PageTitle>Logs</PageTitle>
 
-<LogRWebMonitor.Components.Monitor/>
+@if (!string.IsNullOrWhiteSpace(sentEmailFailed))
+{
+	<div class="alert">@sentEmailFailed</div>
+}
+
+<LogRWebMonitor.Components.Monitor LogAdded="OnLogAdded"/>
+
+@code {
+
+	[Inject] FluentEmail.Core.IFluentEmail FluentEmail { get; set; }
+	[Inject] Services.LogRWebAppSettings Settings { get; set; }
+
+	private string sentEmailFailed = null;
+
+	async Task OnLogAdded(LogRPush.LogInfo logInfo)
+	{
+		if (logInfo == null)
+		{
+			return;
+		}
+		if (logInfo.Category == LogRPush.Category.Error
+			|| logInfo.Category == LogRPush.Category.Fatal
+			|| logInfo.Category == LogRPush.Category.Notification)
+		{
+			if (!Settings.SendFatalAndExceptionByEmail)
+			{
+				return;
+			}
+			var emailView = System.IO.Path.GetDirectoryName(typeof(Program).Assembly.Location);
+			emailView = System.IO.Path.Combine(emailView, @$"{Settings.EmailTemplatesDirectoryName}\loginfo.cshtml");
+
+			var email = FluentEmail.SetFrom(Settings.SenderEmail);
+			email.To(Settings.RecipientEmail);
+			var subject = $"{logInfo.Category}:{logInfo.Message}";
+			if (subject.Length > 80)
+			{
+				subject = subject.Substring(0, 80);
+			}
+			email.Subject(subject);
+			email.UsingTemplateFromFile(emailView, logInfo);
+			email.Tag("workaround");
+
+			var sendResult = await email.SendAsync();
+			if (!sendResult.Successful)
+			{
+				sentEmailFailed = String.Join(",", sendResult.ErrorMessages);
+			}
+		}
+	}
+}

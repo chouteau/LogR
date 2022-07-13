@@ -7,6 +7,7 @@
         </button>
     </td>
     <td>@Log.CreationDate</td>
+    <td>@Log.ExceptionCount</td>
     <td>@Log.Category</td>
     <td>
         <FilterLink MachineName="@Log.MachineName" MachineNameFilter="@Filter.MachineName">@Log.MachineName</FilterLink>
@@ -46,7 +47,7 @@
 
     var exceptionStackMarkup = new MarkupString(exceptionStack);
     <tr class="@css">
-        <td colspan="9">
+        <td colspan="10">
             @exceptionStackMarkup
         </td>
     </tr>

@@ -22,6 +22,21 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                     options.Cookie.HttpOnly = true;
                 });
 
+var emailTemplatesFolder = System.IO.Path.GetDirectoryName(typeof(Program).Assembly.Location);
+emailTemplatesFolder = System.IO.Path.Combine(emailTemplatesFolder, logRSettings.EmailTemplatesDirectoryName);
+if (!System.IO.Directory.Exists(emailTemplatesFolder))
+{
+    System.IO.Directory.CreateDirectory(emailTemplatesFolder);
+}
+
+var fluentEmailBuilder = builder.Services.AddFluentEmail(logRSettings.SenderEmail)
+                                    .AddRazorRenderer(emailTemplatesFolder);
+
+if (logRSettings.EmailProviderName == "sendgrid")
+{
+    fluentEmailBuilder.AddSendGridSender(logRSettings.SendGridApiKey, false);
+}
+
 var folder = System.IO.Path.Combine(System.IO.Path.GetTempPath(), APPLICATION_NAME);
 if (!Directory.Exists(folder))
 {
