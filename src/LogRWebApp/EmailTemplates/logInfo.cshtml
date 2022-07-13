@@ -1,0 +1,66 @@
+﻿@model LogRPush.LogInfo
+@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<body>
+	<table class="table table-bordered">
+		<tbody>
+			<tr>
+				<td>Level</td>
+				<td><b>@Model.Category</b></td>
+			</tr>
+			<tr>
+				<td>CreationDate</td>
+				<td><b>@Model.CreationDate</b></td>
+			</tr>
+			<tr>
+				<td>Count</td>
+				<td><b>@Model.ExceptionCount</b></td>
+			</tr>
+			<tr>
+				<td>MachineName</td>
+				<td><b>@Model.MachineName</b></td>
+			</tr>
+			<tr>
+				<td>HostName</td>
+				<td><b>@Model.HostName</b></td>
+			</tr>
+			<tr>
+				<td>ApplicationName</td>
+				<td>@Model.ApplicationName</td>
+			</tr>
+			<tr>
+				<td>Context</td>
+				<td><b>@Model.Context</b></td>
+			</tr>
+			<tr>
+				<td>Message</td>
+				<td><b>@Model.Message</b></td>
+			</tr>
+			<tr>
+				<td>Environnement</td>
+				<td><b>@Model.EnvironmentName</b></td>
+			</tr>
+			@foreach (var prm in Model.ExtendedParameterList)
+			{
+				<tr>
+					<td>@prm.Key</td>
+					<td>@prm.Value</td>
+				</tr>
+			}
+			@if (!string.IsNullOrWhiteSpace(Model.ExceptionStack))
+			{
+				<tr>
+					<td>Exception Stack</td>
+					<td>
+						@Model.ExceptionStack.Replace("\n", "<br/>")
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</body>
+</html>
+

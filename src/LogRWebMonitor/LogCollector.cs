@@ -56,6 +56,17 @@ public class LogCollector
             var first = _logDic.First();
             _logDic.TryRemove(first.Key, out var byebye);
         }
+        if (logInfo.Category == LogRPush.Category.Error
+            || logInfo.Category == LogRPush.Category.Fatal)
+		{
+            logInfo.StackChecksum = CalculateChecksum(logInfo);
+            var existing = _logDic.Values.FirstOrDefault(i => i.StackChecksum == logInfo.StackChecksum);
+            if (existing != null)
+			{
+                logInfo.ExceptionCount = existing.ExceptionCount + 1;
+                _logDic.TryRemove(existing.LogId, out var byebye);
+			}
+		}
         _logDic.TryAdd(logInfo.LogId, logInfo);
         try
         {
@@ -162,5 +173,15 @@ public class LogCollector
             return false;
 		}
         return $"{i.MachineName}{i.Message}{i.ApplicationName}{i.Context}{i.HostName}{i.ExceptionStack}".IndexOf(search, StringComparison.InvariantCultureIgnoreCase) != -1;
+    }
+
+    private string CalculateChecksum(LogRPush.LogInfo logInfo)
+	{
+        using var crypto = System.Security.Cryptography.SHA256.Create();
+        var input = $"{logInfo.MachineName}{logInfo.ApplicationName}{logInfo.ExceptionStack}";
+        var buffer = System.Text.Encoding.UTF8.GetBytes(input);
+        var hash = crypto.ComputeHash(buffer);
+        var result = string.Join(string.Empty, from b in hash select b.ToString("X2"));
+        return result;
     }
 }

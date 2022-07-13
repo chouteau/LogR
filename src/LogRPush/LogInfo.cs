@@ -23,7 +23,9 @@ public class LogInfo
 
 	public string ApplicationName { get; set; }
 
+	public int ExceptionCount { get; set; } = 1;
 	public string ExceptionStack { get; set; }
+	public string StackChecksum { get; set; }
 	public string EnvironmentName { get; set; }
 
 	public Dictionary<string, string> ExtendedParameterList { get; set; } = new();

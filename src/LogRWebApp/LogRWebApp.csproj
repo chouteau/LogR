@@ -5,11 +5,27 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	  <Version>1.2.5.0</Version>
+	  <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="EmailTemplates\logInfo.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentEmail.Razor" Version="3.0.2" />
+    <PackageReference Include="FluentEmail.SendGrid" Version="3.0.2" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\LogRWebMonitor\LogRWebMonitor.csproj" />
     <ProjectReference Include="..\Plugins\OvhGrayLogR\OvhGrayLogR.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="EmailTemplates\logInfo.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
