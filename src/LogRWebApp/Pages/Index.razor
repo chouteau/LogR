@@ -22,8 +22,7 @@
 		{
 			return;
 		}
-		if (logInfo.Category == LogRPush.Category.Error
-			|| logInfo.Category == LogRPush.Category.Fatal
+		if (logInfo.Category == LogRPush.Category.Fatal
 			|| logInfo.Category == LogRPush.Category.Notification)
 		{
 			if (!Settings.SendFatalAndExceptionByEmail)

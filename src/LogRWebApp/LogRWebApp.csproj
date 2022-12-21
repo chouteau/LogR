@@ -4,7 +4,10 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	  <Version>1.2.5.0</Version>
+	  <Version>1.2.6.0</Version>
+	  <PackageReleaseNotes>
+		  1.2.6.0 remove hsts by default
+	  </PackageReleaseNotes>
 	  <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
 
