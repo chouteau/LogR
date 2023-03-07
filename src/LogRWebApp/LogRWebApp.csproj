@@ -9,6 +9,9 @@
 		  1.2.6.0 remove hsts by default
 	  </PackageReleaseNotes>
 	  <PreserveCompilationContext>true</PreserveCompilationContext>
+	  <UserSecretsId>665c5f26-9c8e-467a-99a3-8d674455170a</UserSecretsId>
+	  <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	  <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +21,7 @@
   <ItemGroup>
     <PackageReference Include="FluentEmail.Razor" Version="3.0.2" />
     <PackageReference Include="FluentEmail.SendGrid" Version="3.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
   </ItemGroup>
 
   <ItemGroup>
