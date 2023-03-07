@@ -21,7 +21,7 @@ namespace LogRWebMonitor.Components
         public EventCallback<LogRPush.LogInfo> LogAdded { get; set; }
 
 		LogFilter filter = new();
-        IList<LogRPush.LogInfo> logInfoList;
+        List<LogRPush.LogInfo> logInfoList;
         bool insertLogs = true;
         bool isInitialized = false;
 
@@ -66,6 +66,11 @@ namespace LogRWebMonitor.Components
                 {
                     await InvokeAsync(() =>
                     {
+                        if (logInfoList.Count > 500)
+                        {
+                            var last = logInfoList.Last();
+                            logInfoList.Remove(last);
+                        }
                         logInfoList.Insert(0, log);
                         StateHasChanged();
                     });

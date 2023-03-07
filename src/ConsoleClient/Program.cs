@@ -9,8 +9,8 @@ builder.Services.AddLogRPush(logSettings =>
 {
     logSettings.HostName = "Console";
     logSettings.LogLevel = LogLevel.Debug;
-    // logSettings.LogServerUrlList.Add("http://localhost:5276/");
-	logSettings.LogServerUrlList.Add("https://localhost:7125/");
+    logSettings.LogServerUrlList.Add("http://localhost:5276/");
+	// logSettings.LogServerUrlList.Add("https://localhost:7125/");
 });
 
 builder.Services.AddSingleton<VerryVerrySuperLongVerryVerrySuperLongVerryVerrySuperLongVerryVerrySuperLong>();

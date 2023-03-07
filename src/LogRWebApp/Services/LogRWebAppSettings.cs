@@ -10,5 +10,6 @@
 		public string SenderEmail { get; set; }
 		public string RecipientEmail { get; set; }
 		public string SendGridApiKey { get; set; }
-	}
+        public string StoreFolder { get; set; }
+    }
 }

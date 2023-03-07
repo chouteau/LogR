@@ -1,4 +1,3 @@
-
 using LogRWebMonitor;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
@@ -8,9 +7,9 @@ const string APPLICATION_NAME = "LogRWebApp";
 
 var builder = WebApplication.CreateBuilder(args);
 
-var palaceSection = builder.Configuration.GetSection(APPLICATION_NAME);
+var section = builder.Configuration.GetSection(APPLICATION_NAME);
 var logRSettings = new LogRWebApp.Services.LogRWebAppSettings();
-palaceSection.Bind(logRSettings);
+section.Bind(logRSettings);
 builder.Services.AddSingleton(logRSettings);
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -37,13 +36,14 @@ if (logRSettings.EmailProviderName == "sendgrid")
     fluentEmailBuilder.AddSendGridSender(logRSettings.SendGridApiKey, false);
 }
 
-var folder = System.IO.Path.Combine(System.IO.Path.GetTempPath(), APPLICATION_NAME);
-if (!Directory.Exists(folder))
+var folder = new System.IO.DirectoryInfo(logRSettings.StoreFolder);
+if (!folder.Exists)
 {
-    Directory.CreateDirectory(folder);
+    System.Diagnostics.Trace.WriteLine($"Create store folder {folder.FullName}");
+    Directory.CreateDirectory(folder.FullName);
 }
 builder.Services.AddDataProtection()
-        .PersistKeysToFileSystem(new System.IO.DirectoryInfo(folder))
+        .PersistKeysToFileSystem(folder)
         .SetApplicationName(APPLICATION_NAME)
         .SetDefaultKeyLifetime(TimeSpan.FromDays(60));
 
@@ -53,6 +53,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddMemoryCache();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
+builder.Services.AddHealthChecks();
 
 builder.AddLogRWebMonitor(cfg =>
 {
@@ -103,5 +104,6 @@ app.UseAuthorization();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+app.MapHealthChecks("/healthcheck");
 
 app.Run();
