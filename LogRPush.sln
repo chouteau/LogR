@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{115EFC4C-CE04-4705-8E6D-C1D13B9A01BF}"
 	ProjectSection(SolutionItems) = preProject
 		changelog.txt = changelog.txt
+		Dockerfile = Dockerfile
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		license.md = license.md
 		.github\workflows\push-image-to-packages.yml = .github\workflows\push-image-to-packages.yml
