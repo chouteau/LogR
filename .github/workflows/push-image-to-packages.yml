@@ -24,27 +24,19 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
+          #password: ${{ secrets.GITHUB_TOKEN }}
           password: ${{ secrets.DOCKER_PACKAGES }}
       
-      - name: Build the Docker image
-        run: |
-          docker build . --file Dockerfile --tag ${{ env.IMAGE_NAME }}:latest
-
-      - name: Push Docker image
-        run: |
-          docker push ${{ env.IMAGE_NAME }}
-
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ${{ env.IMAGE_NAME }}:latest
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
