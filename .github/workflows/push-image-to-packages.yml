@@ -21,7 +21,7 @@ jobs:
       
       - name: Build the Docker image
         run: |
-          docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+          docker build . --file Dockerfile --tag ${{ env.IMAGE_NAME }}:$(date +%s)
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2
