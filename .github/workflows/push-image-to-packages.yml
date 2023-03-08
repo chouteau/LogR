@@ -21,7 +21,6 @@ jobs:
       
       - name: Build the Docker image
         run: |
-          cd ${{github.workspace}}/src/LogRWebApp
           docker build . --file Dockerfile --tag my-image-name:$(date +%s)
 
       - name: Log in to the Container registry
