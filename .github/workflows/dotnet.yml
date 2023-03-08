@@ -1,4 +1,4 @@
-name: .NET
+name: build solution
 
 on:
   pull_request:
