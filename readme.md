@@ -1,5 +1,5 @@
 # LogRPush (1.1.11.0)
-Realtime Logger with windows monitor 
+Realtime Logger with blazor server
 
 ## Where can I get it ?
 
@@ -28,6 +28,10 @@ app.Services.UseLogRPush();
 
 ```
 
-Install your own LogRServer https://github.com/chouteau/LogR/releases/tag/Latest
+Install your own LogRServer https://github.com/chouteau/LogR/releases/tag/Latest on IIS
+
+or
+
+Install your own LogRServer with docker https://github.com/chouteau/LogR/pkgs/container/logr%2Flogrpushserver
 
 ![LogRServer](/doc/logrserver.gif)
