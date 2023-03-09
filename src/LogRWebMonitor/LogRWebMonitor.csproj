@@ -10,9 +10,9 @@
 	  <IncludeSymbols>true</IncludeSymbols>
 	  <PublishRepositoryUrl>true</PublishRepositoryUrl>
 	  <EmbedUntrackedSources>true</EmbedUntrackedSources>
-	  <PackageVersion>
+	  <PackageReleaseNotes>
 		  1.2.24.0 limit row count in dom
-	  </PackageVersion>
+	  </PackageReleaseNotes>
   </PropertyGroup>
 
 
