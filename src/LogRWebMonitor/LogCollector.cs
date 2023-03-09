@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LogRWebMonitor;
 public class LogCollector
 {
-    private readonly System.Collections.Concurrent.ConcurrentDictionary<string, LogRPush.LogInfo> _logDic;
+    private readonly System.Collections.Concurrent.ConcurrentDictionary<string, LogRPush.LogInfo> _logDic = new();
+    private readonly System.Collections.Concurrent.ConcurrentDictionary<string, LogRPush.LogInfo> _logDetails = new();
+    private int _rowCount = 0;
 
     public event Action OnChanged;
     public event Action<LogRPush.LogInfo> OnAddLog;
@@ -15,7 +18,6 @@ public class LogCollector
     public LogCollector(LogRSettings logRSettings)
     {
         this.Settings = logRSettings;
-        this._logDic = new System.Collections.Concurrent.ConcurrentDictionary<string, LogRPush.LogInfo>();
         this.Semaphore = new SemaphoreSlim(1, 1);
         this.WriteQueue = new System.Collections.Concurrent.ConcurrentQueue<LogRPush.LogInfo>();
     }
@@ -23,7 +25,6 @@ public class LogCollector
     protected LogRSettings Settings { get; }
     protected SemaphoreSlim Semaphore { get; }
     protected System.Collections.Concurrent.ConcurrentQueue<LogRPush.LogInfo> WriteQueue { get; }
-
 
     public void AddLog(LogRPush.LogInfo logInfo)
     {
@@ -68,6 +69,7 @@ public class LogCollector
 			}
 		}
         _logDic.TryAdd(logInfo.LogId, logInfo);
+        logInfo.RowNumber = _rowCount++;
         try
         {
             OnAddLog?.Invoke(logInfo);
@@ -160,9 +162,14 @@ public class LogCollector
                         .ToList();
     }
 
+    public void AddLogDetail(LogRPush.LogInfo logInfo)
+    {
+        _logDetails.AddOrUpdate(logInfo.LogId, logInfo, (old, exiting) => logInfo);
+    }
+
     public LogRPush.LogInfo GetLogInfo(string logId)
 	{
-        _logDic.TryGetValue(logId, out var result);
+        _logDetails.TryGetValue(logId, out var result);
         return result;
     }
 
