@@ -1,41 +1,33 @@
-# LogR (1.4.14.5)
+# LogRPush (1.1.11.0)
 Realtime Logger with windows monitor 
 
 ## Where can I get it ?
 
-**First**, install [LogR](https://www.nuget.org/packages/LogR) from the package manager console in your app.
+**First**, install [LogRPush](https://www.nuget.org/packages/LogRPush) from the package manager console in your app.
 
-> PM> Install-Package LogR
+> PM> Install-Package LogRPush
 
-LogRCore logging for dotnetcore.
+LogRPush logging for dotnet in real time.
+
+Next configure LogRPush in Program
 
 ```csharp
 
-public class Startup
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddLogRPush(logSettings =>
 {
-	public Startup(IConfiguration configuration)
-	{
-		Configuration = configuration;
-	}
+    logSettings.HostName = "Console";
+    logSettings.LogLevel = LogLevel.Debug;
+    logSettings.LogServerUrlList.Add("http://example.logrserver.com/");
+});
 
-	public IConfiguration Configuration { get; }
+var app = builder.Build();
 
-	public void ConfigureServices(IServiceCollection services)
-	{
-		var logRConfig = new LogRCore.LogRConfiguration()
-		{
-			LogLevel = LogLevel.Debug,
-			ApplicationName = "YourApplicationName",
-			EndPoint = $"/logger",
-			HostName = "WebApp"
-		};
+app.Services.UseLogRPush();
 
-		services.ConfigureLogR(logRConfig);
-	}
-
-	public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
-	{
-		app.UseLogR(loggerFactory);
-	}
-}
 ```
+
+Install your own LogRServer https://github.com/chouteau/LogR/releases/tag/Latest
+
+![LogRServer](/doc/logrserver.gif)
