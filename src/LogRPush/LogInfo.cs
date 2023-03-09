@@ -9,7 +9,9 @@ public class LogInfo
 		this.LogId = Guid.NewGuid().ToString();
 	}
 
-	public string LogId { get; }
+    public int RowNumber { get; set; }
+
+    public string LogId { get; }
 
 	public string Message { get; set; }
 	public Category Category { get; set; }

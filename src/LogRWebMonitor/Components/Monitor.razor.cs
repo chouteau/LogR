@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Web;
+
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace LogRWebMonitor.Components
 {
@@ -19,6 +15,9 @@ namespace LogRWebMonitor.Components
 
 		[Parameter]
         public EventCallback<LogRPush.LogInfo> LogAdded { get; set; }
+
+        [Parameter]
+        public int DisplayLogLimit { get; set; } = 500;
 
 		LogFilter filter = new();
         List<LogRPush.LogInfo> logInfoList;
@@ -66,7 +65,7 @@ namespace LogRWebMonitor.Components
                 {
                     await InvokeAsync(() =>
                     {
-                        if (logInfoList.Count > 500)
+                        if (logInfoList.Count > DisplayLogLimit)
                         {
                             var last = logInfoList.Last();
                             logInfoList.Remove(last);

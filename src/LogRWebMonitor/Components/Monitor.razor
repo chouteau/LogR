@@ -52,7 +52,7 @@
            @foreach (var item in logInfoList)
            {
                 var rowNumber = logInfoList.Count - logInfoList.IndexOf(item);
-                <LogRow Log="item" RowNumber="rowNumber" Filter="filter" />
+                <LogRow Log="item" Filter="filter" />
            }
         </tbody>
     </table>
