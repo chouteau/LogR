@@ -12,8 +12,8 @@ public class LogCollector
     private readonly System.Collections.Concurrent.ConcurrentDictionary<string, LogRPush.LogInfo> _logDetails = new();
     private int _rowCount = 0;
 
-    public event Action OnChanged;
-    public event Action<LogRPush.LogInfo> OnAddLog;
+    public event Action OnChanged = default!;
+    public event Action<LogRPush.LogInfo> OnAddLog = default!;
 
     public LogCollector(LogRSettings logRSettings)
     {
@@ -39,8 +39,9 @@ public class LogCollector
     {
         while (true)
         {
-            bool result = WriteQueue.TryDequeue(out LogRPush.LogInfo logInfo);
-            if (result)
+            bool result = WriteQueue.TryDequeue(out LogRPush.LogInfo? logInfo);
+            if (result
+                && logInfo is not null)
             {
                 AddInternal(logInfo);
                 continue;
@@ -89,10 +90,10 @@ public class LogCollector
         _logDic.Clear();
     }
 
-    public IEnumerable<LogRPush.LogInfo> GetLogInfoList(LogFilter logFilter = null)
+    public IEnumerable<LogRPush.LogInfo> GetLogInfoList(LogFilter? logFilter = null)
     {
         var result = _logDic.Values.AsQueryable();
-        if (logFilter != null)
+        if (logFilter is not null)
         {
             if (!string.IsNullOrWhiteSpace(logFilter.Search))
 			{
@@ -156,10 +157,13 @@ public class LogCollector
                     result = result.Where(i => i.Context.Equals(logFilter.Context, StringComparison.InvariantCultureIgnoreCase));
                 }
             }
+            return result.OrderByDescending(i => i.CreationDate)
+                            .Take(logFilter.Top)
+                            .ToList();
         }
         return result.OrderByDescending(i => i.CreationDate)
-                        .Take(logFilter.Top)
-                        .ToList();
+                .Take(200)
+                .ToList();
     }
 
     public void AddLogDetail(LogRPush.LogInfo logInfo)
@@ -167,7 +171,7 @@ public class LogCollector
         _logDetails.AddOrUpdate(logInfo.LogId, logInfo, (old, exiting) => logInfo);
     }
 
-    public LogRPush.LogInfo GetLogInfo(string logId)
+    public LogRPush.LogInfo? GetLogInfo(string logId)
 	{
         _logDetails.TryGetValue(logId, out var result);
         return result;

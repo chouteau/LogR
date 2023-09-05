@@ -3,7 +3,7 @@ namespace LogRWebMonitor;
 
 public class InnerProvider : ILoggerProvider
 {
-    public InnerProvider(LogCollector collector, IServiceProvider serviceProvider, ILogRExtender extender)
+    public InnerProvider(LogCollector collector, IServiceProvider serviceProvider, ILogRExtender? extender)
     {
         this.Collector = collector;
         this.ServiceProvider = serviceProvider;
@@ -12,7 +12,7 @@ public class InnerProvider : ILoggerProvider
 
     protected LogCollector Collector { get; }
     protected IServiceProvider ServiceProvider { get; }
-    protected ILogRExtender Extender { get; }
+    protected ILogRExtender? Extender { get; }
 
     public ILogger CreateLogger(string categoryName)
     {

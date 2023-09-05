@@ -9,7 +9,7 @@ internal class InnerLogger : ILogger
 {
 	private readonly string _categoryName;
 
-	public InnerLogger(LogRSettings logrSettings, string categoryName, LogCollector collector, ILogRExtender extender)
+	public InnerLogger(LogRSettings logrSettings, string categoryName, LogCollector collector, ILogRExtender? extender)
 	{
 		this.LogRSettings = logrSettings;
 		this._categoryName = categoryName;
@@ -23,11 +23,11 @@ internal class InnerLogger : ILogger
 	protected SemaphoreSlim Semaphore { get; }
 	protected System.Collections.Concurrent.ConcurrentQueue<LogRPush.LogInfo> WriteQueue { get; }
 	protected LogCollector Collector { get; }
-	protected ILogRExtender Extender { get; }
+	protected ILogRExtender? Extender { get; }
 
 	public IDisposable BeginScope<TState>(TState state)
 	{
-		return null;
+		return null!;
 	}
 
 	public bool IsEnabled(LogLevel logLevel)
@@ -35,7 +35,7 @@ internal class InnerLogger : ILogger
 		return LogRSettings.LogLevel <= logLevel;
 	}
 
-	public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+	public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception, string> formatter)
 	{
 		if (!IsEnabled(logLevel))
 		{
@@ -49,16 +49,37 @@ internal class InnerLogger : ILogger
 			HostName = LogRSettings.HostName,
 			MachineName = System.Environment.MachineName,
 			Context = _categoryName,
-			Message = $"{formatter(state, exception)}",
 			EnvironmentName = LogRSettings.EnvironmentName
 		};
 
-		if (Extender != null)
+        if (exception is not null)
+        {
+            logInfo.Message = $"{formatter(state, exception)}";
+            logInfo.ExceptionStack = GetExceptionContent(exception);
+        }
+
+        var tagList = state as IReadOnlyList<KeyValuePair<string, object?>>;
+        if (tagList is not null
+            && tagList.Count > 0)
+        {
+            foreach (var tag in tagList)
+            {
+                if ("{OriginalFormat}".Equals(tag.Key, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    continue;
+                }
+                if (tag.Value is null)
+                {
+                    continue;
+                }
+                logInfo.ExtendedParameterList.Add(tag.Key, $"{tag.Value}");
+            }
+        }
+
+        if (Extender != null)
 		{
 			logInfo.ExtendedParameterList = Extender.GetParameters();
 		}
-
-		logInfo.ExceptionStack = GetExceptionContent(exception);
 
 		switch (logLevel)
 		{
@@ -99,8 +120,9 @@ internal class InnerLogger : ILogger
 	{
 		while (true)
 		{
-			bool result = WriteQueue.TryDequeue(out LogRPush.LogInfo logInfo);
-			if (result)
+			bool result = WriteQueue.TryDequeue(out LogRPush.LogInfo? logInfo);
+			if (result
+				&& logInfo is not null)
 			{
 				WriteInternal(logInfo);
 				continue;
@@ -127,7 +149,7 @@ internal class InnerLogger : ILogger
 		Dequeue();
 	}
 
-	private static string GetExceptionContent(Exception ex, int level = 0)
+	private static string? GetExceptionContent(Exception ex, int level = 0)
 	{
 		if (ex == null)
 		{
@@ -151,7 +173,7 @@ internal class InnerLogger : ILogger
 					string data = string.Empty;
 					try
 					{
-						data = ex.Data[item].ToString();
+						data = $"{ex.Data[item]}";
 						content.AppendFormat("{0} = {1}", item, data);
 					}
 					catch { }

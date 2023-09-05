@@ -5,13 +5,13 @@ namespace LogRWebMonitor.Components
     public partial class LogInfo
     {
         [Parameter]
-        public string LogId { get; set; }
+        public string LogId { get; set; } = null!;
 
         [Inject]
-        LogCollector LogCollector { get; set; }
+        LogCollector LogCollector { get; set; } = default!;
 
         [Inject]
-        NavigationManager NavigationManager { get; set; }
+        NavigationManager NavigationManager { get; set; } = default!;
 
         LogRPush.LogInfo logInfo = new();
         string css
@@ -46,7 +46,8 @@ namespace LogRWebMonitor.Components
         {
             get
             {
-                return new MarkupString(logInfo.ExceptionStack.Replace("\n", "<br/>"));
+                var stack = logInfo.ExceptionStack ?? string.Empty;
+                return new MarkupString(stack.Replace("\n", "<br/>"));
             }
         }
 

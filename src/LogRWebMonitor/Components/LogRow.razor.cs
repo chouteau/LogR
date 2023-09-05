@@ -5,16 +5,16 @@ namespace LogRWebMonitor.Components
     public partial class LogRow
     {
         [Parameter]
-        public LogRPush.LogInfo Log { get; set; }
+        public LogRPush.LogInfo Log { get; set; } = default!;
 
         [Parameter]
-        public LogFilter Filter { get; set; }
+        public LogFilter Filter { get; set; } = default!;
 
         [Inject]
-        NavigationManager NavigationManager { get; set; }
+        NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
-        LogCollector LogCollector { get; set; }
+        LogCollector LogCollector { get; set; } = default!;
 
         string css
         {
@@ -46,9 +46,9 @@ namespace LogRWebMonitor.Components
 
         void ShowLog()
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new Dictionary<string, object?>();
             parameters.Add("l", Log.LogId);
-            var uri = NavigationManager.GetUriWithQueryParameters(NavigationManager.Uri, new System.Collections.ObjectModel.ReadOnlyDictionary<string, object>(parameters));
+            var uri = NavigationManager.GetUriWithQueryParameters(NavigationManager.Uri, new System.Collections.ObjectModel.ReadOnlyDictionary<string, object?>(parameters));
             LogCollector.AddLogDetail(Log);
             NavigationManager.NavigateTo(uri);
         }

@@ -6,7 +6,7 @@ public class LogRProvider : ILoggerProvider
     public LogRProvider(
         IHttpClientFactory httpClientFactory,
         LogRSettings settings,
-        ILogRExtender extender)
+        ILogRExtender? extender)
     {
 		this.HttpClientFactory = httpClientFactory;
 		this.Settings = settings;
@@ -15,7 +15,7 @@ public class LogRProvider : ILoggerProvider
 
     protected IHttpClientFactory HttpClientFactory { get; }
     protected LogRSettings Settings { get; }
-    protected ILogRExtender Extender { get; }
+    protected ILogRExtender? Extender { get; }
 
     public ILogger CreateLogger(string categoryName)
     {

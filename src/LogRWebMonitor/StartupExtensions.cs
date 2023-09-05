@@ -7,7 +7,7 @@ namespace LogRWebMonitor
 {
     public static class StartupExtensions
     {
-        public static WebApplicationBuilder AddLogRWebMonitor(this WebApplicationBuilder builder, Action<LogRSettings> config = null)
+        public static WebApplicationBuilder AddLogRWebMonitor(this WebApplicationBuilder builder, Action<LogRSettings>? config = null)
         {
             var settings = new LogRSettings();
             config?.Invoke(settings);
@@ -23,16 +23,16 @@ namespace LogRWebMonitor
             return builder;   
         }
 
-        public static void UseLogRWebMonitor(this WebApplication app, Action<LogRPush.LogInfo> addLog = null)
+        public static void UseLogRWebMonitor(this WebApplication app, Action<LogRPush.LogInfo>? addLog = null)
         {
             var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
             var logCollector = app.Services.GetRequiredService<LogCollector>();
             var scope = app.Services.CreateScope();
             var extender = scope.ServiceProvider.GetService<ILogRExtender>();
-			var settings = scope.ServiceProvider.GetService<LogRSettings>();
+			var settings = scope.ServiceProvider.GetRequiredService<LogRSettings>();
 			if (settings.FailDirectory.StartsWith(@".\"))
 			{
-				var current = System.IO.Path.GetDirectoryName(typeof(StartupExtensions).Assembly.Location);
+				var current = System.IO.Path.GetDirectoryName(typeof(StartupExtensions).Assembly.Location)!;
 				settings.FailDirectory = System.IO.Path.Combine(current, settings.FailDirectory, "Logs");
 			}
 
@@ -50,6 +50,14 @@ namespace LogRWebMonitor
 
             app.MapPost(settings.EndPoint, (LogRPush.LogInfo log, [FromServices] LogCollector collector) =>
             {
+                foreach(var keyword in settings.KeywordMessageFilters)
+				{
+					if (log.Message is not null
+                        && log.Message.Contains(keyword, StringComparison.InvariantCultureIgnoreCase))
+					{
+						return Microsoft.AspNetCore.Http.Results.Ok();
+					}
+				}
                 try
 				{
                     collector.AddLog(log);
