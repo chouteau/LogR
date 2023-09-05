@@ -62,6 +62,11 @@ builder.AddLogRWebMonitor(cfg =>
         cfg.LogLevel = LogLevel.Trace;
     }
     cfg.HostName = "IIS";
+    var keywordsSettings = builder.Configuration.GetSection("LogRWebApp:KeywordMessageFilters");
+    if (keywordsSettings.Exists())
+    {
+        cfg.KeywordMessageFilters = keywordsSettings.Get<string[]>().ToList();
+    }
 });
 
 if (logRSettings.UseOvhGrayLogRPlugin)

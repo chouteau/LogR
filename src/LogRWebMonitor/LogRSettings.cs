@@ -10,10 +10,11 @@ namespace LogRWebMonitor
     {
         public int LogCountMax { get; set; } = 20000;
         public LogLevel LogLevel { get; set; } = LogLevel.Information;
-        public string ApplicationName { get; internal set; }
-        public string HostName { get; set; }
-		public string EnvironmentName { get; set; }
+        public string ApplicationName { get; internal set; } = null!;
+        public string HostName { get; set; } = null!;
+		public string EnvironmentName { get; set; } = null!;
         public string EndPoint { get; set; } = "/api/logging/writelog";
 		public string FailDirectory { get; set; } = @".\";
-	}
+        public List<string> KeywordMessageFilters { get; set; } = new();
+    }
 }

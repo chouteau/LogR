@@ -5,47 +5,47 @@ namespace LogRWebMonitor.Components
     public partial class FilterLink
     {
         [Parameter]
-        public RenderFragment ChildContent { get; set; }
+        public RenderFragment ChildContent { get; set; } = default!;
 
         [Parameter]
-        public string MachineName { get; set; }
+        public string? MachineName { get; set; }
 
         [Parameter]
-        public string MachineNameFilter { get; set; }
+        public string? MachineNameFilter { get; set; }
 
         [Parameter]
-        public string HostName { get; set; }
+        public string? HostName { get; set; }
 
         [Parameter]
-        public string HostNameFilter { get; set; }
+        public string? HostNameFilter { get; set; }
 
         [Parameter]
-        public string Context { get; set; }
+        public string? Context { get; set; }
 
         [Parameter]
-        public string ContextFilter { get; set; }
+        public string? ContextFilter { get; set; }
 
         [Parameter]
-        public string ApplicationName { get; set; }
+        public string? ApplicationName { get; set; }
 
         [Parameter]
-        public string ApplicationNameFilter { get; set; }
+        public string? ApplicationNameFilter { get; set; }
 
         [Inject]
-        NavigationManager NavigationManager { get; set; }
+        NavigationManager NavigationManager { get; set; } = default!;
 
         void ShowFilteredLogs()
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new Dictionary<string, object?>();
             AddParameter(parameters, "a", ApplicationNameFilter, ApplicationName);
             AddParameter(parameters, "h", HostNameFilter, HostName);
             AddParameter(parameters, "m", MachineNameFilter, MachineName);
             AddParameter(parameters, "c", ContextFilter, Context);
-            var result = NavigationManager.GetUriWithQueryParameters(NavigationManager.Uri, new System.Collections.ObjectModel.ReadOnlyDictionary<string, object>(parameters));
+            var result = NavigationManager.GetUriWithQueryParameters(NavigationManager.Uri, new System.Collections.ObjectModel.ReadOnlyDictionary<string, object?>(parameters));
             NavigationManager.NavigateTo(result, true);
         }
 
-        public void AddParameter(Dictionary<string, object> parameters, string paramterName, string filter, string value)
+        public void AddParameter(Dictionary<string, object?> parameters, string paramterName, string? filter, string? value)
         {
             if (!string.IsNullOrWhiteSpace(filter))
             {

@@ -28,12 +28,12 @@ namespace LogRWebMonitor
 			LevelList.Add(new CheckedLevel { Value = Category.Notification });
 		}
 		public Guid Id { get; set; } = Guid.NewGuid();
-		public string Search { get; set; }
+		public string? Search { get; set; }
 		public List<CheckedLevel> LevelList { get; set; }
-		public string MachineName { get; set; }
-		public string HostName { get; set; }
-		public string Context { get; set; }
-		public string ApplicationName { get; set; }
+		public string? MachineName { get; set; }
+		public string? HostName { get; set; }
+		public string? Context { get; set; }
+		public string? ApplicationName { get; set; }
 		public int Top { get; set; } = 500;
 	}
 }

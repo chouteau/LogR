@@ -7,8 +7,11 @@ namespace LogRWebMonitor.Components
 {
     public partial class Monitor : ComponentBase
     {
-        [Inject] LogCollector LogCollector { get; set; }
-        [Inject] NavigationManager NavigationManager { get; set; }
+        [Inject] 
+        LogCollector LogCollector { get; set; } = default!;
+        
+        [Inject] 
+        NavigationManager NavigationManager { get; set; } = default!;
 
         [Parameter] 
         public LogRPush.Category? MinimumLevel { get; set; } = LogRPush.Category.Info;
@@ -20,11 +23,11 @@ namespace LogRWebMonitor.Components
         public int DisplayLogLimit { get; set; } = 500;
 
 		LogFilter filter = new();
-        List<LogRPush.LogInfo> logInfoList;
+        List<LogRPush.LogInfo> logInfoList = new();
         bool insertLogs = true;
         bool isInitialized = false;
 
-        string currentLogId;
+        string? currentLogId;
 
         protected override void OnInitialized()
         {

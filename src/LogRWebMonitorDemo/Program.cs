@@ -21,6 +21,7 @@ builder.AddLogRWebMonitor(logSettings =>
 	logSettings.LogLevel = LogLevel.Trace;
 	logSettings.LogCountMax = 50;
 	logSettings.EnvironmentName = builder.Environment.EnvironmentName;
+	logSettings.KeywordMessageFilters.Add("test33");
 });
 
 builder.Services.AddSingleton<LogRWebMonitor.ILogRExtender, LogRWebMonitorDemo.LogExtension>();

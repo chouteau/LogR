@@ -10,7 +10,7 @@ public class LogExtension : LogRWebMonitor.ILogRExtender
 	{
 	}
 
-	public string CurrentUri { get; set; }
+	public string CurrentUri { get; set; } = null!;
 
 	public Dictionary<string, string> GetParameters()
 	{
