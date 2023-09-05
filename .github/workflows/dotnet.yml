@@ -50,7 +50,7 @@ jobs:
         del web.config
         7z.exe a -r -tzip ${{github.workspace}}\logrwebapp.zip * 
 
-    - uses: dev-drprasad/delete-tag-and-release@v0.2.0
+    - uses: dev-drprasad/delete-tag-and-release@v1.0
       with:
         delete_release: true # default: false
         tag_name: Latest # tag name to delete
