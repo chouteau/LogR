@@ -52,14 +52,10 @@ public class LogRLogger : ILogger
 			HostName = LogRSettings.HostName,
 			MachineName = System.Environment.MachineName,
 			Context = _categoryName,
-			EnvironmentName = LogRSettings.EnvironmentName
-		};
-
-		if (exception is not null)
-		{
-			logInfo.Message = $"{formatter(state, exception)}";
-            logInfo.ExceptionStack = GetExceptionContent(exception);
-        }
+			EnvironmentName = LogRSettings.EnvironmentName,
+            Message = $"{formatter(state, exception ?? new())}",
+            ExceptionStack = GetExceptionContent(exception)
+        };
 
         var tagList = state as IReadOnlyList<KeyValuePair<string, object?>>;
 		if (tagList is not null
@@ -158,9 +154,9 @@ public class LogRLogger : ILogger
 		Dequeue();
 	}
 
-	private static string? GetExceptionContent(Exception ex, int level = 0)
+	private static string? GetExceptionContent(Exception? ex, int level = 0)
 	{
-		if (ex == null)
+		if (ex is null)
 		{
 			return null;
 		}

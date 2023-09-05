@@ -1,25 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <Version>1.2.24.0</Version>
-	  <PackageId>LogRWebMonitor</PackageId>
-	  <PackageProjectUrl>https://github.com/chouteau/LogR</PackageProjectUrl>
-	  <IncludeSymbols>true</IncludeSymbols>
-	  <PublishRepositoryUrl>true</PublishRepositoryUrl>
-	  <EmbedUntrackedSources>true</EmbedUntrackedSources>
-	  <PackageReleaseNotes>
-		  1.2.24.0 limit row count in dom
-	  </PackageReleaseNotes>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PackageId>LogRWebMonitor</PackageId>
+		<PackageProjectUrl>https://github.com/chouteau/LogR</PackageProjectUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<Version>1.2.25.1</Version>
+		<PackageReleaseNotes>
+			1.2.25.1 Fix formatting message
+			1.2.24.0 limit row count in dom
+		</PackageReleaseNotes>
+	</PropertyGroup>
 
 
-  <ItemGroup>
-    <Compile Include="..\LogRPush\Category.cs" Link="Category.cs" />
-    <Compile Include="..\LogRPush\LogInfo.cs" Link="LogInfo.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Include="..\LogRPush\Category.cs" Link="Category.cs" />
+		<Compile Include="..\LogRPush\LogInfo.cs" Link="LogInfo.cs" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
