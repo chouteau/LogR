@@ -57,6 +57,11 @@ namespace LogRWebMonitor
 					{
 						return Microsoft.AspNetCore.Http.Results.Ok();
 					}
+                    if (log.ExceptionStack is not null
+                        && log.ExceptionStack.Contains(keyword, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        return Microsoft.AspNetCore.Http.Results.Ok();
+                    }
 				}
                 try
 				{
