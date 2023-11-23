@@ -19,6 +19,7 @@ namespace LogRWebMonitor
 
             builder.Services.AddSingleton(settings);
             builder.Services.AddSingleton<LogCollector>();
+            builder.Services.AddMemoryCache();
 
             return builder;   
         }

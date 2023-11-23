@@ -136,21 +136,25 @@ public class LogRLogger : ILogger
 		Semaphore.Wait();
 		foreach (var logServerUrl in LogRSettings.LogServerUrlList)
 		{
-			try
-			{
-				using var httpClient = HttpClientFactory.CreateClient("LogRClient");
-				httpClient.BaseAddress = new Uri(logServerUrl);
-
-				httpClient.PostAsJsonAsync(LogRSettings.EndPoint, logInfo).Wait(LogRSettings.TimeoutInSecond * 1000);
-				break;
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex.Message);
-			}
+			Task.Run(() => SendLogToServer(logServerUrl, logInfo));
 		}
 		Semaphore.Release();
 		Dequeue();
+	}
+
+	private async Task SendLogToServer(string logServerUrl, LogInfo logInfo)
+	{
+		try
+		{
+			using var httpClient = HttpClientFactory.CreateClient("LogRClient");
+			httpClient.BaseAddress = new Uri(logServerUrl);
+			var cancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(LogRSettings.TimeoutInSecond)).Token;
+			await httpClient.PostAsJsonAsync(LogRSettings.EndPoint, logInfo, cancellationToken);
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+		}
 	}
 
 	private static string? GetExceptionContent(Exception? ex, int level = 0)

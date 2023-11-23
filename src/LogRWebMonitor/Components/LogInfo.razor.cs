@@ -63,7 +63,7 @@ namespace LogRWebMonitor.Components
             var prms = System.Web.HttpUtility.ParseQueryString(uri.Query);
             var lvalue = prms["l"];
             var navigateTo = NavigationManager.Uri.Replace($"l={lvalue}", "").TrimEnd('?').TrimEnd('&');
-            NavigationManager.NavigateTo(navigateTo);
+            NavigationManager.NavigateTo(navigateTo, true);
         }
     }
 }
