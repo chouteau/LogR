@@ -12,6 +12,10 @@ a, .btn-link {
     color: #0071c1;
 }
 
+.btn-link {
+    word-break: break-all;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
@@ -19,7 +23,29 @@ a, .btn-link {
 }
 
 .content {
-    padding-top: 1.1rem;
+    padding-top: 10px;
+}
+
+.table-bordered {
+    border-spacing: 0;
+    border-collapse: separate;
+    border:solid 1px rgba(0,0,0,0.2);
+    border-width:1px 0 0 1px;
+}
+
+.table-bordered tr {
+    border:solid 1px rgba(0,0,0,0.2);
+    border-width:1px 0 0 1px;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border:solid 1px rgba(0,0,0,0.2);
+    border-width:0 1px 1px 0;
+}
+
+thead.sticky-top {
+    background:#ddd;
 }
 
 .valid.modified:not([type=checkbox]) {

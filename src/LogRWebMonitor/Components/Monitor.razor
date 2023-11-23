@@ -4,10 +4,9 @@
 @if (string.IsNullOrWhiteSpace(currentLogId))
 {
 	<div class="row">
-		<div class="col-2 p-0">
+		<div class="col-2 sticky-top py-2" style="overflow-y: auto; overflow-x:hidden; max-height: 100vh;">
 			
-			<EditForm Model="@filter" OnSubmit="ApplyFilter" class="row gy-2 gx-3 mb-2 align-items-center filter sticky-top">
-			<div style="overflow:scroll;height:100%">
+			<EditForm Model="@filter" OnSubmit="ApplyFilter" class="gy-2 gx-3 mb-2 align-items-center filter">
 				<div class="mb-1">
 					<button type="submit" class="btn btn-primary" @onclick="ToggleInsert">
 						@if (insertLogs)
@@ -67,13 +66,12 @@
 						<FilterLink Context="@context" ContextFilter="@filter.Context">@context</FilterLink>
 					}
 				</div>
-			</div>
 			</EditForm>
 		</div>
-		<div class="col-10 table-responsive">
+		<div class="col-10 ps-0">
 			<table class="table table-bordered table-sm">
-				<thead>
-					<tr class ="sticky-top">
+				<thead class="sticky-top">
+					<tr>
 						<th>Id</th>
 						<th>Date</th>
 						<th>#Count</th>
