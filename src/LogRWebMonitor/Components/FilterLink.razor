@@ -1,5 +1,14 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
 
-<button class="btn btn-link" @onclick="ShowFilteredLogs">@ChildContent</button>
-
-
+<div class="mb-1">
+	<label class="form-check-label p-0 word-break-all">
+		@if (FilterItem.IsSelected)
+		{
+			<input type="checkbox" checked="checked" class="form-check-input" @onchange="@(e => ApplyFilter(e))" /> @FilterItem.Name
+		}
+		else
+		{
+			<input type="checkbox" class="form-check-input" @onchange="@(e => ApplyFilter(e))" /> @FilterItem.Name
+		}
+	</label>
+</div>

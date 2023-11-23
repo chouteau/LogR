@@ -9,8 +9,10 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-		<Version>1.2.26.1</Version>
+		<Version>1.3.28.0</Version>
 		<PackageReleaseNotes>
+			1.3.28.0 Multiple filters by property
+			1.3.27.0 Save filter to local storage
 			1.2.26.1 Extend keyword filter to ErrorStack
 			1.2.25.1 Fix formatting message
 			1.2.24.0 limit row count in dom

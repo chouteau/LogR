@@ -3,62 +3,168 @@
 
 @if (string.IsNullOrWhiteSpace(currentLogId))
 {
-<EditForm Model="@filter" OnSubmit="ApplyFilter" class="row gy-2 gx-3 mb-2 align-items-center filter">
-    <div class="col-auto">
-        @foreach(var level in filter.LevelList)
-        {
-           <label class="form-check-label"><InputCheckbox class="form-check-input" @bind-Value="level.Checked" @onclick="(evt) => LevelChanged(level, evt)" /> @level.Name</label>
-        }
-    </div>
-    <div class="col-auto">
-        <label class="visually-hidden" for="Search">Search :</label>
-        <InputText @bind-Value="filter.Search" class="form-control" placeholder="Search" />
-    </div>
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary">Apply</button>
-    </div>
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary" @onclick="ToggleInsert">
-        @if (insertLogs)
-        {
-            <span>|| Pause</span>
-        }
-        else
-        {
-            <span>> Start</span>
-        }
-        </button>
-        <button class="btn btn-secondary" @onclick="ResetFilter">Reset</button>
-    </div>
-</EditForm>
+	<div class="row">
+		<div class="col-2 sticky-top py-2" style="overflow-y: auto; overflow-x:hidden; max-height: 100vh;">
+			
+			<EditForm Model="@filter" OnSubmit="ApplyFilter" class="gy-2 gx-3 mb-2 align-items-center filter">
+				<div class="mb-1">
+					<button type="submit" class="btn btn-primary" @onclick="ToggleInsert">
+						@if (insertLogs)
+						{
+							<span>|| Pause</span>
+						}
+						else
+						{
+							<span>> Start</span>
+						}
+					</button>
+					<button class="btn btn-secondary" @onclick="ResetFilter">Reset</button>
+					<button class="btn btn-secondary" @onclick="ClearList">Clear</button>
+				</div>
 
-<div class="table-responsive">
-    <table class="table table-bordered table-sm">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>CreationDate</th>
-                <th>#Count</th>
-                <th>Level</th>
-                <th>MachineName</th>
-                <th>HostName</th>
-                <th>ApplicationName</th>
-                <th>Context</th>
-                <th>Message</th>
-                <th title="Environnement">Env.</th>
-            </tr>
-        </thead>
-        <tbody>
-           @foreach (var item in logInfoList)
-           {
-                var rowNumber = logInfoList.Count - logInfoList.IndexOf(item);
-                <LogRow Log="item" Filter="filter" />
-           }
-        </tbody>
-    </table>
-</div>
+				<div class="mb-1">
+					@foreach (var level in filter.LevelList)
+					{
+						<label class="form-check-label"><InputCheckbox class="form-check-input" @bind-Value="level.Checked" @onclick="(evt) => LevelChanged(level, evt)" /> @level.Name</label>
+					}
+				</div>
+				<div class="mb-1">
+					<label class="visually-hidden" for="Search">Search :</label>
+					<InputText @bind-Value="filter.Search" class="form-control" placeholder="Search" />
+				</div>
+				<div class="mb-1">
+					<button type="submit" class="btn btn-primary">Apply</button>
+				</div>
+
+				<div class="mb-1">
+					<h5 class="h5">Host Name :</h5>
+					<div class="mb-1">
+						<label class="form-check-label p-0 word-break-all">
+							@if (filter.AllHost)
+							{
+								<input type="checkbox" checked="checked" class="form-check-input" @onchange="ToogleAllHost" /> <span>All</span>
+							}
+							else
+							{
+								<input type="checkbox" class="form-check-input" @onchange="ToogleAllHost" /> <span>All</span>
+							}
+						</label>
+					</div>
+					@if (!filter.AllHost)
+					{
+						@foreach (var host in hostList.OrderBy(i => i.Name))
+						{
+							<FilterLink FilterItem="@host" FilterItemChanged="@(() => AddOrRemoveHost(host))">@host</FilterLink>
+						}
+					}
+				</div>
+
+				<div class="mb-1">
+					<h5 class="h5">Machine Name :</h5>
+					<div class="mb-1">
+						<label class="form-check-label p-0 word-break-all">
+							@if (filter.AllMachine)
+							{
+								<input type="checkbox" checked="checked" class="form-check-input" @onchange="ToogleAllMachine" /> <span>All</span>
+							}
+							else
+							{
+								<input type="checkbox" class="form-check-input" @onchange="ToogleAllMachine" /> <span>All</span>
+							}
+						</label>
+					</div>
+					@if (!filter.AllMachine)
+					{
+						@foreach (var machineName in machineNameList.OrderBy(i => i.Name))
+						{
+							<FilterLink FilterItem="@machineName" FilterItemChanged="@(() => AddOrRemoveMachine(machineName))">@machineName</FilterLink>
+						}
+					}
+				</div>
+
+				<div class="mb-1">
+					<h2 class="h5">Application Name :</h2>
+					<div class="mb-1">
+						<label class="form-check-label p-0 word-break-all">
+							@if (filter.AllApplication)
+							{
+								<input type="checkbox" class="form-check-input" checked="checked" @onchange="ToogleAllApplication" /> <span>All</span>
+							}
+							else
+							{
+								<input type="checkbox" class="form-check-input" @onchange="ToogleAllApplication" /> <span>All</span>
+							}
+						</label>
+					</div>
+					@if (!filter.AllApplication)
+					{
+						@foreach (var applicationName in applicationNameList.OrderBy(i => i.Name))
+						{
+							<FilterLink FilterItem="@applicationName" FilterItemChanged="@(() => AddOrRemoveApplication(applicationName))">@applicationName</FilterLink>
+						}
+					}
+				</div>
+
+				<div class="mb-1">
+					<h5 class="h5">Context :</h5>
+					<div class="mb-1">
+						<label class="form-check-label p-0 word-break-all">
+							@if (filter.AllContext)
+							{
+								<input type="checkbox" checked="checked" class="form-check-input" @onchange="ToogleAllContext" /> <span>All</span>
+							}
+							else
+							{
+								<input type="checkbox" class="form-check-input" @onchange="ToogleAllContext" /> <span>All</span>
+							}
+						</label>
+					</div>
+					@if (!filter.AllContext)
+					{
+						@foreach (var context in contextList.OrderBy(i => i.Name))
+						{
+							<FilterLink FilterItem="@context" FilterItemChanged="@(() => AddOrRemoveContext(context))">@context</FilterLink>
+						}
+					}
+				</div>
+			</EditForm>
+		</div>
+		<div class="col-10 ps-0">
+			<table class="table table-bordered table-sm">
+				<thead class="sticky-top">
+					<tr>
+						<th>Id</th>
+						<th>Date</th>
+						<th>#Count</th>
+						<th>Level</th>
+						<th>Machine/Host</th>
+						<th>Application/Context</th>
+						<th>Message</th>
+						<th title="Environnement">Env.</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in logInfoList)
+					{
+						<LogRow Log="item" Filter="filter" />
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
 }
 else
 {
-<LogInfo LogId="@currentLogId" />
+	<LogInfo LogId="@currentLogId" />
 }
+
+<script>
+	window.blazorExtensions = {
+		WriteLocalStorage: function (key, value) {
+			window.localStorage.setItem(key, value);
+		},
+		ReadLocalStorage: function (key) {
+			return window.localStorage.getItem(key);
+		}
+	};
+</script>

@@ -1,5 +1,6 @@
 ﻿
 using System.Collections;
+using System.Net.Http.Json;
 
 namespace LogRPush;
 
@@ -135,23 +136,25 @@ public class LogRLogger : ILogger
 		Semaphore.Wait();
 		foreach (var logServerUrl in LogRSettings.LogServerUrlList)
 		{
-			try
-			{
-				using var httpClient = HttpClientFactory.CreateClient("LogRClient");
-				httpClient.BaseAddress = new Uri(logServerUrl);
-				var httpMessage = new HttpRequestMessage(HttpMethod.Post, LogRSettings.EndPoint);
-				httpMessage.Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(logInfo), Encoding.UTF8, "application/json");
-				var response = httpClient.Send(httpMessage);
-				response.EnsureSuccessStatusCode();
-				break;
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex.Message);
-			}
+			Task.Run(() => SendLogToServer(logServerUrl, logInfo));
 		}
 		Semaphore.Release();
 		Dequeue();
+	}
+
+	private async Task SendLogToServer(string logServerUrl, LogInfo logInfo)
+	{
+		try
+		{
+			using var httpClient = HttpClientFactory.CreateClient("LogRClient");
+			httpClient.BaseAddress = new Uri(logServerUrl);
+			var cancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(LogRSettings.TimeoutInSecond)).Token;
+			await httpClient.PostAsJsonAsync(LogRSettings.EndPoint, logInfo, cancellationToken);
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+		}
 	}
 
 	private static string? GetExceptionContent(Exception? ex, int level = 0)
