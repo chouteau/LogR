@@ -13,7 +13,6 @@ public class LogCollector
 
 	private int _rowCount = 0;
 
-    public event Action OnChanged = default!;
     public event Action<LogRPush.LogInfo> OnAddLog = default!;
 
     public LogCollector(LogRSettings logRSettings)
@@ -76,7 +75,6 @@ public class LogCollector
         try
         {
             OnAddLog?.Invoke(logInfo);
-            OnChanged?.Invoke();
         }
         catch (Exception ex)
         {
@@ -92,81 +90,50 @@ public class LogCollector
         _logDic.Clear();
     }
 
-    public IEnumerable<LogRPush.LogInfo> GetLogInfoList(LogFilter? logFilter = null)
-    {
-        var result = _logDic.Values.AsQueryable();
-        if (logFilter is not null)
-        {
-            if (!string.IsNullOrWhiteSpace(logFilter.Search))
+    public List<LogRPush.LogInfo> GetLogInfoList(LogFilter? logFilter = null)
+	{
+		var result = _logDic.Values.AsQueryable();
+		if (logFilter is not null)
+		{
+			if (!string.IsNullOrWhiteSpace(logFilter.Search))
 			{
-                result = result.Where(i => IsMatchSearch(i, logFilter.Search));
+				result = result.Where(i => IsMatchSearch(i, logFilter.Search));
 			}
 
-            if (logFilter.LevelList.Exists(i => i.Checked))
+			if (logFilter.LevelList.Exists(i => i.Checked))
 			{
-                var levelList = logFilter.LevelList.Where(i => i.Checked).Select(i => i.Value);
-                result = result.Where(i => levelList.Contains(i.Category));
+				var levelList = logFilter.LevelList.Where(i => i.Checked).Select(i => i.Value);
+				result = result.Where(i => levelList.Contains(i.Category));
 			}
 
-            if (!string.IsNullOrWhiteSpace(logFilter.MachineName))
+			if (logFilter.MachineNameList.Count > 0)
 			{
-                if (logFilter.MachineName.StartsWith('!'))
-				{
-                    logFilter.MachineName = logFilter.MachineName.TrimStart('!');
-                    result = result.Where(i => !i.MachineName.Equals(logFilter.MachineName, StringComparison.InvariantCultureIgnoreCase));
-                }
-                else
-				{
-                    result = result.Where(i => i.MachineName.Equals(logFilter.MachineName, StringComparison.InvariantCultureIgnoreCase));
-                }
-            }
+				result = result.Where(l => logFilter.MachineNameList.Any(m => l.MachineName.Equals(m, StringComparison.InvariantCultureIgnoreCase)));
+			}
 
-            if (!string.IsNullOrWhiteSpace(logFilter.HostName))
-            {
-				if (logFilter.HostName.StartsWith('!'))
-				{
-                    logFilter.HostName = logFilter.HostName.TrimStart('!');
-                    result = result.Where(i => !i.HostName.Equals(logFilter.HostName, StringComparison.InvariantCultureIgnoreCase));
-                }
-                else
-				{
-                    result = result.Where(i => i.HostName.Equals(logFilter.HostName, StringComparison.InvariantCultureIgnoreCase));
-                }
-            }
+			if (logFilter.HostNameList.Count > 0)
+			{
+				result = result.Where(l => logFilter.HostNameList.Any(m => l.HostName.Equals(m, StringComparison.InvariantCultureIgnoreCase)));
+			}
 
-            if (!string.IsNullOrWhiteSpace(logFilter.ApplicationName))
-            {
-                if (logFilter.ApplicationName.StartsWith('!'))
-				{
-                    logFilter.ApplicationName = logFilter.ApplicationName.TrimStart('!');
-                    result = result.Where(i => !i.ApplicationName.Equals(logFilter.ApplicationName, StringComparison.InvariantCultureIgnoreCase));
-                }
-                else
-				{
-                    result = result.Where(i => i.ApplicationName.Equals(logFilter.ApplicationName, StringComparison.InvariantCultureIgnoreCase));
-                }
-            }
+			if (logFilter.ApplicationNameList.Count > 0)
+			{
+				result = result.Where(l => logFilter.ApplicationNameList.Any(m => l.ApplicationName.Equals(m, StringComparison.InvariantCultureIgnoreCase)));
+			}
 
-            if (!string.IsNullOrWhiteSpace(logFilter.Context))
-            {
-                if (logFilter.Context.StartsWith('!'))
-				{
-                    logFilter.Context = logFilter.Context.TrimStart('!');
-                    result = result.Where(i => !i.Context.Equals(logFilter.Context, StringComparison.InvariantCultureIgnoreCase));
-                }
-                else
-				{
-                    result = result.Where(i => i.Context.Equals(logFilter.Context, StringComparison.InvariantCultureIgnoreCase));
-                }
-            }
-            return result.OrderByDescending(i => i.CreationDate)
-                            .Take(logFilter.Top)
-                            .ToList();
-        }
-        return result.OrderByDescending(i => i.CreationDate)
-                .Take(200)
-                .ToList();
-    }
+			if (logFilter.ContextList.Count > 0)
+			{
+				result = result.Where(l => logFilter.ContextList.Any(m => l.Context.Equals(m, StringComparison.InvariantCultureIgnoreCase)));
+			}
+
+			return result.OrderByDescending(i => i.CreationDate)
+							.Take(logFilter.Top)
+							.ToList();
+		}
+		return result.OrderByDescending(i => i.CreationDate)
+				.Take(200)
+				.ToList();
+	}
 
     public void AddLogDetail(LogRPush.LogInfo logInfo)
     {

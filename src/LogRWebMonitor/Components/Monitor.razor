@@ -19,6 +19,7 @@
 						}
 					</button>
 					<button class="btn btn-secondary" @onclick="ResetFilter">Reset</button>
+					<button class="btn btn-secondary" @onclick="ClearList">Clear</button>
 				</div>
 
 				<div class="mb-1">
@@ -37,33 +38,93 @@
 
 				<div class="mb-1">
 					<h5 class="h5">Host Name :</h5>
-					@foreach (var host in hostList)
+					<div class="mb-1">
+						<label class="form-check-label p-0 word-break-all">
+							@if (filter.AllHost)
+							{
+								<input type="checkbox" checked="checked" class="form-check-input" @onchange="ToogleAllHost" /> <span>All</span>
+							}
+							else
+							{
+								<input type="checkbox" class="form-check-input" @onchange="ToogleAllHost" /> <span>All</span>
+							}
+						</label>
+					</div>
+					@if (!filter.AllHost)
 					{
-						<FilterLink HostName="@host" HostNameFilter="@filter.HostName">@host</FilterLink>
+						@foreach (var host in hostList.OrderBy(i => i.Name))
+						{
+							<FilterLink FilterItem="@host" FilterItemChanged="@(() => AddOrRemoveHost(host))">@host</FilterLink>
+						}
 					}
 				</div>
 
 				<div class="mb-1">
 					<h5 class="h5">Machine Name :</h5>
-					@foreach (var machineName in machineNameList)
+					<div class="mb-1">
+						<label class="form-check-label p-0 word-break-all">
+							@if (filter.AllMachine)
+							{
+								<input type="checkbox" checked="checked" class="form-check-input" @onchange="ToogleAllMachine" /> <span>All</span>
+							}
+							else
+							{
+								<input type="checkbox" class="form-check-input" @onchange="ToogleAllMachine" /> <span>All</span>
+							}
+						</label>
+					</div>
+					@if (!filter.AllMachine)
 					{
-						<FilterLink MachineName="@machineName" MachineNameFilter="@filter.MachineName" >@machineName</FilterLink>
+						@foreach (var machineName in machineNameList.OrderBy(i => i.Name))
+						{
+							<FilterLink FilterItem="@machineName" FilterItemChanged="@(() => AddOrRemoveMachine(machineName))">@machineName</FilterLink>
+						}
 					}
 				</div>
 
 				<div class="mb-1">
 					<h2 class="h5">Application Name :</h2>
-					@foreach (var applicationName in applicationNameList)
+					<div class="mb-1">
+						<label class="form-check-label p-0 word-break-all">
+							@if (filter.AllApplication)
+							{
+								<input type="checkbox" class="form-check-input" checked="checked" @onchange="ToogleAllApplication" /> <span>All</span>
+							}
+							else
+							{
+								<input type="checkbox" class="form-check-input" @onchange="ToogleAllApplication" /> <span>All</span>
+							}
+						</label>
+					</div>
+					@if (!filter.AllApplication)
 					{
-						<FilterLink ApplicationName="@applicationName" ApplicationNameFilter="@filter.ApplicationName">@applicationName</FilterLink>
+						@foreach (var applicationName in applicationNameList.OrderBy(i => i.Name))
+						{
+							<FilterLink FilterItem="@applicationName" FilterItemChanged="@(() => AddOrRemoveApplication(applicationName))">@applicationName</FilterLink>
+						}
 					}
 				</div>
 
 				<div class="mb-1">
 					<h5 class="h5">Context :</h5>
-					@foreach (var context in contextList)
+					<div class="mb-1">
+						<label class="form-check-label p-0 word-break-all">
+							@if (filter.AllContext)
+							{
+								<input type="checkbox" checked="checked" class="form-check-input" @onchange="ToogleAllContext" /> <span>All</span>
+							}
+							else
+							{
+								<input type="checkbox" class="form-check-input" @onchange="ToogleAllContext" /> <span>All</span>
+							}
+						</label>
+					</div>
+					@if (!filter.AllContext)
 					{
-						<FilterLink Context="@context" ContextFilter="@filter.Context">@context</FilterLink>
+						@foreach (var context in contextList.OrderBy(i => i.Name))
+						{
+							<FilterLink FilterItem="@context" FilterItemChanged="@(() => AddOrRemoveContext(context))">@context</FilterLink>
+						}
 					}
 				</div>
 			</EditForm>
@@ -85,7 +146,6 @@
 				<tbody>
 					@foreach (var item in logInfoList)
 					{
-						var rowNumber = logInfoList.Count - logInfoList.IndexOf(item);
 						<LogRow Log="item" Filter="filter" />
 					}
 				</tbody>
