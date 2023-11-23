@@ -1,5 +1,6 @@
 ﻿
 using System.Collections;
+using System.Net.Http.Json;
 
 namespace LogRPush;
 
@@ -139,10 +140,8 @@ public class LogRLogger : ILogger
 			{
 				using var httpClient = HttpClientFactory.CreateClient("LogRClient");
 				httpClient.BaseAddress = new Uri(logServerUrl);
-				var httpMessage = new HttpRequestMessage(HttpMethod.Post, LogRSettings.EndPoint);
-				httpMessage.Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(logInfo), Encoding.UTF8, "application/json");
-				var response = httpClient.Send(httpMessage);
-				response.EnsureSuccessStatusCode();
+
+				httpClient.PostAsJsonAsync(LogRSettings.EndPoint, logInfo).Wait(LogRSettings.TimeoutInSecond * 1000);
 				break;
 			}
 			catch (Exception ex)

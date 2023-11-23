@@ -3,62 +3,110 @@
 
 @if (string.IsNullOrWhiteSpace(currentLogId))
 {
-<EditForm Model="@filter" OnSubmit="ApplyFilter" class="row gy-2 gx-3 mb-2 align-items-center filter">
-    <div class="col-auto">
-        @foreach(var level in filter.LevelList)
-        {
-           <label class="form-check-label"><InputCheckbox class="form-check-input" @bind-Value="level.Checked" @onclick="(evt) => LevelChanged(level, evt)" /> @level.Name</label>
-        }
-    </div>
-    <div class="col-auto">
-        <label class="visually-hidden" for="Search">Search :</label>
-        <InputText @bind-Value="filter.Search" class="form-control" placeholder="Search" />
-    </div>
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary">Apply</button>
-    </div>
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary" @onclick="ToggleInsert">
-        @if (insertLogs)
-        {
-            <span>|| Pause</span>
-        }
-        else
-        {
-            <span>> Start</span>
-        }
-        </button>
-        <button class="btn btn-secondary" @onclick="ResetFilter">Reset</button>
-    </div>
-</EditForm>
+	<div class="row">
+		<div class="col-2 p-0">
+			
+			<EditForm Model="@filter" OnSubmit="ApplyFilter" class="row gy-2 gx-3 mb-2 align-items-center filter sticky-top">
+			<div style="overflow:scroll;height:100%">
+				<div class="mb-1">
+					<button type="submit" class="btn btn-primary" @onclick="ToggleInsert">
+						@if (insertLogs)
+						{
+							<span>|| Pause</span>
+						}
+						else
+						{
+							<span>> Start</span>
+						}
+					</button>
+					<button class="btn btn-secondary" @onclick="ResetFilter">Reset</button>
+				</div>
 
-<div class="table-responsive">
-    <table class="table table-bordered table-sm">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>CreationDate</th>
-                <th>#Count</th>
-                <th>Level</th>
-                <th>MachineName</th>
-                <th>HostName</th>
-                <th>ApplicationName</th>
-                <th>Context</th>
-                <th>Message</th>
-                <th title="Environnement">Env.</th>
-            </tr>
-        </thead>
-        <tbody>
-           @foreach (var item in logInfoList)
-           {
-                var rowNumber = logInfoList.Count - logInfoList.IndexOf(item);
-                <LogRow Log="item" Filter="filter" />
-           }
-        </tbody>
-    </table>
-</div>
+				<div class="mb-1">
+					@foreach (var level in filter.LevelList)
+					{
+						<label class="form-check-label"><InputCheckbox class="form-check-input" @bind-Value="level.Checked" @onclick="(evt) => LevelChanged(level, evt)" /> @level.Name</label>
+					}
+				</div>
+				<div class="mb-1">
+					<label class="visually-hidden" for="Search">Search :</label>
+					<InputText @bind-Value="filter.Search" class="form-control" placeholder="Search" />
+				</div>
+				<div class="mb-1">
+					<button type="submit" class="btn btn-primary">Apply</button>
+				</div>
+
+				<div class="mb-1">
+					<h5 class="h5">Host Name :</h5>
+					@foreach (var host in hostList)
+					{
+						<FilterLink HostName="@host" HostNameFilter="@filter.HostName">@host</FilterLink>
+					}
+				</div>
+
+				<div class="mb-1">
+					<h5 class="h5">Machine Name :</h5>
+					@foreach (var machineName in machineNameList)
+					{
+						<FilterLink MachineName="@machineName" MachineNameFilter="@filter.MachineName" >@machineName</FilterLink>
+					}
+				</div>
+
+				<div class="mb-1">
+					<h2 class="h5">Application Name :</h2>
+					@foreach (var applicationName in applicationNameList)
+					{
+						<FilterLink ApplicationName="@applicationName" ApplicationNameFilter="@filter.ApplicationName">@applicationName</FilterLink>
+					}
+				</div>
+
+				<div class="mb-1">
+					<h5 class="h5">Context :</h5>
+					@foreach (var context in contextList)
+					{
+						<FilterLink Context="@context" ContextFilter="@filter.Context">@context</FilterLink>
+					}
+				</div>
+			</div>
+			</EditForm>
+		</div>
+		<div class="col-10 table-responsive">
+			<table class="table table-bordered table-sm">
+				<thead>
+					<tr class ="sticky-top">
+						<th>Id</th>
+						<th>Date</th>
+						<th>#Count</th>
+						<th>Level</th>
+						<th>Machine/Host</th>
+						<th>Application/Context</th>
+						<th>Message</th>
+						<th title="Environnement">Env.</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in logInfoList)
+					{
+						var rowNumber = logInfoList.Count - logInfoList.IndexOf(item);
+						<LogRow Log="item" Filter="filter" />
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
 }
 else
 {
-<LogInfo LogId="@currentLogId" />
+	<LogInfo LogId="@currentLogId" />
 }
+
+<script>
+	window.blazorExtensions = {
+		WriteLocalStorage: function (key, value) {
+			window.localStorage.setItem(key, value);
+		},
+		ReadLocalStorage: function (key) {
+			return window.localStorage.getItem(key);
+		}
+	};
+</script>

@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
-
-<button class="btn btn-link" @onclick="ShowFilteredLogs">@ChildContent</button>
+<button class="btn btn-link p-0" @onclick="ShowFilteredLogs">
+	<input type="checkbox" checked="checked" class="me-1" />@ChildContent
+</button>
 
 

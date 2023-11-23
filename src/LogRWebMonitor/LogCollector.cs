@@ -10,7 +10,8 @@ public class LogCollector
 {
     private readonly System.Collections.Concurrent.ConcurrentDictionary<string, LogRPush.LogInfo> _logDic = new();
     private readonly System.Collections.Concurrent.ConcurrentDictionary<string, LogRPush.LogInfo> _logDetails = new();
-    private int _rowCount = 0;
+
+	private int _rowCount = 0;
 
     public event Action OnChanged = default!;
     public event Action<LogRPush.LogInfo> OnAddLog = default!;
@@ -70,6 +71,7 @@ public class LogCollector
 			}
 		}
         _logDic.TryAdd(logInfo.LogId, logInfo);
+
         logInfo.RowNumber = _rowCount++;
         try
         {
@@ -80,8 +82,8 @@ public class LogCollector
         {
             Console.WriteLine(ex.ToString());
         }
-        Semaphore.Release();
-        Dequeue();
+
+		Semaphore.Release();
     }
 
 
@@ -100,7 +102,7 @@ public class LogCollector
                 result = result.Where(i => IsMatchSearch(i, logFilter.Search));
 			}
 
-            if (logFilter.LevelList.Any(i => i.Checked))
+            if (logFilter.LevelList.Exists(i => i.Checked))
 			{
                 var levelList = logFilter.LevelList.Where(i => i.Checked).Select(i => i.Value);
                 result = result.Where(i => levelList.Contains(i.Category));
@@ -108,7 +110,7 @@ public class LogCollector
 
             if (!string.IsNullOrWhiteSpace(logFilter.MachineName))
 			{
-                if (logFilter.MachineName.StartsWith("!"))
+                if (logFilter.MachineName.StartsWith('!'))
 				{
                     logFilter.MachineName = logFilter.MachineName.TrimStart('!');
                     result = result.Where(i => !i.MachineName.Equals(logFilter.MachineName, StringComparison.InvariantCultureIgnoreCase));
@@ -121,7 +123,7 @@ public class LogCollector
 
             if (!string.IsNullOrWhiteSpace(logFilter.HostName))
             {
-				if (logFilter.HostName.StartsWith("!"))
+				if (logFilter.HostName.StartsWith('!'))
 				{
                     logFilter.HostName = logFilter.HostName.TrimStart('!');
                     result = result.Where(i => !i.HostName.Equals(logFilter.HostName, StringComparison.InvariantCultureIgnoreCase));
@@ -134,7 +136,7 @@ public class LogCollector
 
             if (!string.IsNullOrWhiteSpace(logFilter.ApplicationName))
             {
-                if (logFilter.ApplicationName.StartsWith("!"))
+                if (logFilter.ApplicationName.StartsWith('!'))
 				{
                     logFilter.ApplicationName = logFilter.ApplicationName.TrimStart('!');
                     result = result.Where(i => !i.ApplicationName.Equals(logFilter.ApplicationName, StringComparison.InvariantCultureIgnoreCase));
@@ -147,7 +149,7 @@ public class LogCollector
 
             if (!string.IsNullOrWhiteSpace(logFilter.Context))
             {
-                if (logFilter.Context.StartsWith("!"))
+                if (logFilter.Context.StartsWith('!'))
 				{
                     logFilter.Context = logFilter.Context.TrimStart('!');
                     result = result.Where(i => !i.Context.Equals(logFilter.Context, StringComparison.InvariantCultureIgnoreCase));
