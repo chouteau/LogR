@@ -1,0 +1,20 @@
+﻿@script
+
+@code {
+
+	[Parameter]
+	public string Name { get; set; } = null!;
+
+	MarkupString script = default!;
+
+	protected override void OnInitialized()
+	{
+		var assembly = typeof(StartupExtensions).Assembly;
+		var resourceName = $"LogRWebMonitor.Components.{Name}";
+
+		using var resourceStream = assembly.GetManifestResourceStream(resourceName)!;
+		using var reader = new StreamReader(resourceStream);
+		var content = reader.ReadToEnd();
+		script = new MarkupString($"<script>{content}</script>");
+	}
+}
