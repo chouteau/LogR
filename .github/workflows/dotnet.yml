@@ -2,7 +2,7 @@ name: build solution
 
 on:
   pull_request:
-    branches: [ docker ]
+    branches: [ prod ]
 
 env:
   REGISTRY: ghcr.io
