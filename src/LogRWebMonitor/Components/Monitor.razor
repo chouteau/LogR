@@ -158,13 +158,4 @@ else
 	<LogInfo LogId="@currentLogId" />
 }
 
-<script>
-	window.blazorExtensions = {
-		WriteLocalStorage: function (key, value) {
-			window.localStorage.setItem(key, value);
-		},
-		ReadLocalStorage: function (key) {
-			return window.localStorage.getItem(key);
-		}
-	};
-</script>
+<EmbededResource Name="Monitor.razor.js"/>

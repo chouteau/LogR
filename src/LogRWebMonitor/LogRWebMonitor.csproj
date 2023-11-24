@@ -19,10 +19,19 @@
 		</PackageReleaseNotes>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <None Remove="Components\Monitor.razor.js" />
+	</ItemGroup>
+
 
 	<ItemGroup>
 		<Compile Include="..\LogRPush\Category.cs" Link="Category.cs" />
 		<Compile Include="..\LogRPush\LogInfo.cs" Link="LogInfo.cs" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Components\Monitor.razor.js" />
 	</ItemGroup>
 
 	<ItemGroup>
