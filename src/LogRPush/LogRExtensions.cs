@@ -19,7 +19,7 @@ public static class LogRExtensions
         services.AddHttpClient("LogRClient", httpClient =>
         {
             if (!string.IsNullOrWhiteSpace(settings.ApiKey))
-			{
+            {
                 httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {settings.ApiKey}");
             }
             httpClient.DefaultRequestHeaders.UserAgent.ParseAdd($"LogRPush ({System.Environment.OSVersion}; {System.Environment.MachineName}; {settings.HostName})");
@@ -32,7 +32,7 @@ public static class LogRExtensions
                 UseCookies = false,
             };
             return handler;
-        }).SetHandlerLifetime(TimeSpan.FromSeconds(settings.TimeoutInSecond));
+        });
 
         if (!settings.LogServerUrlList.Any())
         {

@@ -155,7 +155,7 @@ public class LogRLogger : ILogger
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine(ex.Message);
+			System.Diagnostics.Trace.WriteLine(ex.Message);
 		}
 	}
 

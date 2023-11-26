@@ -4,10 +4,11 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Version>1.2.14.2</Version>
+		<Version>1.2.15.2</Version>
 		<PackageReleaseNotes>
+			1.2.15.2 - Remove Timout for HttpClient , replaced by Timeout in CancelationToken
 			1.2.14.2 - Fix Trace
-					   Read minimum level from json configuration file
+			Read minimum level from json configuration file
 			1.2.13.1 - Fix formatting message
 			1.2.12.0 - Refacto + Add Tags in LogInfo
 		</PackageReleaseNotes>
