@@ -8,7 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddLogRPush(logSettings =>
 {
     logSettings.HostName = "Console";
-    logSettings.LogLevel = LogLevel.Debug;
     logSettings.LogServerUrlList.Add("http://localhost:5276/");
 });
 

@@ -7,22 +7,24 @@ namespace LogRPush;
 public class LogRLogger : ILogger
 {
 	private readonly string _categoryName;
+    private readonly LogRSettings _logrSettings;
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ILogRExtender? _extender;
+	private readonly LogLevel _logLevel;
 
-	public LogRLogger(LogRSettings logrSettings, string categoryName, IHttpClientFactory httpClientFactory, ILogRExtender? extender)
+    public LogRLogger(LogRSettings logrSettings, string categoryName, IHttpClientFactory httpClientFactory, ILogRExtender? extender, LogLevel miniLogLevel)
 	{
-		this.LogRSettings = logrSettings;
-		this._categoryName = categoryName;
 		this.Semaphore = new SemaphoreSlim(1, 1);
 		this.WriteQueue = new System.Collections.Concurrent.ConcurrentQueue<LogInfo>();
-		this.HttpClientFactory = httpClientFactory;
-		this.Extender = extender;
-	}
+        _logrSettings = logrSettings;
+        _categoryName = categoryName;
+        _httpClientFactory = httpClientFactory;
+        _extender = extender;
+		_logLevel = miniLogLevel;
+    }
 
-	protected LogRSettings LogRSettings { get; }
 	protected SemaphoreSlim Semaphore { get; }
 	protected System.Collections.Concurrent.ConcurrentQueue<LogInfo> WriteQueue { get; }
-	protected IHttpClientFactory HttpClientFactory { get; }
-	protected ILogRExtender? Extender { get; }
 
 	public IDisposable BeginScope<TState>(TState state)
 	{
@@ -31,12 +33,12 @@ public class LogRLogger : ILogger
 
 	public bool IsEnabled(LogLevel logLevel)
 	{
-		return LogRSettings.LogLevel <= logLevel;
+		return _logLevel <= logLevel;
 	}
 
 	public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception, string> formatter)
 	{
-		if (Semaphore.CurrentCount > LogRSettings.LogQueueLimit)
+		if (Semaphore.CurrentCount > _logrSettings.LogQueueLimit)
 		{
 			return;
 		}
@@ -48,12 +50,12 @@ public class LogRLogger : ILogger
 
 		var logInfo = new LogInfo()
 		{
-			ApplicationName = LogRSettings.ApplicationName,
+			ApplicationName = _logrSettings.ApplicationName,
 			CreationDate = DateTime.Now,
-			HostName = LogRSettings.HostName,
+			HostName = _logrSettings.HostName,
 			MachineName = System.Environment.MachineName,
 			Context = _categoryName,
-			EnvironmentName = LogRSettings.EnvironmentName,
+			EnvironmentName = _logrSettings.EnvironmentName,
             Message = $"{formatter(state, exception ?? new())}",
             ExceptionStack = GetExceptionContent(exception)
         };
@@ -76,15 +78,15 @@ public class LogRLogger : ILogger
 			}
 		}
 
-		if (Extender is not null)
+		if (_extender is not null)
 		{
-			logInfo.ExtendedParameterList = Extender.GetParameters();
+			logInfo.ExtendedParameterList = _extender.GetParameters();
 		}
 
 		switch (logLevel)
 		{
 			case LogLevel.Trace:
-				logInfo.Category = Category.Debug;
+				logInfo.Category = Category.Trace;
 				break;
 			case LogLevel.Debug:
 				logInfo.Category = Category.Debug;
@@ -134,7 +136,7 @@ public class LogRLogger : ILogger
 	private void WriteInternal(LogInfo logInfo)
 	{
 		Semaphore.Wait();
-		foreach (var logServerUrl in LogRSettings.LogServerUrlList)
+		foreach (var logServerUrl in _logrSettings.LogServerUrlList)
 		{
 			Task.Run(() => SendLogToServer(logServerUrl, logInfo));
 		}
@@ -146,10 +148,10 @@ public class LogRLogger : ILogger
 	{
 		try
 		{
-			using var httpClient = HttpClientFactory.CreateClient("LogRClient");
+			using var httpClient = _httpClientFactory.CreateClient("LogRClient");
 			httpClient.BaseAddress = new Uri(logServerUrl);
-			var cancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(LogRSettings.TimeoutInSecond)).Token;
-			await httpClient.PostAsJsonAsync(LogRSettings.EndPoint, logInfo, cancellationToken);
+			var cancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(_logrSettings.TimeoutInSecond)).Token;
+			await httpClient.PostAsJsonAsync(_logrSettings.EndPoint, logInfo, cancellationToken);
 		}
 		catch (Exception ex)
 		{
@@ -204,4 +206,3 @@ public class LogRLogger : ILogger
 	}
 
 }
-

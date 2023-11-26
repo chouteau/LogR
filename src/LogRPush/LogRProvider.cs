@@ -1,25 +1,30 @@
 ﻿
+using Microsoft.Extensions.Configuration;
+
 namespace LogRPush;
 
-public class LogRProvider : ILoggerProvider
+public sealed class LogRProvider : ILoggerProvider
 {
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly LogRSettings _settings;
+    private readonly ILogRExtender? _extender;
+    private readonly LogLevel _minLogLevel;
+
     public LogRProvider(
         IHttpClientFactory httpClientFactory,
         LogRSettings settings,
-        ILogRExtender? extender)
+        ILogRExtender? extender,
+        IConfiguration configuration)
     {
-		this.HttpClientFactory = httpClientFactory;
-		this.Settings = settings;
-		this.Extender = extender;
-	}
-
-    protected IHttpClientFactory HttpClientFactory { get; }
-    protected LogRSettings Settings { get; }
-    protected ILogRExtender? Extender { get; }
+        _httpClientFactory = httpClientFactory;
+        _settings = settings;
+        _extender = extender;
+        _minLogLevel = configuration.GetValue<LogLevel>("Logging:LogLevel:Default");
+    }
 
     public ILogger CreateLogger(string categoryName)
     {
-        return new LogRLogger(Settings, categoryName, HttpClientFactory, Extender);
+        return new LogRLogger(_settings, categoryName, _httpClientFactory, _extender, _minLogLevel);
     }
 
     public void Dispose()
