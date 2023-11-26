@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.Extensions.Configuration;
+
 namespace LogRPush;
 
 public static class LogRExtensions
@@ -46,7 +48,8 @@ public static class LogRExtensions
         var httpClientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
         var settings = serviceProvider.GetRequiredService<LogRSettings>();
         var extender = serviceProvider.GetService<ILogRExtender>();
-        var provider = new LogRProvider(httpClientFactory, settings, extender);
+        var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+        var provider = new LogRProvider(httpClientFactory, settings, extender, configuration);
         loggerFactory.AddProvider(provider);
     }
 }

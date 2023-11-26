@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel;
-using System.IO;
-using System.Runtime.CompilerServices;
 using System.Web;
 
 using Microsoft.AspNetCore.Components;
@@ -8,8 +6,6 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.JSInterop;
-
-using static System.Net.WebRequestMethods;
 
 namespace LogRWebMonitor.Components;
 
@@ -20,6 +16,9 @@ public sealed partial class Monitor : ComponentBase, IDisposable
 
 	[Inject]
 	NavigationManager NavigationManager { get; set; } = default!;
+
+	[Inject]
+	ILogger<Monitor> Logger { get; set; } = default!;
 
 	[Inject]
 	IJSRuntime JSRuntime { get; set; } = default!;
@@ -228,12 +227,27 @@ public sealed partial class Monitor : ComponentBase, IDisposable
 
 	public async Task SaveToLocalStorage(string key, string value)
 	{
-		await JSRuntime.InvokeVoidAsync("blazorExtensions.WriteLocalStorage", key, value);
+		try
+		{
+			await JSRuntime.InvokeVoidAsync("blazorExtensions.WriteLocalStorage", key, value);
+		}
+		catch (Exception ex)
+		{
+			Logger.LogError(ex, ex.Message);
+		}
 	}
 
-	public async Task<string> GetFromLocalStorage(string key)
+	public async Task<string?> GetFromLocalStorage(string key)
 	{
-		return await JSRuntime.InvokeAsync<string>("blazorExtensions.ReadLocalStorage", key);
+		try
+		{
+			return await JSRuntime.InvokeAsync<string>("blazorExtensions.ReadLocalStorage", key);
+		}
+		catch (Exception ex)
+		{
+			Logger.LogError(ex, ex.Message);
+		}
+		return null;
 	}
 
 	void AddFilterToQueryString()

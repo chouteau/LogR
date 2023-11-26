@@ -3,22 +3,13 @@ namespace LogRPush;
 
 public class LogRSettings
 {
-    public LogRSettings()
-    {
-        LogLevel = LogLevel.Information;
-        TimeoutInSecond = 5;
-		LogQueueLimit = 100;
-		LogServerUrlList = new List<string>();
-        EndPoint = "/api/logging/writelog";
-    }
-    public LogLevel LogLevel { get; set; }
     public string HostName { get; set; } = null!;
-    public IList<string> LogServerUrlList { get; }
+    public List<string> LogServerUrlList { get; } = new();
     public string ApiKey { get; set; } = null!;
-    public int TimeoutInSecond { get; set; }
-	public int LogQueueLimit { get; set; }
+    public int TimeoutInSecond { get; set; } = 5;
+    public int LogQueueLimit { get; set; } = 100;
 	public string ApplicationName { get; internal set; } = null!;
     public string EnvironmentName { get; set; } = null!;
-    public string EndPoint { get; set; } = null!;
-
+    public string EndPoint { get; set; } = "/api/logging/writelog";
+    internal LogLevel LogLevel { get; set; } = LogLevel.None;
 }
