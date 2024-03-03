@@ -239,15 +239,16 @@ public sealed partial class Monitor : ComponentBase, IDisposable
 
 	public async Task<string?> GetFromLocalStorage(string key)
 	{
+		string? result = null;
 		try
 		{
-			return await JSRuntime.InvokeAsync<string>("blazorExtensions.ReadLocalStorage", key);
+			result = await JSRuntime.InvokeAsync<string>("blazorExtensions.ReadLocalStorage", key);
 		}
 		catch (Exception ex)
 		{
 			Logger.LogError(ex, ex.Message);
 		}
-		return null;
+		return result;
 	}
 
 	void AddFilterToQueryString()

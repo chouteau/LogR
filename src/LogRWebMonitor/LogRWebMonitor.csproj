@@ -1,44 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-
-	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<PackageId>LogRWebMonitor</PackageId>
-		<PackageProjectUrl>https://github.com/chouteau/LogR</PackageProjectUrl>
-		<IncludeSymbols>true</IncludeSymbols>
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-		<Version>1.3.28.0</Version>
-		<PackageReleaseNotes>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>LogRWebMonitor</PackageId>
+    <PackageProjectUrl>https://github.com/chouteau/LogR</PackageProjectUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <Version>1.3.28.0</Version>
+    <PackageReleaseNotes>
 			1.3.28.0 Multiple filters by property
 			1.3.27.0 Save filter to local storage
 			1.2.26.1 Extend keyword filter to ErrorStack
 			1.2.25.1 Fix formatting message
 			1.2.24.0 limit row count in dom
 		</PackageReleaseNotes>
-	</PropertyGroup>
-
-	<ItemGroup>
-	  <None Remove="Components\Monitor.razor.js" />
-	</ItemGroup>
-
-
-	<ItemGroup>
-		<Compile Include="..\LogRPush\Category.cs" Link="Category.cs" />
-		<Compile Include="..\LogRPush\LogInfo.cs" Link="LogInfo.cs" />
-	</ItemGroup>
-
-
-	<ItemGroup>
-	  <EmbeddedResource Include="Components\Monitor.razor.js" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="Components/*.razor.css" CssScope="inherit-scope" />
-	</ItemGroup>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Components\Monitor.razor.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\LogRPush\Category.cs" Link="Category.cs" />
+    <Compile Include="..\LogRPush\LogInfo.cs" Link="LogInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Components\Monitor.razor.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Components/*.razor.css" CssScope="inherit-scope" />
+  </ItemGroup>
 </Project>

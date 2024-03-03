@@ -1,27 +1,25 @@
-﻿
-using System.Collections;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 
 namespace LogRPush;
 
 public class LogRLogger : ILogger
 {
 	private readonly string _categoryName;
-    private readonly LogRSettings _logrSettings;
-    private readonly IHttpClientFactory _httpClientFactory;
-    private readonly ILogRExtender? _extender;
+	private readonly LogRSettings _logrSettings;
+	private readonly IHttpClientFactory _httpClientFactory;
+	private readonly ILogRExtender? _extender;
 	private readonly LogLevel _logLevel;
 
-    public LogRLogger(LogRSettings logrSettings, string categoryName, IHttpClientFactory httpClientFactory, ILogRExtender? extender, LogLevel miniLogLevel)
+	public LogRLogger(LogRSettings logrSettings, string categoryName, IHttpClientFactory httpClientFactory, ILogRExtender? extender, LogLevel miniLogLevel)
 	{
 		this.Semaphore = new SemaphoreSlim(1, 1);
 		this.WriteQueue = new System.Collections.Concurrent.ConcurrentQueue<LogInfo>();
-        _logrSettings = logrSettings;
-        _categoryName = categoryName;
-        _httpClientFactory = httpClientFactory;
-        _extender = extender;
+		_logrSettings = logrSettings;
+		_categoryName = categoryName;
+		_httpClientFactory = httpClientFactory;
+		_extender = extender;
 		_logLevel = miniLogLevel;
-    }
+	}
 
 	protected SemaphoreSlim Semaphore { get; }
 	protected System.Collections.Concurrent.ConcurrentQueue<LogInfo> WriteQueue { get; }
@@ -56,11 +54,11 @@ public class LogRLogger : ILogger
 			MachineName = System.Environment.MachineName,
 			Context = _categoryName,
 			EnvironmentName = _logrSettings.EnvironmentName,
-            Message = $"{formatter(state, exception ?? new())}",
-            ExceptionStack = GetExceptionContent(exception)
-        };
+			Message = $"{formatter(state, exception ?? new())}",
+			ExceptionStack = GetExceptionContent(exception)
+		};
 
-        var tagList = state as IReadOnlyList<KeyValuePair<string, object?>>;
+		var tagList = state as IReadOnlyList<KeyValuePair<string, object?>>;
 		if (tagList is not null
 			&& tagList.Count > 0)
 		{
@@ -115,7 +113,6 @@ public class LogRLogger : ILogger
 		{
 			Dequeue();
 		}
-
 	}
 
 	private void Dequeue()

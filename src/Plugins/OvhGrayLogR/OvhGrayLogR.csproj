@@ -1,24 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
-	  <Version>0.9.1.0</Version>
+    <Version>0.9.1.0</Version>
   </PropertyGroup>
-
-	<ItemGroup>
-		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Serilog" Version="2.10.0" />
-		<PackageReference Include="Serilog.Sinks.Graylog" Version="2.3.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\..\LogRWebMonitor\LogRWebMonitor.csproj" />
-	</ItemGroup>
-
-
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Serilog.Sinks.Graylog" Version="2.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\LogRWebMonitor\LogRWebMonitor.csproj" />
+  </ItemGroup>
 </Project>
