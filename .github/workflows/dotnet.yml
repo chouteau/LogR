@@ -45,7 +45,7 @@ jobs:
 
     - name: Zip LogRWebApp
       run: |
-        cd ${{github.workspace}}\src\LogRWebApp\bin\Release\net6.0\publish
+        cd ${{github.workspace}}\src\LogRWebApp\bin\Release\net8.0\publish
         del appsettings.*.json
         del web.config
         7z.exe a -r -tzip ${{github.workspace}}\logrwebapp.zip * 
