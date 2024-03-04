@@ -11,8 +11,11 @@
 
 @code {
 
-	[Inject] FluentEmail.Core.IFluentEmail FluentEmail { get; set; }
-	[Inject] Services.LogRWebAppSettings Settings { get; set; }
+	[Inject] 
+	FluentEmail.Core.IFluentEmail FluentEmail { get; set; }
+	
+	[Inject] 
+	Services.LogRWebAppSettings Settings { get; set; }
 
 	private string sentEmailFailed = null;
 
@@ -22,8 +25,7 @@
 		{
 			return;
 		}
-		if (logInfo.Category == LogRPush.Category.Fatal
-			|| logInfo.Category == LogRPush.Category.Notification)
+		if (logInfo.LogLevel == LogLevel.Critical)
 		{
 			if (!Settings.SendFatalAndExceptionByEmail)
 			{
@@ -34,7 +36,7 @@
 
 			var email = FluentEmail.SetFrom(Settings.SenderEmail);
 			email.To(Settings.RecipientEmail);
-			var subject = $"{logInfo.Category}:{logInfo.Message}";
+			var subject = $"{logInfo.LogLevel}:{logInfo.Message}";
 			if (subject.Length > 80)
 			{
 				subject = subject.Substring(0, 80);

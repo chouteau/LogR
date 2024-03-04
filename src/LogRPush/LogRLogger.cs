@@ -25,6 +25,7 @@ public class LogRLogger : ILogger
 	protected System.Collections.Concurrent.ConcurrentQueue<LogInfo> WriteQueue { get; }
 
 	public IDisposable BeginScope<TState>(TState state)
+		where TState : notnull
 	{
 		return null!;
 	}
@@ -55,7 +56,8 @@ public class LogRLogger : ILogger
 			Context = _categoryName,
 			EnvironmentName = _logrSettings.EnvironmentName,
 			Message = $"{formatter(state, exception ?? new())}",
-			ExceptionStack = GetExceptionContent(exception)
+			ExceptionStack = GetExceptionContent(exception),
+			LogLevel = logLevel,
 		};
 
 		var tagList = state as IReadOnlyList<KeyValuePair<string, object?>>;
@@ -79,33 +81,6 @@ public class LogRLogger : ILogger
 		if (_extender is not null)
 		{
 			logInfo.ExtendedParameterList = _extender.GetParameters();
-		}
-
-		switch (logLevel)
-		{
-			case LogLevel.Trace:
-				logInfo.Category = Category.Trace;
-				break;
-			case LogLevel.Debug:
-				logInfo.Category = Category.Debug;
-				break;
-			case LogLevel.Information:
-				logInfo.Category = Category.Info;
-				break;
-			case LogLevel.Warning:
-				logInfo.Category = Category.Warn;
-				break;
-			case LogLevel.Error:
-				logInfo.Category = Category.Error;
-				break;
-			case LogLevel.Critical:
-				logInfo.Category = Category.Fatal;
-				break;
-			case LogLevel.None:
-				logInfo.Category = Category.Debug;
-				break;
-			default:
-				break;
 		}
 
 		WriteQueue.Enqueue(logInfo);
