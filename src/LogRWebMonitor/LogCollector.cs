@@ -5,20 +5,24 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
+
 namespace LogRWebMonitor;
 public class LogCollector
 {
     private readonly System.Collections.Concurrent.ConcurrentDictionary<string, LogRPush.LogInfo> _logDic = new();
     private readonly System.Collections.Concurrent.ConcurrentDictionary<string, LogRPush.LogInfo> _logDetails = new();
-
+	private readonly IHubContext<LogRHub> _hubContext;
 	private int _rowCount = 0;
 
     public event Action<LogRPush.LogInfo> OnAddLog = default!;
 
-    public LogCollector(LogRSettings logRSettings)
+    public LogCollector(LogRSettings logRSettings, IHubContext<LogRHub> hubContext)
     {
         this.Settings = logRSettings;
-        this.Semaphore = new SemaphoreSlim(1, 1);
+		_hubContext = hubContext;
+		this.Semaphore = new SemaphoreSlim(1, 1);
         this.WriteQueue = new System.Collections.Concurrent.ConcurrentQueue<LogRPush.LogInfo>();
     }
 
@@ -75,8 +79,9 @@ public class LogCollector
         try
         {
             OnAddLog?.Invoke(logInfo);
-        }
-        catch (Exception ex)
+			_hubContext.Clients.All.SendAsync("WriteLog", logInfo);
+		}
+		catch (Exception ex)
         {
             Console.WriteLine(ex.ToString());
         }

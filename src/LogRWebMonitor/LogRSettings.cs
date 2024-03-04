@@ -16,5 +16,6 @@ namespace LogRWebMonitor
         public string EndPoint { get; set; } = "/api/logging/writelog";
 		public string FailDirectory { get; set; } = @".\";
         public List<string> KeywordMessageFilters { get; set; } = new();
+        public string HubKeyEndPoint { get; set; } = null!;
     }
 }

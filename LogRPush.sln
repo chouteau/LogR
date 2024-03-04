@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OvhGrayLogR", "src\Plugins\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{981FADD4-12F4-4293-9BA5-21EA3B6BE31E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogWinRMonitor", "src\LogRWinMonitor\LogWinRMonitor.csproj", "{BFEECB73-ED88-4B83-9A53-34AB10211C21}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{85E4A9F1-2EF8-4FA5-BB66-A64AF3313A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85E4A9F1-2EF8-4FA5-BB66-A64AF3313A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85E4A9F1-2EF8-4FA5-BB66-A64AF3313A87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFEECB73-ED88-4B83-9A53-34AB10211C21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFEECB73-ED88-4B83-9A53-34AB10211C21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFEECB73-ED88-4B83-9A53-34AB10211C21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFEECB73-ED88-4B83-9A53-34AB10211C21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
