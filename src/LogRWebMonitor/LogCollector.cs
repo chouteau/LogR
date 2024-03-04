@@ -62,8 +62,8 @@ public class LogCollector
             var first = _logDic.First();
             _logDic.TryRemove(first.Key, out var byebye);
         }
-        if (logInfo.Category == LogRPush.Category.Error
-            || logInfo.Category == LogRPush.Category.Fatal)
+        if (logInfo.LogLevel == LogLevel.Error
+            || logInfo.LogLevel == LogLevel.Critical)
 		{
             logInfo.StackChecksum = CalculateChecksum(logInfo);
             var existing = _logDic.Values.FirstOrDefault(i => i.StackChecksum == logInfo.StackChecksum);
@@ -108,7 +108,7 @@ public class LogCollector
 			if (logFilter.LevelList.Exists(i => i.Checked))
 			{
 				var levelList = logFilter.LevelList.Where(i => i.Checked).Select(i => i.Value);
-				result = result.Where(i => levelList.Contains(i.Category));
+				result = result.Where(i => levelList.Contains(i.LogLevel));
 			}
 
 			if (logFilter.MachineNameList.Count > 0)

@@ -51,7 +51,8 @@ internal class InnerLogger : ILogger
 			Context = _categoryName,
 			EnvironmentName = LogRSettings.EnvironmentName,
             Message = $"{formatter(state, exception ?? new())}",
-            ExceptionStack = GetExceptionContent(exception)
+            ExceptionStack = GetExceptionContent(exception),
+			LogLevel = logLevel
         };
 
         var tagList = state as IReadOnlyList<KeyValuePair<string, object?>>;
@@ -75,33 +76,6 @@ internal class InnerLogger : ILogger
         if (Extender != null)
 		{
 			logInfo.ExtendedParameterList = Extender.GetParameters();
-		}
-
-		switch (logLevel)
-		{
-			case LogLevel.Trace:
-				logInfo.Category = LogRPush.Category.Trace;
-				break;
-			case LogLevel.Debug:
-				logInfo.Category = LogRPush.Category.Debug;
-				break;
-			case LogLevel.Information:
-				logInfo.Category = LogRPush.Category.Info;
-				break;
-			case LogLevel.Warning:
-				logInfo.Category = LogRPush.Category.Warn;
-				break;
-			case LogLevel.Error:
-				logInfo.Category = LogRPush.Category.Error;
-				break;
-			case LogLevel.Critical:
-				logInfo.Category = LogRPush.Category.Fatal;
-				break;
-			case LogLevel.None:
-				logInfo.Category = LogRPush.Category.Debug;
-				break;
-			default:
-				break;
 		}
 
 		WriteQueue.Enqueue(logInfo);

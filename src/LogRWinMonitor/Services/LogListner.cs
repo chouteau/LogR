@@ -42,7 +42,7 @@ namespace LogWinRMonitor.Services
 					AddLog(new LogRPush.LogInfo
 					{
 						ApplicationName = "Monitor",
-						Category = LogRPush.Category.Error,
+						LogLevel = LogLevel.Error,
 						CreationDate = DateTime.Now,
 						HostName = "Monitor",
 						MachineName = System.Environment.MachineName,
@@ -72,7 +72,7 @@ namespace LogWinRMonitor.Services
 			AddLog(new LogRPush.LogInfo()
 			{
 				ApplicationName = "Monitor",
-				Category = LogRPush.Category.Debug,
+				LogLevel = LogLevel.Information,
 				CreationDate = DateTime.Now,
 				HostName = "Monitor",
 				MachineName = System.Environment.MachineName,

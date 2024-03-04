@@ -27,7 +27,7 @@ public sealed partial class Monitor : ComponentBase, IDisposable
 	IMemoryCache Cache { get; set; } = default!;
 
 	[Parameter]
-	public LogRPush.Category? MinimumLevel { get; set; } = LogRPush.Category.Info;
+	public LogLevel? MinimumLevel { get; set; } = LogLevel.Information;
 
 	[Parameter]
 	public EventCallback<LogRPush.LogInfo> LogAdded { get; set; }
@@ -94,7 +94,7 @@ public sealed partial class Monitor : ComponentBase, IDisposable
 
 	void LogCollector_OnAddLog(LogRPush.LogInfo log)
 	{
-		var level = filter.LevelList.SingleOrDefault(i => i.Value == log.Category && i.Checked);
+		var level = filter.LevelList.SingleOrDefault(i => i.Value == log.LogLevel && i.Checked);
 		var searchFilter = filter.Search == null || LogCollector.IsMatchSearch(log, filter.Search);
 
 		var machineNameFilter = filter.AllMachine

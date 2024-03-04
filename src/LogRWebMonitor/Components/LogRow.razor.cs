@@ -20,27 +20,16 @@ namespace LogRWebMonitor.Components
         {
             get
             {
-                switch (Log.Category)
-                {
-                    case LogRPush.Category.Trace:
-                        return "table-secondary";
-                    case LogRPush.Category.Debug:
-                        return "table-default";
-                    case LogRPush.Category.Error:
-                        return "table-danger";
-                    case LogRPush.Category.Fatal:
-                        return "table-dark";
-                    case LogRPush.Category.Info:
-                        return "table-info";
-                    case LogRPush.Category.Notification:
-                        return "table-success";
-                    case LogRPush.Category.Sql:
-                        return "table-primary";
-                    case LogRPush.Category.Warn:
-                        return "table-warning";
-                    default:
-                        return string.Empty;
-                }
+                return Log.LogLevel switch
+				{
+					LogLevel.Trace => "table-secondary",
+					LogLevel.Debug => "table-default",
+					LogLevel.Error => "table-danger",
+					LogLevel.Critical => "table-dark",
+					LogLevel.Information => "table-info",
+					LogLevel.Warning => "table-warning",
+					_ => string.Empty,
+				};
             }
         }
 

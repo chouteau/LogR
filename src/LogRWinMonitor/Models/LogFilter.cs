@@ -3,13 +3,15 @@ using System.Collections.Generic;
 
 using LogRPush;
 
+using Microsoft.Extensions.Logging;
+
 namespace LogWinRMonitor.Models;
 
 public class CheckedLevel
 {
 	public string Name => $"{Value}";
 	public bool Checked { get; set; } = true;
-	public Category Value { get; set; }
+	public LogLevel Value { get; set; }
 }
 
 public class LogFilter
@@ -18,13 +20,12 @@ public class LogFilter
 	{
 		LevelList = new()
 		{
-			new CheckedLevel { Value = Category.Trace },
-			new CheckedLevel { Value = Category.Debug },
-			new CheckedLevel { Value = Category.Info },
-			new CheckedLevel { Value = Category.Warn },
-			new CheckedLevel { Value = Category.Error },
-			new CheckedLevel { Value = Category.Fatal },
-			new CheckedLevel { Value = Category.Notification }
+			new CheckedLevel { Value = LogLevel.Trace },
+			new CheckedLevel { Value = LogLevel.Debug },
+			new CheckedLevel { Value = LogLevel.Information },
+			new CheckedLevel { Value = LogLevel.Warning },
+			new CheckedLevel { Value = LogLevel.Error },
+			new CheckedLevel { Value = LogLevel.Critical },
 		};
 	}
 	public Guid Id { get; set; } = Guid.NewGuid();

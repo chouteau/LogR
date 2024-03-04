@@ -1,4 +1,6 @@
-﻿using Serilog;
+﻿using Microsoft.Extensions.Logging;
+
+using Serilog;
 using Serilog.Sinks.Graylog;
 using Serilog.Sinks.Graylog.Core;
 using Serilog.Sinks.Graylog.Core.MessageBuilders;
@@ -9,7 +11,7 @@ namespace OvhGrayLogR;
 public class OvhGraylogLogger
 {
     private readonly Serilog.Core.Logger _logger;
-    private readonly LogRPush.Category _minimumLevel;
+    private readonly LogLevel _minimumLevel;
     private readonly GrayLoggerConfiguration _settings;
 
     public OvhGraylogLogger(GrayLoggerConfiguration config)
@@ -51,7 +53,7 @@ public class OvhGraylogLogger
 
 	public void SendLog(LogRPush.LogInfo logInfo)
 	{
-        if (logInfo.Category < _minimumLevel)
+        if (logInfo.LogLevel < _minimumLevel)
 		{
             return;
 		}
@@ -59,29 +61,24 @@ public class OvhGraylogLogger
         var templateMessage = "{message} , {@" + _settings.PrefixName + "}";
 		var templateException = "{message} {exceptionstack}, {@" + _settings.PrefixName + "}";
 
-		switch (logInfo.Category)
+		switch (logInfo.LogLevel)
 		{
-            case LogRPush.Category.Trace:
+            case LogLevel.Trace:
                 _logger.Verbose(templateMessage, logInfo.Message, CreateLogParameter(logInfo));
                 break;
-            case LogRPush.Category.Sql:
-            case LogRPush.Category.Debug:
+            case LogLevel.Debug:
 			    _logger.Debug(templateMessage, logInfo.Message, CreateLogParameter(logInfo));
                 break;
-            case LogRPush.Category.Info:
+            case LogLevel.Information:
                 _logger.Information(templateMessage, logInfo.Message, CreateLogParameter(logInfo));
                 break;
-            case LogRPush.Category.Notification:
-                _logger.Information(templateMessage, logInfo.Message, CreateLogParameter(logInfo));
-				// TODO : Send notification by email
-				break;
-			case LogRPush.Category.Warn:
+			case LogLevel.Warning:
                 _logger.Warning(templateMessage, logInfo.Message, CreateLogParameter(logInfo));
                 break;
-			case LogRPush.Category.Error:
+			case LogLevel.Error:
                 _logger.Error(templateException, logInfo.Message, logInfo.ExceptionStack, CreateLogParameter(logInfo));
                 break;
-			case LogRPush.Category.Fatal:
+			case LogLevel.Critical:
                 _logger.Fatal(templateException, logInfo.Message, logInfo.ExceptionStack, CreateLogParameter(logInfo));
                 break;
 			default:
@@ -98,7 +95,7 @@ public class OvhGraylogLogger
         result.Add("EnvironmentName", logParam.EnvironmentName);
         result.Add("Context", logParam.Context);
         result.Add("CreationDate", logParam.CreationDate);
-        result.Add("Category", $"{logParam.Category}");
+        result.Add("LogLevel", $"{logParam.LogLevel}");
         result.Add("HostName", logParam.HostName);
         result.Add("LogId", logParam.LogId);
         foreach (var item in logParam.ExtendedParameterList)

@@ -1,24 +1,17 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace LogRPush;
 
 public class LogInfo
 {
-	public LogInfo()
-	{
-		this.CreationDate = DateTime.Now;
-		this.LogId = Guid.NewGuid().ToString();
-	}
-
     public int RowNumber { get; set; }
 
-    public string LogId { get; }
+    public string LogId { get; } = $"{Guid.NewGuid()}";
 
 	public string Message { get; set; } = null!;
-	public Category Category { get; set; }
-	public DateTime CreationDate { get; set; }
+	public Microsoft.Extensions.Logging.LogLevel  LogLevel { get; set; }
+	public DateTime CreationDate { get; set; } = DateTime.Now;
 
 	public string MachineName { get; set; } = null!;
 
