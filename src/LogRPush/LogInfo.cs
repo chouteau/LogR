@@ -1,4 +1,7 @@
 ﻿
+using System;
+using System.Collections.Generic;
+
 namespace LogRPush;
 
 public class LogInfo
@@ -11,7 +14,7 @@ public class LogInfo
 
     public int RowNumber { get; set; }
 
-    public string LogId { get; } = null!;
+    public string LogId { get; }
 
 	public string Message { get; set; } = null!;
 	public Category Category { get; set; }

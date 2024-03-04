@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace LogRWebMonitor;
 
@@ -49,7 +50,7 @@ public static class StartupExtensions
 
 		loggerFactory.AddProvider(new InnerProvider(logCollector, app.Services, extender));
 
-		app.MapPost(settings.EndPoint, (LogRPush.LogInfo log, [FromServices] LogCollector collector) =>
+		app.MapPost(settings.EndPoint, async (LogRPush.LogInfo log, [FromServices] LogCollector collector) =>
 		{
 			foreach (var keyword in settings.KeywordMessageFilters)
 			{
@@ -80,5 +81,7 @@ public static class StartupExtensions
 			}
 			return Microsoft.AspNetCore.Http.Results.Ok();
 		});
+		var hubEndpoint = $"/logrhub/{settings.HubKeyEndPoint}".TrimEnd('/');
+		app.MapHub<LogRHub>(hubEndpoint);
 	}
 }

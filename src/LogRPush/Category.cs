@@ -3,12 +3,12 @@ namespace LogRPush;
 
 public enum Category
 {
-	Trace,
-	Debug,
-	Sql,
-	Info,
-	Warn,
-	Error,
-	Fatal,
-	Notification
+	Trace = 0,
+	Debug = 1,
+	Info = 2,
+	Warn = 3,
+	Error = 4,
+	Fatal = 5,
+	Notification = 6,
+	Sql = 7,
 }

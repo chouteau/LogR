@@ -36,7 +36,7 @@ public sealed partial class Monitor : ComponentBase, IDisposable
 	public int DisplayLogLimit { get; set; } = 500;
 
 	LogFilter filter = new();
-	BindingList<LogRPush.LogInfo> logInfoList = new();
+	List<LogRPush.LogInfo> logInfoList = new();
 	bool insertLogs = true;
 	bool isInitialized = false;
 	List<FilterItem> hostList = new();
@@ -70,9 +70,14 @@ public sealed partial class Monitor : ComponentBase, IDisposable
 				if (f is not null)
 				{
 					filter = f;
+					AddFilterToQueryString(f.Id);
 				}
 			}
-			AddFilterToQueryString();
+			else
+			{
+				AddFilterToQueryString(null);
+			}
+
 			await BindFilter();
 		}
 	}
@@ -251,14 +256,14 @@ public sealed partial class Monitor : ComponentBase, IDisposable
 		return result;
 	}
 
-	void AddFilterToQueryString()
+	void AddFilterToQueryString(Guid? filterId)
 	{
 		if (filter is null)
 		{
 			return;
 		}
 
-		var guid = Guid.NewGuid();
+		var guid = filterId ?? Guid.NewGuid();
 		var key = $"LogRFilter_{guid}";
 
 		Cache.Set(key, filter, DateTime.Now.AddHours(1));
@@ -376,6 +381,7 @@ public sealed partial class Monitor : ComponentBase, IDisposable
 	void ClearList()
 	{
 		logInfoList.Clear();
+		StateHasChanged();
 	}
 
 	public void Dispose()

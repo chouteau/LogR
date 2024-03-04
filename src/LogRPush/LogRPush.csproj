@@ -3,8 +3,9 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.3.17.0</Version>
+    <Version>1.3.18.0</Version>
     <PackageReleaseNotes>
+		1.3.18.0 - Cleanup Category
 		1.3.17.0 - Migration dotnet8
 		1.2.16.3 - Fix memory leak
 		1.2.15.2 - Remove Timout for HttpClient , replaced by Timeout in CancelationToken
