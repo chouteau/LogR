@@ -1,6 +1,10 @@
 using System;
 using System.ComponentModel;
 
+using LogRPush;
+
+using Microsoft.Extensions.Logging;
+
 namespace LogWinRMonitor.ViewModels
 {
 	public class LogViewModel : ViewModelBase<LogRPush.LogInfo>
@@ -54,17 +58,17 @@ namespace LogWinRMonitor.ViewModels
 			}
 		}
 		[Bindable(true)]
-		public LogRPush.Category Category
+		public LogLevel LogLevel
 		{
 			get
 			{
-				return base.Model.Category;
+				return base.Model.LogLevel;
 			}
 			set
 			{
-				this.SetPropertyValue<LogRPush.Category>(() => this.Category, value, delegate
+				this.SetPropertyValue<LogLevel>(() => this.LogLevel, value, delegate
 				{
-					this.Model.Category = value;
+					this.Model.LogLevel = value;
 				});
 			}
 		}

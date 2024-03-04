@@ -10,6 +10,8 @@ using LogRPush;
 
 using LogWinRMonitor.Models;
 
+using Microsoft.Extensions.Logging;
+
 namespace LogWinRMonitor.Views
 {
 	public partial class MonitorView : Form, IMonitorView
@@ -39,7 +41,7 @@ namespace LogWinRMonitor.Views
 		{
 			UnfilteredLogList.Add(log);
 
-			var level = filter.LevelList.SingleOrDefault(i => i.Value == log.Category && i.Checked);
+			var level = filter.LevelList.SingleOrDefault(i => i.Value == log.LogLevel && i.Checked);
 			var searchFilter = filter.Search == null || IsMatchSearch(log.Model, filter.Search);
 
 			var machineNameFilter = filter.AllMachine
@@ -178,12 +180,12 @@ namespace LogWinRMonitor.Views
 				}
 			};
 
-			uxTraceFilterButton.Click += (s, arg) => { FilterDataSource(uxTraceFilterButton, LogRPush.Category.Trace); };
-			uxDebugFilterButton.Click += (s, arg) => { FilterDataSource(uxDebugFilterButton, LogRPush.Category.Debug); };
-			uxInfoFilterButton.Click += (s, arg) => { FilterDataSource(uxInfoFilterButton, LogRPush.Category.Info); };
-			uxWarningFilterButton.Click += (s, arg) => { FilterDataSource(uxWarningFilterButton, LogRPush.Category.Warn); };
-			uxExceptionFilterButton.Click += (s, arg) => { FilterDataSource(uxExceptionFilterButton, LogRPush.Category.Error); };
-			uxFatalFilterButton.Click += (s, arg) => { FilterDataSource(uxFatalFilterButton, LogRPush.Category.Fatal); };
+			uxTraceFilterButton.Click += (s, arg) => { FilterDataSource(uxTraceFilterButton, LogLevel.Trace); };
+			uxDebugFilterButton.Click += (s, arg) => { FilterDataSource(uxDebugFilterButton, LogLevel.Debug); };
+			uxInfoFilterButton.Click += (s, arg) => { FilterDataSource(uxInfoFilterButton, LogLevel.Information); };
+			uxWarningFilterButton.Click += (s, arg) => { FilterDataSource(uxWarningFilterButton, LogLevel.Warning); };
+			uxExceptionFilterButton.Click += (s, arg) => { FilterDataSource(uxExceptionFilterButton, LogLevel.Error); };
+			uxFatalFilterButton.Click += (s, arg) => { FilterDataSource(uxFatalFilterButton, LogLevel.Critical); };
 
 			uxSearchToolStripButton.Click += (s, arg) =>
 			{
@@ -247,27 +249,27 @@ namespace LogWinRMonitor.Views
 			{
 				return;
 			}
-			switch (log.Category)
+			switch (log.LogLevel)
 			{
-				case LogRPush.Category.Trace:
+				case LogLevel.Trace:
 					e.CellStyle.BackColor = Color.LightGray;
 					e.CellStyle.ForeColor = Color.Black;
 					break;
-				case LogRPush.Category.Debug:
+				case LogLevel.Debug:
 					e.CellStyle.BackColor = Color.Gray;
 					e.CellStyle.ForeColor = Color.White;
 					break;
-				case LogRPush.Category.Info:
+				case LogLevel.Information:
 					e.CellStyle.BackColor = Color.YellowGreen;
 					break;
-				case LogRPush.Category.Warn:
+				case LogLevel.Warning:
 					e.CellStyle.BackColor = Color.Orange;
 					break;
-				case LogRPush.Category.Error:
+				case LogLevel.Error:
 					e.CellStyle.BackColor = Color.Red;
 					e.CellStyle.ForeColor = Color.White;
 					break;
-				case LogRPush.Category.Fatal:
+				case LogLevel.Critical:
 					e.CellStyle.BackColor = Color.Black;
 					e.CellStyle.ForeColor = Color.White;
 					break;
@@ -286,16 +288,16 @@ namespace LogWinRMonitor.Views
 			}
 		}
 
-		private void FilterDataSource(ToolStripButton button, Category category)
+		private void FilterDataSource(ToolStripButton button, LogLevel logLevel)
 		{
 			LogList.Clear();
 			if (!button.Checked)
 			{
-				filter.LevelList.Single(i => i.Value == category).Checked = false;
+				filter.LevelList.Single(i => i.Value == logLevel).Checked = false;
 			}
 			else
 			{
-				filter.LevelList.Single(i => i.Value == category).Checked = true;
+				filter.LevelList.Single(i => i.Value == logLevel).Checked = true;
 			}
 			uxLogBindingSource.MoveLast();
 			button.Checked = !button.Checked;

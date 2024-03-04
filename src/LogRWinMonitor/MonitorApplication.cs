@@ -7,6 +7,8 @@ using System.Windows.Forms;
 
 using LogWinRMonitor.Models;
 
+using Microsoft.Extensions.Logging;
+
 namespace LogWinRMonitor
 {
 	public class MonitorApplication : System.Windows.Forms.ApplicationContext
@@ -110,7 +112,7 @@ namespace LogWinRMonitor
 			m_View.Notify(error.ToString());
 			var log = new LogRPush.LogInfo();
 			log.ApplicationName = "Monitor";
-			log.Category = LogRPush.Category.Trace;
+			log.LogLevel = LogLevel.Trace;
 			log.CreationDate = DateTime.Now;
 			log.HostName = "Monitor";
 			log.MachineName = endpoint;
