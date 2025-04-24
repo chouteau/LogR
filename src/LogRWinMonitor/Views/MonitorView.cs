@@ -32,7 +32,10 @@ namespace LogWinRMonitor.Views
 			LogList = new ViewModels.BindingList<ViewModels.LogViewModel>();
 		}
 
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public ViewModels.BindingList<ViewModels.LogViewModel> UnfilteredLogList { get; set; }
+
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public ViewModels.BindingList<ViewModels.LogViewModel> LogList { get; set; }
 
 		public event Action StartConfiguration;

@@ -25,9 +25,10 @@ internal class InnerLogger : ILogger
 	protected LogCollector Collector { get; }
 	protected ILogRExtender? Extender { get; }
 
-	public IDisposable BeginScope<TState>(TState state)
+	public IDisposable? BeginScope<TState>(TState state) 
+		where TState : notnull
 	{
-		return null!;
+		return default;
 	}
 
 	public bool IsEnabled(LogLevel logLevel)
@@ -119,7 +120,7 @@ internal class InnerLogger : ILogger
 		Dequeue();
 	}
 
-	private static string? GetExceptionContent(Exception? ex, int level = 0)
+	private static string? GetExceptionContent(Exception? ex)
 	{
 		if (ex is null)
 		{
@@ -146,7 +147,7 @@ internal class InnerLogger : ILogger
 						data = $"{ex.Data[item]}";
 						content.AppendFormat("{0} = {1}", item, data);
 					}
-					catch { }
+					catch { /* do nothing */ }
 				}
 				content.AppendLine();
 			}
@@ -160,7 +161,7 @@ internal class InnerLogger : ILogger
 			content.AppendLine();
 			content.Append("Inner Exception");
 			content.AppendLine();
-			content.Append(GetExceptionContent(ex.InnerException, level++));
+			content.Append(GetExceptionContent(ex.InnerException));
 		}
 		return content.ToString();
 	}

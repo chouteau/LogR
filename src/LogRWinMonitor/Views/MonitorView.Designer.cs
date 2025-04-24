@@ -29,20 +29,12 @@
 		private void InitializeComponent()
 		{
 			components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MonitorView));
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			splitContainer1 = new System.Windows.Forms.SplitContainer();
 			uxLogDataGridView = new System.Windows.Forms.DataGridView();
-			uxCreationDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			uxCategoryColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			uxApplicationNameColumn = new Forms.DataGridViewAutoFilterTextBoxColumn();
-			uxContextColumn = new Forms.DataGridViewAutoFilterTextBoxColumn();
-			uxMessageColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			uxMachineNameColumn = new Forms.DataGridViewAutoFilterTextBoxColumn();
-			uxHosterNameColumn = new Forms.DataGridViewAutoFilterTextBoxColumn();
-			Environnement = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			uxStackTextBox = new System.Windows.Forms.RichTextBox();
 			toolStrip1 = new System.Windows.Forms.ToolStrip();
 			uxConfigurationButton = new System.Windows.Forms.ToolStripButton();
@@ -87,6 +79,14 @@
 			dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			dataGridViewCheckBoxColumn3 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			uxCreationDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			uxCategoryColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			uxApplicationNameColumn = new Forms.DataGridViewAutoFilterTextBoxColumn();
+			uxContextColumn = new Forms.DataGridViewAutoFilterTextBoxColumn();
+			uxMessageColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			uxMachineNameColumn = new Forms.DataGridViewAutoFilterTextBoxColumn();
+			uxHosterNameColumn = new Forms.DataGridViewAutoFilterTextBoxColumn();
+			Environnement = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
 			splitContainer1.Panel1.SuspendLayout();
 			splitContainer1.Panel2.SuspendLayout();
@@ -132,84 +132,6 @@
 			uxLogDataGridView.RowHeadersWidth = 51;
 			uxLogDataGridView.Size = new System.Drawing.Size(1559, 462);
 			uxLogDataGridView.TabIndex = 9;
-			// 
-			// uxCreationDateColumn
-			// 
-			uxCreationDateColumn.DataPropertyName = "CreationDate";
-			dataGridViewCellStyle4.Format = "T";
-			dataGridViewCellStyle4.NullValue = null;
-			uxCreationDateColumn.DefaultCellStyle = dataGridViewCellStyle4;
-			uxCreationDateColumn.HeaderText = "Date";
-			uxCreationDateColumn.MinimumWidth = 6;
-			uxCreationDateColumn.Name = "uxCreationDateColumn";
-			uxCreationDateColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			uxCreationDateColumn.Width = 80;
-			// 
-			// uxCategoryColumn
-			// 
-			uxCategoryColumn.DataPropertyName = "Category";
-			uxCategoryColumn.HeaderText = "Cat.";
-			uxCategoryColumn.MinimumWidth = 6;
-			uxCategoryColumn.Name = "uxCategoryColumn";
-			uxCategoryColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			uxCategoryColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-			uxCategoryColumn.Width = 70;
-			// 
-			// uxApplicationNameColumn
-			// 
-			uxApplicationNameColumn.DataPropertyName = "ApplicationName";
-			uxApplicationNameColumn.HeaderText = "Application";
-			uxApplicationNameColumn.MinimumWidth = 6;
-			uxApplicationNameColumn.Name = "uxApplicationNameColumn";
-			uxApplicationNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			uxApplicationNameColumn.Width = 300;
-			// 
-			// uxContextColumn
-			// 
-			uxContextColumn.DataPropertyName = "Context";
-			uxContextColumn.HeaderText = "Context";
-			uxContextColumn.MinimumWidth = 6;
-			uxContextColumn.Name = "uxContextColumn";
-			uxContextColumn.ReadOnly = true;
-			uxContextColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			uxContextColumn.Width = 300;
-			// 
-			// uxMessageColumn
-			// 
-			uxMessageColumn.DataPropertyName = "Message";
-			uxMessageColumn.HeaderText = "Message";
-			uxMessageColumn.MinimumWidth = 6;
-			uxMessageColumn.Name = "uxMessageColumn";
-			uxMessageColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			uxMessageColumn.Width = 500;
-			// 
-			// uxMachineNameColumn
-			// 
-			uxMachineNameColumn.DataPropertyName = "MachineName";
-			uxMachineNameColumn.FillWeight = 110F;
-			uxMachineNameColumn.HeaderText = "Machine";
-			uxMachineNameColumn.MinimumWidth = 6;
-			uxMachineNameColumn.Name = "uxMachineNameColumn";
-			uxMachineNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			uxMachineNameColumn.Width = 125;
-			// 
-			// uxHosterNameColumn
-			// 
-			uxHosterNameColumn.DataPropertyName = "HostName";
-			uxHosterNameColumn.FillWeight = 120F;
-			uxHosterNameColumn.HeaderText = "Host";
-			uxHosterNameColumn.MinimumWidth = 6;
-			uxHosterNameColumn.Name = "uxHosterNameColumn";
-			uxHosterNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			uxHosterNameColumn.Width = 110;
-			// 
-			// Environnement
-			// 
-			Environnement.DataPropertyName = "EnvironmentName";
-			Environnement.HeaderText = "Environment";
-			Environnement.MinimumWidth = 6;
-			Environnement.Name = "Environnement";
-			Environnement.Width = 125;
 			// 
 			// uxStackTextBox
 			// 
@@ -410,9 +332,9 @@
 			// dataGridViewTextBoxColumn1
 			// 
 			dataGridViewTextBoxColumn1.DataPropertyName = "CreationDate";
-			dataGridViewCellStyle5.Format = "T";
-			dataGridViewCellStyle5.NullValue = null;
-			dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle2.Format = "T";
+			dataGridViewCellStyle2.NullValue = null;
+			dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle2;
 			dataGridViewTextBoxColumn1.HeaderText = "Date";
 			dataGridViewTextBoxColumn1.MinimumWidth = 6;
 			dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
@@ -552,9 +474,9 @@
 			// dataGridViewTextBoxColumn9
 			// 
 			dataGridViewTextBoxColumn9.DataPropertyName = "NextRunningDate";
-			dataGridViewCellStyle6.Format = "G";
-			dataGridViewCellStyle6.NullValue = null;
-			dataGridViewTextBoxColumn9.DefaultCellStyle = dataGridViewCellStyle6;
+			dataGridViewCellStyle3.Format = "G";
+			dataGridViewCellStyle3.NullValue = null;
+			dataGridViewTextBoxColumn9.DefaultCellStyle = dataGridViewCellStyle3;
 			dataGridViewTextBoxColumn9.HeaderText = "NRD";
 			dataGridViewTextBoxColumn9.MinimumWidth = 6;
 			dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
@@ -610,6 +532,84 @@
 			dataGridViewCheckBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
 			dataGridViewCheckBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
 			dataGridViewCheckBoxColumn3.Width = 125;
+			// 
+			// uxCreationDateColumn
+			// 
+			uxCreationDateColumn.DataPropertyName = "CreationDate";
+			dataGridViewCellStyle1.Format = "T";
+			dataGridViewCellStyle1.NullValue = null;
+			uxCreationDateColumn.DefaultCellStyle = dataGridViewCellStyle1;
+			uxCreationDateColumn.HeaderText = "Date";
+			uxCreationDateColumn.MinimumWidth = 6;
+			uxCreationDateColumn.Name = "uxCreationDateColumn";
+			uxCreationDateColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			uxCreationDateColumn.Width = 80;
+			// 
+			// uxCategoryColumn
+			// 
+			uxCategoryColumn.DataPropertyName = "LogLevel";
+			uxCategoryColumn.HeaderText = "Cat.";
+			uxCategoryColumn.MinimumWidth = 6;
+			uxCategoryColumn.Name = "uxCategoryColumn";
+			uxCategoryColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			uxCategoryColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+			uxCategoryColumn.Width = 70;
+			// 
+			// uxApplicationNameColumn
+			// 
+			uxApplicationNameColumn.DataPropertyName = "ApplicationName";
+			uxApplicationNameColumn.HeaderText = "Application";
+			uxApplicationNameColumn.MinimumWidth = 6;
+			uxApplicationNameColumn.Name = "uxApplicationNameColumn";
+			uxApplicationNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			uxApplicationNameColumn.Width = 300;
+			// 
+			// uxContextColumn
+			// 
+			uxContextColumn.DataPropertyName = "Context";
+			uxContextColumn.HeaderText = "Context";
+			uxContextColumn.MinimumWidth = 6;
+			uxContextColumn.Name = "uxContextColumn";
+			uxContextColumn.ReadOnly = true;
+			uxContextColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			uxContextColumn.Width = 300;
+			// 
+			// uxMessageColumn
+			// 
+			uxMessageColumn.DataPropertyName = "Message";
+			uxMessageColumn.HeaderText = "Message";
+			uxMessageColumn.MinimumWidth = 6;
+			uxMessageColumn.Name = "uxMessageColumn";
+			uxMessageColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			uxMessageColumn.Width = 500;
+			// 
+			// uxMachineNameColumn
+			// 
+			uxMachineNameColumn.DataPropertyName = "MachineName";
+			uxMachineNameColumn.FillWeight = 110F;
+			uxMachineNameColumn.HeaderText = "Machine";
+			uxMachineNameColumn.MinimumWidth = 6;
+			uxMachineNameColumn.Name = "uxMachineNameColumn";
+			uxMachineNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			uxMachineNameColumn.Width = 125;
+			// 
+			// uxHosterNameColumn
+			// 
+			uxHosterNameColumn.DataPropertyName = "HostName";
+			uxHosterNameColumn.FillWeight = 120F;
+			uxHosterNameColumn.HeaderText = "Host";
+			uxHosterNameColumn.MinimumWidth = 6;
+			uxHosterNameColumn.Name = "uxHosterNameColumn";
+			uxHosterNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			uxHosterNameColumn.Width = 110;
+			// 
+			// Environnement
+			// 
+			Environnement.DataPropertyName = "EnvironmentName";
+			Environnement.HeaderText = "Environment";
+			Environnement.MinimumWidth = 6;
+			Environnement.Name = "Environnement";
+			Environnement.Width = 125;
 			// 
 			// MonitorView
 			// 
